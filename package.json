@@ -1,0 +1,15 @@
+{
+  "name": "react-fullstack-portfolio",
+  "version": "1.0.0",
+  "description": "A MERN app that works both as a portfolio and a blog",
+  "main": "index.js",
+  "repository": "https://github.com/TheOmegaBlack/react-fullstack-portfolio",
+  "author": "Sacha Morgese",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.3"
+  },
+  "scripts": {
+    "start": "node index.js"
+  }
+}
