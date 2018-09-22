@@ -15,7 +15,7 @@
     "yarn": "^1.9.4"
   },
   "scripts": {
-    "start": "node index.js",
+    "start": "build",
     "build": "run-s client:build server:prod",
     "dev": "run-p client:dev server:dev",
     "server:dev": "nodemon index.js",
