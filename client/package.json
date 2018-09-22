@@ -19,7 +19,11 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:3005",
+  "proxy": {
+    "/auth": {
+      "target": "http://localhost:3005"
+    }
+  },
   "devDependencies": {
     "npm-run-all": "^4.1.3"
   }
