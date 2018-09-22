@@ -8,5 +8,5 @@ app.get('/api/anal', (req, res) => {
   res.send('Just like Jesus wanted!');
 });
 
-const PORT = process.env.port || 3005;
+const PORT = process.env.PORT || 3005;
 app.listen(PORT, () => console.log('Server ready'));
