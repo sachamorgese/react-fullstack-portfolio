@@ -8,6 +8,7 @@ client/coverage
 
 # production
 client/build
+client/src/*.css
 
 # misc
 npm-debug.log*
