@@ -9,6 +9,7 @@ client/coverage
 # production
 client/build
 client/src/*.css
+config/keys.js
 
 # misc
 npm-debug.log*
@@ -19,3 +20,4 @@ yarn-error.log*
 .idea/react-fullstack-portfolio.iml
 .idea/workspace.xml
 .idea/jsLinters/
+server/
