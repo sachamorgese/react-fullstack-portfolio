@@ -4,6 +4,14 @@ const mongoose = require('mongoose');
 
 const User = mongoose.model('users');
 
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser((id, done) => {
+  User.findById(id);
+});
+
 const {
   client_id: GOOGLE_CLIENT_ID,
   client_secret: GOOGLE_CLIENT_SECRET,
@@ -18,7 +26,15 @@ passport.use(
       callbackURL: googleCallbackURL,
     },
     (accessToken, refreshToken, profile, done) => {
-      new User({ google: { id: profile.id } }).save();
+      User.findOne({ google: { id: profile.id } }).then((existingUser) => {
+        if (existingUser) {
+          done(null, existingUser);
+        } else {
+          new User({ google: { id: profile.id } })
+            .save()
+            .then((user) => done(null, user));
+        }
+      });
     },
   ),
 );

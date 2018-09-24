@@ -7,9 +7,9 @@ node_modules
 client/coverage
 
 # production
+config/keys.js
 client/build
 client/src/*.css
-config/keys.js
 
 # misc
 npm-debug.log*

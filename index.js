@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const keys = require('./config/keys');
+const keys = require('./config/keys'); // eslint-disable-line import/no-unresolved
 require('./models/User');
 
 mongoose.connect(
