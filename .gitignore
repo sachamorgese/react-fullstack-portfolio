@@ -7,7 +7,7 @@ node_modules
 client/coverage
 
 # production
-config/keys.js
+config/dev.js
 client/build
 client/src/*.css
 
@@ -15,9 +15,5 @@ client/src/*.css
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.idea/markdown-navigator/
-.idea/modules.xml
-.idea/react-fullstack-portfolio.iml
-.idea/workspace.xml
-.idea/jsLinters/
+.idea/
 server/

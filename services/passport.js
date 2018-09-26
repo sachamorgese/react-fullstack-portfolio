@@ -9,13 +9,14 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-  User.findById(id);
+  User.findById(id).then((user) => {
+    done(null, user);
+  });
 });
 
 const {
   client_id: GOOGLE_CLIENT_ID,
   client_secret: GOOGLE_CLIENT_SECRET,
-  redirect_uris: [googleCallbackURL],
 } = require('../config/keys');
 
 passport.use(
@@ -23,7 +24,6 @@ passport.use(
     {
       clientID: GOOGLE_CLIENT_ID,
       clientSecret: GOOGLE_CLIENT_SECRET,
-      callbackURL: googleCallbackURL,
     },
     (accessToken, refreshToken, profile, done) => {
       User.findOne({ google: { id: profile.id } }).then((existingUser) => {

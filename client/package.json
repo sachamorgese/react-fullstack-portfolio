@@ -20,7 +20,10 @@
     "eject": "react-scripts eject"
   },
   "proxy": {
-    "/auth": {
+    "/api": {
+      "target": "http://localhost:3005"
+    },
+    "auth": {
       "target": "http://localhost:3005"
     }
   },
