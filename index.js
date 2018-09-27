@@ -8,7 +8,6 @@ require('./models/User');
 mongoose.connect(
   keys.mongoURI,
   { useNewUrlParser: true },
-  (error) => console.log(error),
 );
 
 require('./services/passport');
