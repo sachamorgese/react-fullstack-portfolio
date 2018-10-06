@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "megadraft": "^0.5.2",
+    "draft-js": "^0.10.5",
     "node-sass-chokidar": "^1.3.3",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",

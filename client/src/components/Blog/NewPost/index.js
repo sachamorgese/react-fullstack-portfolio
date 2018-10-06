@@ -1,29 +1,39 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Editor, EditorState, RichUtils } from 'draft-js';
 
-export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { editorState: EditorState.createEmpty() };
-    this.onChange = (editorState) => this.setState({ editorState });
+export default class NewPost extends Component {
+  constructor() {
+    super();
+    this.state = {
+      editorState: EditorState.createEmpty(),
+    };
   }
 
-  onBoldClick() {
-    this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'BOLD'));
-  }
+  onChange = (editorState) => {
+    this.setState({ editorState });
+  };
+
+  handleKeyCommand = (command) => {
+    const newState = RichUtils.handleKeyCommand(
+      this.state.editorState,
+      command,
+    );
+
+    if (newState) {
+      this.onChange(newState);
+      return 'handled';
+    }
+
+    return 'not-handled';
+  };
 
   render() {
     return (
-      <div id="content">
-        <h1>Draft.js Editor</h1>
-        <button onClick={this.onBoldClick.bind(this)}>Bold</button>
-        <div className="editor">
-          <Editor
-            editorState={this.state.editorState}
-            onChange={this.onChange}
-          />
-        </div>
-      </div>
+      <Editor
+        editorState={this.state.editorState}
+        onChange={this.onChange}
+        handleKeyCommand={this.handleKeyCommand}
+      />
     );
   }
 }
