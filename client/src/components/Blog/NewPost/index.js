@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Editor, EditorState, RichUtils } from 'draft-js';
 
+import './index.css';
+
 export default class NewPost extends Component {
   constructor() {
     super();
@@ -26,17 +28,40 @@ export default class NewPost extends Component {
     return 'not-handled';
   };
 
-  onUnderlineClick = () => {
+  onButtonClick = (e, style) => {
+    e.preventDefault();
     const { editorState } = this.state;
-    this.onChange(RichUtils.toggleInlineStyle(editorState, 'UNDERLINE'));
+    this.onChange(RichUtils.toggleInlineStyle(editorState, style));
+  };
+
+  onToggleCode = () => {
+    this.onChange(RichUtils.toggleCode(this.state.editorState));
   };
 
   render() {
     const { editorState } = this.state;
     return (
-      <div>
-        <button type="button" onClick={this.onUnderlineClick}>
+      <div className="bombo">
+        <button
+          type="button"
+          onMouseDown={(e) => this.onButtonClick(e, 'UNDERLINE')}
+        >
           Underline
+        </button>
+        <button
+          type="button"
+          onMouseDown={(e) => this.onButtonClick(e, 'ITALIC')}
+        >
+          Italic
+        </button>
+        <button
+          type="button"
+          onMouseDown={(e) => this.onButtonClick(e, 'BOLD')}
+        >
+          Bold
+        </button>
+        <button type="button" onClick={this.onToggleCode}>
+          Code Block
         </button>
         <Editor
           editorState={editorState}

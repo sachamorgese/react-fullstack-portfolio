@@ -1,3 +1,5 @@
 import NewPost from './NewPost';
 
-export default { NewPost };
+const temp = () => {};
+
+export { NewPost, temp };
