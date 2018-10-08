@@ -1,3 +1,3 @@
 import NewPost from './NewPost';
 
-export { NewPost };
+export default { NewPost };

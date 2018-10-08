@@ -14,10 +14,9 @@ export default class NewPost extends Component {
   };
 
   handleKeyCommand = (command) => {
-    const newState = RichUtils.handleKeyCommand(
-      this.state.editorState,
-      command,
-    );
+    console.log(command);
+    const { editorState } = this.state;
+    const newState = RichUtils.handleKeyCommand(editorState, command);
 
     if (newState) {
       this.onChange(newState);
@@ -27,13 +26,24 @@ export default class NewPost extends Component {
     return 'not-handled';
   };
 
+  onUnderlineClick = () => {
+    const { editorState } = this.state;
+    this.onChange(RichUtils.toggleInlineStyle(editorState, 'UNDERLINE'));
+  };
+
   render() {
+    const { editorState } = this.state;
     return (
-      <Editor
-        editorState={this.state.editorState}
-        onChange={this.onChange}
-        handleKeyCommand={this.handleKeyCommand}
-      />
+      <div>
+        <button type="button" onClick={this.onUnderlineClick}>
+          Underline
+        </button>
+        <Editor
+          editorState={editorState}
+          onChange={this.onChange}
+          handleKeyCommand={this.handleKeyCommand}
+        />
+      </div>
     );
   }
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import { NewPost } from './Blog';
+import NewPost from './Blog';
 import './App.css';
 
 const App = () => (
