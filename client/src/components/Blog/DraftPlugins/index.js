@@ -1,27 +1,41 @@
 import { RichUtils } from 'draft-js';
 
-const highlighter = () => {
+const checkMetaAlt = (e) => e.metaKey && e.key === 'Alt';
+
+const createHighlighterPlugin = () => {
   return {
     customStyleMap: {
-      HIGHLIGHT: {
+      highlightBlue: {
         background: 'blue',
+        padding: '0 .3em',
+        color: '#fff',
+      },
+      highlightYellow: {
+        background: 'yellow',
         padding: '0 .3em',
         color: '#fff',
       },
     },
     keyBindingFn: (e) => {
-      if (e.metaKey && e.key === 'h') {
-        return 'highlight';
+      if (checkMetaAlt(e) && e.key === 'b') {
+        e.preventDefault();
+        return 'highlight-blue';
       }
     },
     handleKeyCommand: (command, editorState, { setEditorState }) => {
-      if (command === 'highlight') {
-        setEditorState(RichUtils.toggleInlineStyle(editorState, 'HIGHLIGHT'));
+      if (command === 'highlight-blue') {
+        setEditorState(
+          RichUtils.toggleInlineStyle(editorState, 'highlightBlue'),
+        );
+      } else if (command === 'highlight-yellow') {
+        setEditorState(
+          RichUtils.toggleInlineStyle(editorState, 'highlightYellow'),
+        );
       }
     },
   };
 };
 
-export default {
-  highlighter,
-};
+const temp = () => {};
+
+export { createHighlighterPlugin, temp };

@@ -7,6 +7,7 @@ import createAlignmentPlugin from 'draft-js-alignment-plugin';
 import createFocusPlugin from 'draft-js-focus-plugin';
 import createResizeablePlugin from 'draft-js-resizeable-plugin';
 import createBlockDndPlugin from 'draft-js-drag-n-drop-plugin';
+import { createHighlighterPlugin } from '../DraftPlugins';
 
 import 'draft-js-emoji-plugin/lib/plugin.css';
 import 'draft-js-alignment-plugin/lib/plugin.css';
@@ -17,6 +18,7 @@ const resizeablePlugin = createResizeablePlugin();
 const blockDndPlugin = createBlockDndPlugin();
 const alignmentPlugin = createAlignmentPlugin();
 const { AlignmentTool } = alignmentPlugin;
+const highLighterPlugin = createHighlighterPlugin();
 
 const decorator = composeDecorators(
   resizeablePlugin.decorator,
@@ -37,6 +39,7 @@ const draftPlugins = [
   alignmentPlugin,
   resizeablePlugin,
   imagePlugin,
+  highLighterPlugin,
 ];
 
 /* eslint-disable */
