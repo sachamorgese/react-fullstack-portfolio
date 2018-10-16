@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react';
 import { EditorState, RichUtils, convertToRaw, convertFromRaw } from 'draft-js';
 import Editor, { composeDecorators } from 'draft-js-plugins-editor';
@@ -42,75 +43,9 @@ const draftPlugins = [
   highLighterPlugin,
 ];
 
-/* eslint-disable */
-const initialState = {
-  entityMap: {
-    '0': {
-      type: 'IMAGE',
-      mutability: 'IMMUTABLE',
-      data: {
-        src:
-          'https://camo.githubusercontent.com/a928b4ce145567540f274edf77ffc4599e81b5a2/687474703a2f2f7374617469632e6e696b677261662e636f6d2f64726166742d6a732d706c7567696e732f64726166742d6a732d706c7567696e732e737667',
-      },
-    },
-  },
-  blocks: [
-    {
-      key: '9gm3s',
-      text:
-        'You can have images in your text field. This is a very rudimentary example, but you can enhance the image plugin with resizing, focus or alignment plugins.',
-      type: 'unstyled',
-      depth: 0,
-      inlineStyleRanges: [],
-      entityRanges: [],
-      data: {},
-    },
-    {
-      key: 'ov7r',
-      text: ' ',
-      type: 'atomic',
-      depth: 0,
-      inlineStyleRanges: [],
-      entityRanges: [
-        {
-          offset: 0,
-          length: 1,
-          key: 0,
-        },
-      ],
-      data: {},
-    },
-    {
-      key: 'e23a8',
-      text: 'See advanced examples further down …',
-      type: 'unstyled',
-      depth: 0,
-      inlineStyleRanges: [],
-      entityRanges: [],
-      data: {},
-    },
-    {
-      key: 'as12d',
-      text: ' ',
-      type: 'atomic',
-      depth: 0,
-      inlineStyleRanges: [],
-      entityRanges: [
-        {
-          offset: 0,
-          length: 1,
-          key: 0,
-        },
-      ],
-      data: {},
-    },
-  ],
-};
-/* eslint-enable */
-
 export default class NewPost extends Component {
   state = {
-    editorState: EditorState.createWithContent(convertFromRaw(initialState)),
+    editorState: EditorState.createEmpty(),
   };
 
   onChange = (editorState) => {
@@ -139,6 +74,13 @@ export default class NewPost extends Component {
 
   onToggleCode = () => {
     this.onChange(RichUtils.toggleCode(this.state.editorState));
+  };
+
+  saveContent = (content) => {
+    window.localStorage.setItem(
+      'content',
+      JSON.stringify(convertToRaw(content)),
+    );
   };
 
   render() {

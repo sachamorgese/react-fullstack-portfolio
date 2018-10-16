@@ -1,31 +1,28 @@
-import { RichUtils } from 'draft-js';
+// @flow
+import { RichUtils, getDefaultKeyBinding, KeyBindingUtil } from 'draft-js';
 
-const checkMetaAlt = (e) => e.metaKey && e.key === 'Alt';
+const { hasCommandModifier } = KeyBindingUtil;
 
 const createHighlighterPlugin = () => ({
   customStyleMap: {
-    highlightBlue: {
-      background: 'blue',
-      padding: '0 .3em',
-      color: '#fff',
-    },
     highlightYellow: {
-      background: 'yellow',
-      padding: '0 .3em',
+      background: 'hsl(60, 42%, 83%)',
+      padding: '0.3em',
       color: '#fff',
     },
   },
-  keyBindingFn: (e) => {
-    if (checkMetaAlt(e) && e.key === 'b') {
-      e.preventDefault();
-      return 'highlight-blue';
+  keyBindingFn: (e: Object) => {
+    if (hasCommandModifier(e) && e.key === 'h') {
+      return 'highlight-yellow';
     }
-    return '';
+    return getDefaultKeyBinding;
   },
-  handleKeyCommand: (command, editorState, { setEditorState }) => {
-    if (command === 'highlight-blue') {
-      setEditorState(RichUtils.toggleInlineStyle(editorState, 'highlightBlue'));
-    } else if (command === 'highlight-yellow') {
+  handleKeyCommand: (
+    command: String,
+    editorState: Object,
+    { setEditorState }: { setEditorState: Function },
+  ) => {
+    if (command === 'highlight-yellow') {
       setEditorState(
         RichUtils.toggleInlineStyle(editorState, 'highlightYellow'),
       );
