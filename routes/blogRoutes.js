@@ -4,5 +4,5 @@ module.exports = (app) => {
     res.send('yo mama');
   });
 
-  app.get('/api/blog/post/:id');
+  app.get('/api/blog/editpost/:id');
 };

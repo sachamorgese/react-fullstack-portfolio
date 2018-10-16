@@ -1,5 +1,5 @@
-import NewPost from './NewPost';
+import PostEditor from './PostEditor';
 
 const temp = () => {};
 
-export { NewPost, temp };
+export { PostEditor, temp };

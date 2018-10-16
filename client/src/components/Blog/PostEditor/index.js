@@ -14,7 +14,7 @@ const { AlignmentTool } = alignmentPlugin;
 const emojiPlugin = createEmojiPlugin();
 const { EmojiSuggestions } = emojiPlugin;
 
-export default class NewPost extends Component {
+export default class PostEditor extends Component {
   constructor(props) {
     super(props);
     this.state = {};
