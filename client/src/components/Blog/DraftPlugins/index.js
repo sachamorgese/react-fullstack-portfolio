@@ -1,5 +1,28 @@
 // @flow
 import { RichUtils, getDefaultKeyBinding, KeyBindingUtil } from 'draft-js';
+import { composeDecorators } from 'draft-js-plugins-editor';
+import createEmojiPlugin from 'draft-js-emoji-plugin';
+import createImagePlugin from 'draft-js-image-plugin';
+import createAlignmentPlugin from 'draft-js-alignment-plugin';
+import createFocusPlugin from 'draft-js-focus-plugin';
+import createResizeablePlugin from 'draft-js-resizeable-plugin';
+import createBlockDndPlugin from 'draft-js-drag-n-drop-plugin';
+
+const focusPlugin = createFocusPlugin();
+const resizeablePlugin = createResizeablePlugin();
+const blockDndPlugin = createBlockDndPlugin();
+const alignmentPlugin = createAlignmentPlugin();
+
+const decorator = composeDecorators(
+  resizeablePlugin.decorator,
+  alignmentPlugin.decorator,
+  focusPlugin.decorator,
+  blockDndPlugin.decorator,
+);
+
+const emojiPlugin = createEmojiPlugin();
+
+const imagePlugin = createImagePlugin({ decorator });
 
 const { hasCommandModifier } = KeyBindingUtil;
 
@@ -15,7 +38,7 @@ const createHighlighterPlugin = () => ({
     if (hasCommandModifier(e) && e.key === 'h') {
       return 'highlight-yellow';
     }
-    return getDefaultKeyBinding;
+    return getDefaultKeyBinding(e);
   },
   handleKeyCommand: (
     command: String,
@@ -30,6 +53,14 @@ const createHighlighterPlugin = () => ({
   },
 });
 
-const temp = () => {};
+const highLighterPlugin = createHighlighterPlugin();
 
-export { createHighlighterPlugin, temp };
+export default [
+  emojiPlugin,
+  blockDndPlugin,
+  focusPlugin,
+  alignmentPlugin,
+  resizeablePlugin,
+  imagePlugin,
+  highLighterPlugin,
+];
