@@ -1,9 +1,12 @@
 .DraftEditor-root{
   background: #fff;
+  left: 0;
+  right: 0;
+  margin: auto;
   border-radius: .3em;
   padding: 1em;
-  margin: 0 auto;
   width: 980px;
+  position: absolute;
 }
 
 button{
