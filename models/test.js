@@ -13,4 +13,4 @@ const toDoSchema = new Schema(
 );
 // we need to create a model using it
 
-mongoose.model('ToDos', toDoSchema);
+module.exports = mongoose.model('ToDos', toDoSchema);

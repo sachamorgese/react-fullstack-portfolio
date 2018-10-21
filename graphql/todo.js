@@ -1,4 +1,7 @@
-import {
+const types = require('graphql/type');
+const ToDoMongo = require('../models/test');
+
+const {
   GraphQLObjectType,
   GraphQLNonNull,
   GraphQLSchema,
@@ -6,20 +9,19 @@ import {
   GraphQLList,
   GraphQLInt,
   GraphQLBoolean,
-} from 'graphql/type';
-
-import ToDoMongo from '../models/test';
+} = types;
 
 /**
  * generate projection object for mongoose
  * @param  {Object} fieldASTs
  * @return {Project}
  */
-export function getProjection(fieldASTs) {
+function getProjection(fieldASTs) {
   return fieldASTs.fieldNodes[0].selectionSet.selections.reduce(
     (projections, selection) => {
-      projections[selection.name.value] = true;
-      return projections;
+      const newProjections = { ...projections };
+      newProjections[selection.name.value] = true;
+      return newProjections;
     },
     {},
   );
@@ -71,4 +73,7 @@ const schema = new GraphQLSchema({
   }),
 });
 
-export default schema;
+module.exports = {
+  schema,
+  getProjection,
+};

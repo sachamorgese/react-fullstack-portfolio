@@ -3,7 +3,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cookies = require('cookie-session');
 const passport = require('passport');
+const graphqlHTTP = require('express-graphql');
 const keys = require('./config/keys'); // eslint-disable-line import/no-unresolved
+const { schema } = require('./graphql/todo');
 require('./models');
 
 mongoose.connect(
@@ -26,6 +28,13 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.json());
+app.use(
+  '/graphql',
+  graphqlHTTP((req) => ({
+    schema,
+    // ,graphiql:true
+  })),
+);
 
 require('./routes/authRoutes')(app);
 require('./routes/blogRoutes')(app);
