@@ -12,6 +12,7 @@ const blogPostSchema = new Schema({
     },
   ],
   published: Boolean,
+  isEditing: Boolean,
   created: Date,
   comments: [
     {
