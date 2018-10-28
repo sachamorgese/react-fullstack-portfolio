@@ -68,7 +68,7 @@ export default class PostEditor extends Component {
   render() {
     const { editorState } = this.state;
     return (
-      <div className="bombo">
+      <div className="PostEditor--root">
         <button
           type="button"
           onMouseDown={(e) => this.onButtonClick(e, 'UNDERLINE')}
