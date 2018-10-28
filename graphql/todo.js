@@ -28,10 +28,11 @@ schemaComposer.Mutation.addFields({
 });
 
 todoType.addRelation('label', {
-  resolver: () => labelType.getResolver('findById'),
+  resolver: () => labelType.getResolver('findOne'),
   prepareArgs: {
-    _ids: (source) => source._id,
+    _id: (source) => source._id,
   },
+  projection: { name: 1 },
 });
 
 const todoSchema = schemaComposer.buildSchema();

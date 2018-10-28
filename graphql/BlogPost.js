@@ -4,36 +4,39 @@ const { schemaComposer } = require('graphql-compose');
 const { labelSchema } = require('./Label');
 const { BlogPostModel } = require('../models/BlogPost');
 
-const BlogPostType = composeWithMongoose(BlogPostModel);
-//
-// schemaComposer.Query.addFields({
-//   userById: BlogPostType.getResolver('findById'),
-//   userByIds: BlogPostType.getResolver('findByIds'),
-//   userOne: BlogPostType.getResolver('findOne'),
-//   userMany: BlogPostType.getResolver('findMany'),
-//   userCount: BlogPostType.getResolver('count'),
-//   userConnection: BlogPostType.getResolver('connection'),
-//   userPagination: BlogPostType.getResolver('pagination'),
-// });
-//
-// schemaComposer.Mutation.addFields({
-//   userCreateOne: BlogPostType.getResolver('createOne'),
-//   userCreateMany: BlogPostType.getResolver('createMany'),
-//   userUpdateById: BlogPostType.getResolver('updateById'),
-//   userUpdateOne: BlogPostType.getResolver('updateOne'),
-//   userUpdateMany: BlogPostType.getResolver('updateMany'),
-//   userRemoveById: BlogPostType.getResolver('removeById'),
-//   userRemoveOne: BlogPostType.getResolver('removeOne'),
-//   userRemoveMany: BlogPostType.getResolver('removeMany'),
-// });
+const blogPostType = composeWithMongoose(BlogPostModel);
 
-const graphqlSchema = schemaComposer.buildSchema();
+schemaComposer.Query.addFields({
+  blogPostById: blogPostType.getResolver('findById'),
+  blogPostByIds: blogPostType.getResolver('findByIds'),
+  blogPostOne: blogPostType.getResolver('findOne'),
+  blogPostMany: blogPostType.getResolver('findMany'),
+  blogPostCount: blogPostType.getResolver('count'),
+  blogPostConnection: blogPostType.getResolver('connection'),
+  blogPostPagination: blogPostType.getResolver('pagination'),
+});
 
-graphqlSchema.addRelation('label', {
+schemaComposer.Mutation.addFields({
+  blogPostCreateOne: blogPostType.getResolver('createOne'),
+  blogPostCreateMany: blogPostType.getResolver('createMany'),
+  blogPostUpdateById: blogPostType.getResolver('updateById'),
+  blogPostUpdateOne: blogPostType.getResolver('updateOne'),
+  blogPostUpdateMany: blogPostType.getResolver('updateMany'),
+  blogPostRemoveById: blogPostType.getResolver('removeById'),
+  blogPostRemoveOne: blogPostType.getResolver('removeOne'),
+  blogPostRemoveMany: blogPostType.getResolver('removeMany'),
+});
+
+blogPostType.addRelation('label', {
   resolver: () => labelSchema.getResolver('findById'),
   prepareArgs: {
-    _ids: (source) => source._id,
+    name: (source) => source.name,
   },
 });
 
-module.exports = graphqlSchema;
+const blogPostSchema = schemaComposer.buildSchema();
+
+module.exports = {
+  blogPostType,
+  blogPostSchema,
+};
