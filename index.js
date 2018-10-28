@@ -5,7 +5,7 @@ const cookies = require('cookie-session');
 const passport = require('passport');
 const graphqlHTTP = require('express-graphql');
 const keys = require('./config/keys'); // eslint-disable-line import/no-unresolved
-const { schema } = require('./graphql/todo');
+const { todoSchema: schema } = require('./graphql/todo');
 require('./models');
 
 mongoose.connect(

@@ -6,4 +6,7 @@ const labelSchema = new Schema({
   name: String,
 });
 
-mongoose.model('Label', labelSchema);
+module.exports = {
+  labelSchema,
+  labelModel: mongoose.model('Label', labelSchema),
+};

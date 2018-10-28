@@ -1,24 +1,19 @@
 const mongoose = require('mongoose');
+const { labelSchema: labelMongoSchema } = require('./Label');
+const { commentSchema } = require('./Comment');
 
 const { Schema } = mongoose;
 
 const blogPostSchema = new Schema({
   title: String,
   content: String,
-  labels: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Labels',
-    },
-  ],
+  labels: [labelMongoSchema],
   published: Boolean,
   created: Date,
-  comments: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Comment',
-    },
-  ],
+  comments: [commentSchema],
 });
 
-module.exports = mongoose.model('blogposts', blogPostSchema);
+module.exports = {
+  blogPostSchema,
+  blogPostSchemaModel: mongoose.model('blogposts', blogPostSchema),
+};

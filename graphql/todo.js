@@ -1,79 +1,42 @@
-const types = require('graphql/type');
+// For using node 8 and above (native async/await)
+const { composeWithMongoose } = require('graphql-compose-mongoose/node8');
+const { schemaComposer } = require('graphql-compose');
+const { labelType } = require('./Label');
 const ToDoMongo = require('../models/test');
 
-const {
-  GraphQLObjectType,
-  GraphQLNonNull,
-  GraphQLSchema,
-  GraphQLString,
-  GraphQLList,
-  GraphQLInt,
-  GraphQLBoolean,
-} = types;
+const todoType = composeWithMongoose(ToDoMongo);
 
-/**
- * generate projection object for mongoose
- * @param  {Object} fieldASTs
- * @return {Project}
- */
-function getProjection(fieldASTs) {
-  return fieldASTs.fieldNodes[0].selectionSet.selections.reduce(
-    (projections, selection) => {
-      const newProjections = { ...projections };
-      newProjections[selection.name.value] = true;
-      return newProjections;
-    },
-    {},
-  );
-}
-
-const todoType = new GraphQLObjectType({
-  name: 'todo',
-  description: 'todo item',
-  fields: () => ({
-    itemId: {
-      type: GraphQLInt,
-      description: 'The id of the todo.',
-    },
-    item: {
-      type: GraphQLString,
-      description: 'The name of the todo.',
-    },
-    completed: {
-      type: GraphQLBoolean,
-      description: 'Completed todo? ',
-    },
-  }),
+schemaComposer.Query.addFields({
+  userById: todoType.getResolver('findById'),
+  userByIds: todoType.getResolver('findByIds'),
+  userOne: todoType.getResolver('findOne'),
+  userMany: todoType.getResolver('findMany'),
+  userCount: todoType.getResolver('count'),
+  userConnection: todoType.getResolver('connection'),
+  userPagination: todoType.getResolver('pagination'),
 });
 
-const schema = new GraphQLSchema({
-  query: new GraphQLObjectType({
-    name: 'RootQueryType',
-    fields: {
-      todo: {
-        type: new GraphQLList(todoType),
-        args: {
-          itemId: {
-            name: 'itemId',
-            type: new GraphQLNonNull(GraphQLInt),
-          },
-        },
-        resolve: (root, { itemId }, source, fieldASTs) => {
-          const projections = getProjection(fieldASTs);
-          const foundItems = new Promise((resolve, reject) => {
-            ToDoMongo.find({ itemId }, projections, (err, todos) => {
-              err ? reject(err) : resolve(todos);
-            });
-          });
-
-          return foundItems;
-        },
-      },
-    },
-  }),
+schemaComposer.Mutation.addFields({
+  userCreateOne: todoType.getResolver('createOne'),
+  userCreateMany: todoType.getResolver('createMany'),
+  userUpdateById: todoType.getResolver('updateById'),
+  userUpdateOne: todoType.getResolver('updateOne'),
+  userUpdateMany: todoType.getResolver('updateMany'),
+  userRemoveById: todoType.getResolver('removeById'),
+  userRemoveOne: todoType.getResolver('removeOne'),
+  userRemoveMany: todoType.getResolver('removeMany'),
 });
+
+todoType.addRelation('label', {
+  resolver: () => labelType.getResolver('findById'),
+  prepareArgs: {
+    _ids: (source) => source._id,
+  },
+});
+
+const todoSchema = schemaComposer.buildSchema();
 
 module.exports = {
-  schema,
-  getProjection,
+  todoType,
+  todoSchema,
 };

@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
+const { labelSchema } = require('./Label');
 
 // create a schema
 const toDoSchema = new Schema(
@@ -8,6 +9,7 @@ const toDoSchema = new Schema(
     itemId: Number,
     item: String,
     completed: Boolean,
+    labels: [labelSchema],
   },
   { collection: 'TodoList' },
 );
