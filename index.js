@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const cookies = require('cookie-session');
 const passport = require('passport');
 const keys = require('./config/keys'); // eslint-disable-line import/no-unresolved
-require('./models/User');
+require('./models');
 
 mongoose.connect(
   keys.mongoURI,
