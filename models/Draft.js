@@ -8,20 +8,14 @@ const blogPostSchema = new Schema({
   labels: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Labels',
+      ref: 'Label',
     },
   ],
-  draft: {
+  publishedPost: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Draft',
+    ref: 'Label',
   },
   created: Date,
-  comments: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Comment',
-    },
-  ],
 });
 
-module.exports = mongoose.model('BlogPost', blogPostSchema);
+module.exports = mongoose.model('Draft', blogPostSchema);
