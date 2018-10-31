@@ -1,5 +1,4 @@
 import PostEditor from './PostEditor';
+import Post from './Post';
 
-const temp = () => {};
-
-export { PostEditor, temp };
+export { PostEditor, Post };

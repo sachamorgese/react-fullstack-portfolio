@@ -1,13 +1,13 @@
 // @flow
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import { PostEditor } from './Blog';
+import { Post } from './Blog';
 import './App.css';
 
 const App = () => (
   <div className="App">
     <BrowserRouter>
-      <Route exact path="/" component={PostEditor} />
+      <Route exact path="/" component={Post} />
     </BrowserRouter>
   </div>
 );
