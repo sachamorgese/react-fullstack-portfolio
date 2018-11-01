@@ -1,12 +1,14 @@
 import React from 'react'
 import PostEditor from '../PostEditor'
-import './index.css'
+import './Post.Module.scss'
 
 export default () => {
   return (
-    <div>
-      <input className="title-box" />
+    <>
+      <input
+        placeholder="Title"
+        className="title-box" />
       <PostEditor />
-    </div>
+    </>
   )
 }

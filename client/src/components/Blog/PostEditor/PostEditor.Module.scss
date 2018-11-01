@@ -1,18 +1,26 @@
 .PostEditor--root {
   width: 980px;
-  margin: auto;
-}
+  margin: 1em auto;
+  height: 100%;
+  position: relative;
 
-.DraftEditor-root{
-  background: #fff;
-  left: 0;
-  right: 0;
-  margin: auto;
-  border-radius: .3em;
-  padding: 1em;
-  width: 980px;
-  position: absolute;
-  box-sizing: border-box;
+    .PostEditor--container {
+      height: 100%;
+      cursor: text;
+    }
+
+    .DraftEditor-root {
+      background: #fff;
+      left: 0;
+      right: 0;
+      height: 80%;
+      margin: auto;
+      border-radius: .3em;
+      padding: 1em;
+      width: 980px;
+      position: relative;
+      box-sizing: border-box;
+    }
 }
 
 button{

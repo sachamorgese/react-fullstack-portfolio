@@ -4,7 +4,8 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-import './index.css';
+import 'normalize.css'
+import './index.scss';
 import App from './components/App';
 import reducers from './reducers';
 import registerServiceWorker from './registerServiceWorker';

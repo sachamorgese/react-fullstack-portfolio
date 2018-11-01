@@ -6,7 +6,7 @@ import createAlignmentPlugin from 'draft-js-alignment-plugin';
 import draftPlugins from '../DraftPlugins';
 import 'draft-js-emoji-plugin/lib/plugin.css';
 import 'draft-js-alignment-plugin/lib/plugin.css';
-import './index.css';
+import './PostEditor.Module.scss';
 
 const alignmentPlugin = createAlignmentPlugin();
 const { AlignmentTool } = alignmentPlugin;
@@ -28,6 +28,8 @@ export default class PostEditor extends Component {
     } else {
       this.state.editorState = EditorState.createEmpty();
     }
+  
+    this.setDomEditorRef = ref => this.domEditor = ref;
   }
 
   onChange = (editorState) => {
@@ -35,7 +37,7 @@ export default class PostEditor extends Component {
     this.saveContent(contentState);
     this.setState({ editorState });
   };
-
+  
   handleKeyCommand = (command) => {
     const { editorState } = this.state;
     const newState = RichUtils.handleKeyCommand(editorState, command);
@@ -90,12 +92,17 @@ export default class PostEditor extends Component {
         <button type="button" onClick={this.onToggleCode}>
           Code Block
         </button>
-        <Editor
-          editorState={editorState}
-          onChange={this.onChange}
-          handleKeyCommand={this.handleKeyCommand}
-          plugins={draftPlugins}
-        />
+        <div
+          className="PostEditor--container"
+          onClick={() => this.domEditor.focus()}>
+          <Editor
+            editorState={editorState}
+            onChange={this.onChange}
+            handleKeyCommand={this.handleKeyCommand}
+            plugins={draftPlugins}
+            ref={this.setDomEditorRef}
+          />
+        </div>
         <EmojiSuggestions />
         <AlignmentTool />
       </div>

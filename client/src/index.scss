@@ -1,7 +1,16 @@
+html {
+  height: 100vh
+}
+
 body {
   margin: 0;
   padding: 2em;
   background: #333;
   font-family: sans-serif;
   box-sizing: border-box;
+  height: 100%;
+}
+
+#root {
+  height: 100%;
 }

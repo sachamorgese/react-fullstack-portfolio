@@ -2,7 +2,7 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { Post } from './Blog';
-import './App.css';
+import './App.Module.scss';
 
 const App = () => (
   <div className="App">
