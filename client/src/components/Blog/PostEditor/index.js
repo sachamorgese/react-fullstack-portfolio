@@ -28,8 +28,8 @@ export default class PostEditor extends Component {
     } else {
       this.state.editorState = EditorState.createEmpty();
     }
-  
-    this.setDomEditorRef = ref => this.domEditor = ref;
+
+    this.setDomEditorRef = (ref) => (this.domEditor = ref);
   }
 
   onChange = (editorState) => {
@@ -37,7 +37,7 @@ export default class PostEditor extends Component {
     this.saveContent(contentState);
     this.setState({ editorState });
   };
-  
+
   handleKeyCommand = (command) => {
     const { editorState } = this.state;
     const newState = RichUtils.handleKeyCommand(editorState, command);
@@ -94,7 +94,8 @@ export default class PostEditor extends Component {
         </button>
         <div
           className="PostEditor--container"
-          onClick={() => this.domEditor.focus()}>
+          onClick={() => this.domEditor.focus()}
+        >
           <Editor
             editorState={editorState}
             onChange={this.onChange}

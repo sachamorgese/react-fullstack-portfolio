@@ -1,13 +1,16 @@
 // @flow
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
-import { Post } from './Blog';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Post, AdminHome } from './Blog';
 import './App.Module.scss';
 
 const App = () => (
   <div className="App">
     <BrowserRouter>
-      <Route exact path="/" component={Post} />
+      <Switch>
+        <Route exact path="/" component={AdminHome} />
+        <Route path="/blog/admin" component={Post} />
+      </Switch>
     </BrowserRouter>
   </div>
 );

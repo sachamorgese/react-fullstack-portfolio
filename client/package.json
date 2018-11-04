@@ -23,10 +23,6 @@
     "redux-saga": "^0.16.2"
   },
   "scripts": {
-    "build-css": "node-sass-chokidar src/ -o src/",
-    "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
-    "start:dev": "run-p watch-css dev",
-    "start:build": "run-s build-css build",
     "dev": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
