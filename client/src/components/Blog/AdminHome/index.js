@@ -1,5 +1,4 @@
 import React from 'react';
-import PostEditor from '../PostEditor';
 
 export default () => {
   return (
@@ -8,3 +7,5 @@ export default () => {
     </>
   );
 };
+
+// todo: Wireup redux stuff
