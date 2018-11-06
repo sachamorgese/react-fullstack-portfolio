@@ -4,27 +4,29 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
+import { createBrowserHistory } from 'history';
+import { routerMiddleware } from 'connected-react-router';
 
 import 'normalize.css';
 import './index.scss';
 import App from './components/App';
-import reducers from './redux/reducers';
+import createRootReducer from './redux/reducers';
 import registerServiceWorker from './registerServiceWorker';
-import blogSaga from './redux/sagas/blogSagas';
+import saga from './redux/sagas/';
 
+const history = createBrowserHistory();
 const sagaMiddleware = createSagaMiddleware();
+const historyMiddleware = routerMiddleware(history);
 
-const composeEnhancers = composeWithDevTools({
-  // Specify here name, actionsBlacklist, actionsCreators and other options if needed
-});
+const composeEnhancers = composeWithDevTools({});
 
 const store = createStore(
-  reducers,
+  createRootReducer(history),
   {},
-  composeEnhancers(applyMiddleware(sagaMiddleware)),
+  composeEnhancers(applyMiddleware(sagaMiddleware, historyMiddleware)),
 );
 
-sagaMiddleware.run(blogSaga);
+sagaMiddleware.run(saga);
 
 ReactDOM.render(
   <Provider store={store}>

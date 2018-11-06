@@ -8,7 +8,7 @@ function* newDraft() {
     headers: 'application/json',
     body: {},
   });
-  console.log(res);
+  yield put;
 }
 
 export const post = [takeLatest('CREATE_NEW_DRAFT_SUBMIT', newDraft)];

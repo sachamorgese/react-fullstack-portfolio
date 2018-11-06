@@ -1,5 +1,8 @@
 import blogSagas from './blogSagas';
+import postSagas from './postSagas';
 
-export default {
-  blogSagas,
-};
+const allSaga = [...blogSagas, ...postSagas];
+
+export default function* sagas() {
+  yield all(allSaga);
+}
