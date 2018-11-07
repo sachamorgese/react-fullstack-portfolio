@@ -7,7 +7,7 @@ const initialState = {
   draftId: '',
 };
 
-export default function(state = {}, { payload, type }) {
+export default function(state = initialState, { payload, type }) {
   switch (type) {
     case CREATE_NEW_DRAFT_SUBMIT:
       return {

@@ -34,12 +34,13 @@ export default class PostEditor extends Component {
 
   onChange = (editorState) => {
     const contentState = editorState.getCurrentContent();
-    this.saveContent(contentState);
-    this.setState({ editorState });
+    // this.saveContent(contentState);
+    const { updateEditorState } = this.props;
+    updateEditorState(contentState);
   };
 
   handleKeyCommand = (command) => {
-    const { editorState } = this.state;
+    const { editorState } = this.props;
     const newState = RichUtils.handleKeyCommand(editorState, command);
 
     if (newState) {
@@ -52,23 +53,23 @@ export default class PostEditor extends Component {
 
   onButtonClick = (e, style) => {
     e.preventDefault();
-    const { editorState } = this.state;
+    const { editorState } = this.props;
     this.onChange(RichUtils.toggleInlineStyle(editorState, style));
   };
 
   onToggleCode = () => {
-    this.onChange(RichUtils.toggleCode(this.state.editorState));
+    this.onChange(RichUtils.toggleCode(this.props.editorState));
   };
 
-  saveContent = (content) => {
-    window.localStorage.setItem(
-      'content',
-      JSON.stringify(convertToRaw(content)),
-    );
-  };
+  // saveContent = (content) => {
+  //   window.localStorage.setItem(
+  //     'content',
+  //     JSON.stringify(convertToRaw(content)),
+  //   );
+  // };
 
   render() {
-    const { editorState } = this.state;
+    const { editorState } = this.props;
     return (
       <div className="PostEditor--root">
         <button

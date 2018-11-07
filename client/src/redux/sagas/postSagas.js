@@ -11,4 +11,6 @@ function* newDraft() {
   yield put;
 }
 
-export const post = [takeLatest('CREATE_NEW_DRAFT_SUBMIT', newDraft)];
+const post = [takeLatest('CREATE_NEW_DRAFT_SUBMIT', newDraft)];
+
+export default post;

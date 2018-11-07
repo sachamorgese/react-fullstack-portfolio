@@ -12,7 +12,7 @@ import './index.scss';
 import App from './components/App';
 import createRootReducer from './redux/reducers';
 import registerServiceWorker from './registerServiceWorker';
-import saga from './redux/sagas/';
+import saga from './redux/sagas';
 
 const history = createBrowserHistory();
 const sagaMiddleware = createSagaMiddleware();
@@ -30,7 +30,7 @@ sagaMiddleware.run(saga);
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <App history={history} />
   </Provider>,
   document.getElementById('root'),
 );

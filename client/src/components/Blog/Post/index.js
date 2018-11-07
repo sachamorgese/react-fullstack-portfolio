@@ -2,32 +2,28 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PostEditor from '../PostEditor';
+import { updateEditorState } from '../../../redux/reducers/actions';
 import './Post.Module.scss';
 
-const Post = () => {
+const Post = (props) => {
+  const { editorState } = props;
   return (
     <>
       <input placeholder="Title" className="title-box" />
-      <PostEditor />
+      <PostEditor
+        editorState={editorState}
+        updateEditorState={updateEditorState}
+      />
     </>
   );
 };
 
-const mapStateToProps = ({ blog: { editorState } }) => ({
-  editorState,
+const mapStateToProps = ({ post }) => ({
+  editorState: post.editorState,
 });
 
 const mapDispatchToProps = (dispatch) => {
-  const { submitRegistration, setFullName, setEmail, setPassword } = Creators;
-  return bindActionCreators(
-    {
-      submitRegistration,
-      setFullName,
-      setEmail,
-      setPassword,
-    },
-    dispatch,
-  );
+  return bindActionCreators({ updateEditorState }, dispatch);
 };
 
 export default connect(

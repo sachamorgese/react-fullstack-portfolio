@@ -11,4 +11,6 @@ function* newDraft() {
   console.log(res);
 }
 
-export const post = [takeLatest('CREATE_NEW_DRAFT_SUBMIT', newDraft)];
+const blog = [takeLatest('CREATE_NEW_DRAFT_SUBMIT', newDraft)];
+
+export default blog;

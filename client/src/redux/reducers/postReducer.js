@@ -5,7 +5,7 @@ const initialState = {
   editorState: {},
 };
 
-export default function(state = {}, { type, payload }) {
+export default function(state = initialState, { type, payload }) {
   switch (type) {
     case UPDATE_EDITOR_STATE:
       return {
