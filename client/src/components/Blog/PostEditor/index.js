@@ -20,9 +20,8 @@ export default class PostEditor extends Component {
     this.state = {};
 
     const content = window.localStorage.getItem('content');
-    const { editorState } = this.props;
 
-    if (editorState) {
+    if (content) {
       this.state.editorState = EditorState.createWithContent(
         convertFromRaw(JSON.parse(content)),
       );
@@ -35,13 +34,12 @@ export default class PostEditor extends Component {
 
   onChange = (editorState) => {
     const contentState = editorState.getCurrentContent();
-    // this.saveContent(contentState);
-    const { updateEditorState } = this.props;
-    updateEditorState(contentState);
+    this.saveContent(contentState);
+    this.setState({ editorState });
   };
 
   handleKeyCommand = (command) => {
-    const { editorState } = this.props;
+    const { editorState } = this.state;
     const newState = RichUtils.handleKeyCommand(editorState, command);
 
     if (newState) {
@@ -62,15 +60,16 @@ export default class PostEditor extends Component {
     this.onChange(RichUtils.toggleCode(this.props.editorState));
   };
 
-  // saveContent = (content) => {
-  //   window.localStorage.setItem(
-  //     'content',
-  //     JSON.stringify(convertToRaw(content)),
-  //   );
-  // };
+  saveContent = (content) => {
+    console.log(JSON.stringify(convertToRaw(content)));
+    window.localStorage.setItem(
+      'content',
+      JSON.stringify(convertToRaw(content)),
+    );
+  };
 
   render() {
-    const { editorState } = this.props;
+    const { editorState } = this.state;
     return (
       <div className="PostEditor--root">
         <button
@@ -94,18 +93,14 @@ export default class PostEditor extends Component {
         <button type="button" onClick={this.onToggleCode}>
           Code Block
         </button>
-        <div
-          className="PostEditor--container"
+        <Editor
+          editorState={editorState}
+          onChange={this.onChange}
           onClick={() => this.domEditor.focus()}
-        >
-          <Editor
-            editorState={editorState}
-            onChange={this.onChange}
-            handleKeyCommand={this.handleKeyCommand}
-            plugins={draftPlugins}
-            ref={this.setDomEditorRef}
-          />
-        </div>
+          handleKeyCommand={this.handleKeyCommand}
+          plugins={draftPlugins}
+          ref={this.setDomEditorRef}
+        />
         <EmojiSuggestions />
         <AlignmentTool />
       </div>

@@ -5,7 +5,9 @@ import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
 import { Post, AdminHome } from './Blog';
 
-const App = ({ history }) => (
+import type { BrowserHistory } from 'history/createBrowserHistory';
+
+const App = ({ history }: { history: BrowserHistory }) => (
   <div className="App" style={{ height: '100%' }}>
     <ConnectedRouter history={history}>
       <Switch>

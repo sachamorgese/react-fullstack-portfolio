@@ -20,6 +20,8 @@ const decorator = composeDecorators(
   blockDndPlugin.decorator,
 );
 
+const highlightYellow = 'highlight-yellow';
+
 const emojiPlugin = createEmojiPlugin();
 
 const imagePlugin = createImagePlugin({ decorator });
@@ -36,7 +38,7 @@ const createHighlighterPlugin = () => ({
   },
   keyBindingFn: (e: Object) => {
     if (hasCommandModifier(e) && e.key === 'h') {
-      return 'highlight-yellow';
+      return highlightYellow;
     }
     return getDefaultKeyBinding(e);
   },
@@ -45,10 +47,8 @@ const createHighlighterPlugin = () => ({
     editorState: Object,
     { setEditorState }: { setEditorState: Function },
   ) => {
-    if (command === 'highlight-yellow') {
-      setEditorState(
-        RichUtils.toggleInlineStyle(editorState, 'highlightYellow'),
-      );
+    if (command === highlightYellow) {
+      setEditorState(RichUtils.toggleInlineStyle(editorState, highlightYellow));
     }
   },
 });
