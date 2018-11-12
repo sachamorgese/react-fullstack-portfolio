@@ -22,5 +22,8 @@ module.exports = (app) => {
     res.send('yo mama');
   });
 
-  app.get('/api/blog/editpost/:id');
+  app.get('/api/blog/draft/:id', (req, res) => {
+    // Draft.find
+    res.send('yo mama');
+  }););
 };

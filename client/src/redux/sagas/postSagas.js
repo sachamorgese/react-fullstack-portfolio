@@ -1,16 +1,18 @@
-import { takeEvery, all, put, takeLatest } from 'redux-saga/effects';
+import { takeEvery, all, put, takeLatest, call } from 'redux-saga/effects';
 
-const baseUrl = `${window.location.origin}/api/blog/`;
+const baseUrl = `${window.location.origin}/api/blog`;
 
-function* newDraft() {
-  const res = yield fetch(`${baseUrl}/draft/new`, {
+function* updateEditorState() {
+  const res = yield call(fetch, `${baseUrl}/draft/new`, {
     method: 'POST',
-    headers: 'application/json',
-    body: {},
+    headers: {
+      'Content-Type': 'application/json',
+    },
   });
-  yield put;
+  const body = yield res.json();
+  console.log(body);
 }
 
-const post = [takeLatest('CREATE_NEW_DRAFT_SUBMIT', newDraft)];
+const post = [takeLatest('UPDATE_EDITOR_STATE', updateEditorState)];
 
 export default post;

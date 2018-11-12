@@ -20,8 +20,9 @@ export default class PostEditor extends Component {
     this.state = {};
 
     const content = window.localStorage.getItem('content');
+    const { editorState } = this.props;
 
-    if (content) {
+    if (editorState) {
       this.state.editorState = EditorState.createWithContent(
         convertFromRaw(JSON.parse(content)),
       );

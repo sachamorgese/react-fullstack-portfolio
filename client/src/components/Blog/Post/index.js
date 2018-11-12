@@ -2,11 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PostEditor from '../PostEditor';
-import { updateEditorState } from '../../../redux/reducers/actions';
+import actions from '../../../redux/reducers/actions';
 import './Post.Module.scss';
 
 const Post = (props) => {
-  const { editorState } = props;
+  const { editorState, updateEditorState } = props;
   return (
     <>
       <input placeholder="Title" className="title-box" />
@@ -23,6 +23,7 @@ const mapStateToProps = ({ post }) => ({
 });
 
 const mapDispatchToProps = (dispatch) => {
+  const { updateEditorState } = actions;
   return bindActionCreators({ updateEditorState }, dispatch);
 };
 
