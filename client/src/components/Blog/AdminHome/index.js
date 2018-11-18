@@ -2,7 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import actions from '../../../redux/reducers/actions';
+import actions from '../../../redux/reducers/blog/actions';
 
 const Home = (props) => {
   const { createNewDraft } = props;

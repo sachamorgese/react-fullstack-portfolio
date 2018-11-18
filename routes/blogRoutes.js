@@ -4,7 +4,9 @@ const Draft = mongoose.model('Draft');
 
 module.exports = (app) => {
   app.post('/api/blog/draft/new', async (req, res) => {
+    console.log('here');
     try {
+      console.log('here 2');
       const draft = await new Draft().save();
       res.send(draft);
     } catch (e) {

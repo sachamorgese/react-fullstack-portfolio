@@ -31,7 +31,7 @@
     "lint": "eslint ./*.js src/**/*.js client/src/**/*.js",
     "fix": "eslint ./*.js src/**/*.js client/src/**/*.js --fix",
     "postinstall": "cd client && yarn",
-    "flow": "flow",
+    "flow": "flow status",
     "test": "jest"
   },
   "devDependencies": {

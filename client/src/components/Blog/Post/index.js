@@ -2,24 +2,33 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PostEditor from '../PostEditor';
-import actions from '../../../redux/reducers/actions';
+import actions from '../../../redux/reducers/post/actions';
 import './Post.Module.scss';
 
-const Post = (props) => {
-  const { editorState, updateEditorState } = props;
-  return (
-    <>
-      <input placeholder="Title" className="title-box" />
-      <PostEditor
-        editorState={editorState}
-        updateEditorState={updateEditorState}
-      />
-    </>
-  );
-};
+class Post extends React.Component {
+  render() {
+    const {
+      editorState,
+      updateEditorState,
+      match: {
+        params: { id },
+      },
+    } = this.props;
+    return (
+      <>
+        <input placeholder="Title" className="title-box" />
+        <PostEditor
+          editorState={editorState}
+          updateEditorState={updateEditorState}
+        />
+      </>
+    );
+  }
+}
 
-const mapStateToProps = ({ post }) => ({
-  editorState: post.editorState,
+const mapStateToProps = ({ post: { editorState }, blog: { newDraft } }) => ({
+  editorState,
+  newDraft,
 });
 
 const mapDispatchToProps = (dispatch) => {

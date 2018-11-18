@@ -11,8 +11,8 @@ const App = ({ history }: { history: BrowserHistory }) => (
   <div className="App" style={{ height: '100%' }}>
     <ConnectedRouter history={history}>
       <Switch>
-        <Route exact path="/" component={AdminHome} />
-        <Route path="/blog/admin" component={Post} />
+        <Route exact path="/" component={AdminHome} /* /blog/admin */ />
+        <Route path="/blog/post/:id" component={Post} />
       </Switch>
     </ConnectedRouter>
   </div>

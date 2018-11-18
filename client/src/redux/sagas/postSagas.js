@@ -10,7 +10,6 @@ function* updateEditorState() {
     },
   });
   const body = yield res.json();
-  console.log(body);
 }
 
 const post = [takeLatest('UPDATE_EDITOR_STATE', updateEditorState)];

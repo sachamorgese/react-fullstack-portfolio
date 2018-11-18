@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
-import auth from './authReducer';
-import blog from './blogReducer';
-import post from './postReducer';
+import auth from './auth/authReducer';
+import blog from './blog/reducer';
+import post from './post/reducer';
 
 export default (history) =>
   combineReducers({
