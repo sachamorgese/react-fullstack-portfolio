@@ -12,6 +12,10 @@ function* updateEditorState() {
   const body = yield res.json();
 }
 
+function* getEditorState() {}
+
+function* createEditorState() {}
+
 const post = [takeLatest('UPDATE_EDITOR_STATE', updateEditorState)];
 
 export default post;

@@ -6,6 +6,8 @@ import actions from '../../../redux/reducers/post/actions';
 import './Post.Module.scss';
 
 class Post extends React.Component {
+  componentDidMount() {}
+
   render() {
     const {
       editorState,
@@ -32,8 +34,13 @@ const mapStateToProps = ({ post: { editorState }, blog: { newDraft } }) => ({
 });
 
 const mapDispatchToProps = (dispatch) => {
-  const { updateEditorState } = actions;
-  return bindActionCreators({ updateEditorState }, dispatch);
+  const { updateEditorState, getEditorState } = actions;
+  return bindActionCreators(
+    {
+      updateEditorState,
+    },
+    dispatch,
+  );
 };
 
 export default connect(

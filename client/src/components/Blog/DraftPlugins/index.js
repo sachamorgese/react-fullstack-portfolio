@@ -48,7 +48,9 @@ const createHighlighterPlugin = () => ({
     { setEditorState }: { setEditorState: Function },
   ) => {
     if (command === highlightYellow) {
-      setEditorState(RichUtils.toggleInlineStyle(editorState, highlightYellow));
+      setEditorState(
+        RichUtils.toggleInlineStyle(editorState, 'highlightYellow'),
+      );
     }
   },
 });
