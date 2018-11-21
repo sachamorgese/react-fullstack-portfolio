@@ -37,6 +37,27 @@ const updateEditorStateFailure = () => ({
   type: UPDATE_EDITOR_STATE_FAILURE,
 });
 
+const getEditorState = (id: string) => ({
+  type: GET_EDITOR_STATE,
+  payload: id,
+});
+
+const getEditorStateSubmit = () => ({
+  type: GET_EDITOR_STATE_SUBMIT,
+});
+
+const getEditorStateSuccess = () => ({
+  type: GET_EDITOR_STATE_SUCCESS,
+});
+
+const getEditorStateFailure = () => ({
+  type: GET_EDITOR_STATE_FAILURE,
+});
+
+const createEditorState = () => ({
+  type: CREATE_EDITOR_STATE,
+});
+
 const deleteEditorState = () => ({
   type: DELETE_EDITOR_STATE,
 });
@@ -51,6 +72,11 @@ export default {
   updateEditorStateSubmit,
   updateEditorStateSuccess,
   updateEditorStateFailure,
+  getEditorState,
+  getEditorStateSubmit,
+  getEditorStateSuccess,
+  getEditorStateFailure,
+  createEditorState,
   deleteEditorState,
   getDraftData,
 };

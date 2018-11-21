@@ -28,8 +28,6 @@ export default class PostEditor extends Component {
     } else {
       this.state.editorState = EditorState.createEmpty();
     }
-
-    this.setDomEditorRef = (ref) => (this.domEditor = ref);
   }
 
   onChange = (editorState) => {
@@ -96,7 +94,6 @@ export default class PostEditor extends Component {
         <Editor
           editorState={editorState}
           onChange={this.onChange}
-          onClick={() => this.domEditor.focus()}
           handleKeyCommand={this.handleKeyCommand}
           plugins={draftPlugins}
           ref={this.setDomEditorRef}

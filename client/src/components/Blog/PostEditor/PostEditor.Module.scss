@@ -6,7 +6,6 @@
 
     .PostEditor--container {
       height: 100%;
-      cursor: text;
     }
 
     .DraftEditor-root {
@@ -20,6 +19,14 @@
       width: 980px;
       position: relative;
       box-sizing: border-box;
+    }
+
+    .DraftEditor-editorContainer {
+      height: 100%;
+
+      & > div {
+        height: 100%;
+      }
     }
 }
 

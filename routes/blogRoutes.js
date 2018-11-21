@@ -4,13 +4,13 @@ const Draft = mongoose.model('Draft');
 
 module.exports = (app) => {
   app.post('/api/blog/draft/new', async (req, res) => {
-    console.log('here');
+    const { content } = req.body;
+    const draftParams = { content };
     try {
-      console.log('here 2');
-      const draft = await new Draft().save();
+      const draft = await new Draft(draftParams).save();
       res.send(draft);
     } catch (e) {
-      res.send('error occurred');
+      res.send(e);
     }
   });
 
@@ -26,7 +26,11 @@ module.exports = (app) => {
 
   app.get('/api/blog/draft/:id', async (req, res) => {
     const { id } = req.params;
-    const draft = await Draft.findById(id).exec();
-    res.send(draft);
+    try {
+      const draft = await Draft.findById(id).exec();
+      res.send(draft);
+    } catch (e) {
+      res.send(e);
+    }
   });
 };
