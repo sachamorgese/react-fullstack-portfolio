@@ -1,5 +1,6 @@
 // @flow
 import type { EditorState } from 'draft-js';
+import type { draft as draftType } from '../types';
 
 export const UPDATE_EDITOR_STATE = 'UPDATE_EDITOR_STATE';
 export const UPDATE_TITLE = 'UPDATE_TITLE';
@@ -32,6 +33,10 @@ const saveDraftContent = (id: string, editorState: EditorState) => ({
   },
 });
 
+const saveDraftContentFailure = () => ({
+  type: SAVE_DRAFT_CONTENT_FAILURE,
+});
+
 const saveTitle = (id: string, title: string) => ({
   type: SAVE_TITLE,
   payload: {
@@ -40,9 +45,26 @@ const saveTitle = (id: string, title: string) => ({
   },
 });
 
+const saveTitleFailure = () => ({
+  type: SAVE_TITLE_FAILURE,
+});
+
 const getDraftData = (payload: string) => ({
   type: GET_DRAFT_DATA,
   payload,
+});
+
+const getDraftDataSubmit = () => ({
+  type: GET_DRAFT_DATA_SUBMIT,
+});
+
+const getDraftDataSuccess = (draft: draftType) => ({
+  type: GET_DRAFT_DATA_SUCCESS,
+  payload: draft,
+});
+
+const getDraftDataFailure = () => ({
+  type: GET_DRAFT_DATA_FAILURE,
 });
 
 const createEditorState = () => ({
@@ -57,8 +79,13 @@ export default {
   updateEditorState,
   updateTitle,
   saveDraftContent,
+  saveDraftContentFailure,
   saveTitle,
+  saveTitleFailure,
   getDraftData,
+  getDraftDataSubmit,
+  getDraftDataSuccess,
+  getDraftDataFailure,
   createEditorState,
   deleteEditorState,
 };

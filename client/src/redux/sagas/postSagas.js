@@ -1,21 +1,26 @@
 import { replace } from 'connected-react-router';
 import { convertFromRaw, convertToRaw, EditorState } from 'draft-js';
 import { put, takeLatest, call } from 'redux-saga/effects';
-import {
+import actions, {
   GET_DRAFT_DATA,
-  GET_DRAFT_DATA_SUBMIT,
-  GET_DRAFT_DATA_SUCCESS,
-  GET_DRAFT_DATA_FAILURE,
   SAVE_DRAFT_CONTENT,
-  SAVE_DRAFT_CONTENT_FAILURE,
   SAVE_TITLE,
-  SAVE_TITLE_FAILURE,
 } from '../reducers/post/actions';
+
+const {
+  getDraftDataSubmit,
+  getDraftDataFailure,
+  getDraftDataSuccess,
+  saveTitle,
+  saveTitleFailure,
+  saveDraftContent,
+  saveDraftContentFailure,
+} = actions;
 
 const baseUrl = `${window.location.origin}/api/blog`;
 
-function* getDraftData({ payload: id }) {
-  yield put({ type: GET_DRAFT_DATA_SUBMIT });
+function* getDraftDataGenerator({ payload: id }) {
+  yield put(getDraftDataSubmit());
   try {
     const res = yield call(fetch, `${baseUrl}/draft/${id}`);
     const body = yield res.json();
@@ -36,14 +41,14 @@ function* getDraftData({ payload: id }) {
       ...body,
       content,
     };
-    yield put({ type: GET_DRAFT_DATA_SUCCESS, payload });
+    yield put(getDraftDataSuccess(payload));
   } catch (e) {
     yield put(replace('/'));
-    yield put({ type: GET_DRAFT_DATA_FAILURE });
+    yield put(getDraftDataFailure());
   }
 }
 
-function* saveDraftContent({ payload: { id, editorState } }) {
+function* saveDraftContentGenerator({ payload: { id, editorState } }) {
   try {
     const url = `${baseUrl}/draft/${id}/content`;
     const rawContent = JSON.stringify(
@@ -67,14 +72,14 @@ function* saveDraftContent({ payload: { id, editorState } }) {
         date: Date.now(),
       };
       window.localStorage.setItem('content', JSON.stringify(content));
-      yield put({ type: SAVE_DRAFT_CONTENT_FAILURE });
+      yield put(saveDraftContent());
     }
   } catch (e) {
-    yield put({ type: SAVE_DRAFT_CONTENT_FAILURE });
+    yield put(saveDraftContentFailure());
   }
 }
 
-function* saveTitle({ payload: { id, title } }) {
+function* saveTitleGenerator({ payload: { id, title } }) {
   try {
     const url = `${baseUrl}/draft/${id}/title`;
     const body = JSON.stringify({
@@ -88,14 +93,14 @@ function* saveTitle({ payload: { id, title } }) {
       body,
     });
   } catch (e) {
-    yield put({ type: SAVE_TITLE_FAILURE });
+    yield put(saveTitleFailure());
   }
 }
 
 const post = [
-  takeLatest(GET_DRAFT_DATA, getDraftData),
-  takeLatest(SAVE_DRAFT_CONTENT, saveDraftContent),
-  takeLatest(SAVE_TITLE, saveTitle),
+  takeLatest(GET_DRAFT_DATA, getDraftDataGenerator),
+  takeLatest(SAVE_DRAFT_CONTENT, saveDraftContentGenerator),
+  takeLatest(SAVE_TITLE, saveTitleGenerator),
 ];
 
 export default post;

@@ -19,6 +19,7 @@ const initialState = {
   postId: '',
   draftId: '',
   failed: false,
+  drafts: [],
 };
 
 export default function(state: blogState = initialState, { type }: action) {

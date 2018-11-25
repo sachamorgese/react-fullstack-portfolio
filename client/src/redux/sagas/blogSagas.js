@@ -2,17 +2,24 @@ import { put, takeLatest } from 'redux-saga/effects';
 import { EditorState, convertToRaw } from 'draft-js';
 import { push } from 'connected-react-router';
 
-import {
+import actions, {
   CREATE_NEW_DRAFT,
-  CREATE_NEW_DRAFT_SUBMIT,
-  CREATE_NEW_DRAFT_SUCCESS,
-  CREATE_NEW_DRAFT_FAILURE,
+  GET_DRAFTS,
 } from '../reducers/blog/actions';
+
+const {
+  createNewDraftSubmit,
+  createNewDraftSuccess,
+  createNewDraftFailure,
+  getDraftsSubmit,
+  getDraftsSuccess,
+  getDraftsFailure,
+} = actions;
 
 const baseUrl = `${window.location.origin}/api/blog`;
 
-function* newDraft() {
-  yield put({ type: CREATE_NEW_DRAFT_SUBMIT });
+function* createNewDraftGenerator() {
+  yield put(createNewDraftSubmit());
   const emptyState = EditorState.createEmpty();
   const body = JSON.stringify(convertToRaw(emptyState.getCurrentContent()));
   const content = JSON.stringify({ content: body });
@@ -26,16 +33,31 @@ function* newDraft() {
       },
       body: content,
     });
-    yield put({ type: CREATE_NEW_DRAFT_SUCCESS });
+    yield put(createNewDraftSuccess());
     const { _id } = yield res.json();
     if (_id) {
       yield put(push(`/api/blog/draft/${_id}`));
     }
   } catch (e) {
-    yield put({ type: CREATE_NEW_DRAFT_FAILURE });
+    yield put(createNewDraftFailure());
   }
 }
 
-const blog = [takeLatest(CREATE_NEW_DRAFT, newDraft)];
+function* getDraftsGenerator() {
+  try {
+    yield put(getDraftsSubmit());
+    const url = `${baseUrl}/drafts`;
+    const res = yield fetch(url);
+    const body = res.json();
+    yield put(getDraftsSuccess(body));
+  } catch (e) {
+    yield put(getDraftsFailure());
+  }
+}
+
+const blog = [
+  takeLatest(CREATE_NEW_DRAFT, createNewDraftGenerator),
+  takeLatest(GET_DRAFTS, getDraftsGenerator),
+];
 
 export default blog;

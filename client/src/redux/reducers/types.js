@@ -1,5 +1,10 @@
 import type { EditorState as EditorStateType } from 'draft-js';
 
+export type draftItem = {
+  _id: string,
+  title: string,
+};
+
 export type blogState = {
   newDraft: boolean,
   creating: boolean,
@@ -7,6 +12,7 @@ export type blogState = {
   draftId: string,
   loading: boolean,
   failed: boolean,
+  drafts: Array<draftItem>,
 };
 
 export type draft = {
