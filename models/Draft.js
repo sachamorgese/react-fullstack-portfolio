@@ -16,6 +16,7 @@ const blogPostSchema = new Schema({
     ref: 'Label',
   },
   created: { type: Date, default: Date.now },
+  updated: { type: Date, default: Date.now },
 });
 
 module.exports = mongoose.model('Draft', blogPostSchema);

@@ -1,7 +1,11 @@
 // @flow
 import { EditorState } from 'draft-js';
-import { UPDATE_EDITOR_STATE, GET_DRAFT_DATA } from './actions';
-import { draft, action } from '../types';
+import {
+  UPDATE_EDITOR_STATE,
+  UPDATE_TITLE,
+  GET_DRAFT_DATA_SUCCESS,
+} from './actions';
+import type { draft, action } from '../types';
 
 const initialState = {
   title: '',
@@ -16,15 +20,22 @@ export default function(
   { type, payload }: action,
 ) {
   switch (type) {
-    case GET_DRAFT_DATA:
+    case GET_DRAFT_DATA_SUCCESS:
       return {
         ...state,
-        content: payload.editorState,
+        content: payload.content,
+        labels: payload.labels,
+        title: payload.title,
       };
     case UPDATE_EDITOR_STATE:
       return {
         ...state,
-        editorState: payload,
+        content: payload,
+      };
+    case UPDATE_TITLE:
+      return {
+        ...state,
+        title: payload,
       };
     default:
       return state;

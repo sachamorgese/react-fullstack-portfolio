@@ -7,21 +7,6 @@ const createNewDraft = () => ({
   type: CREATE_NEW_DRAFT,
 });
 
-const createNewDraftSubmit = () => ({
-  type: CREATE_NEW_DRAFT_SUBMIT,
-});
-
-const createNewDraftSuccess = () => ({
-  type: CREATE_NEW_DRAFT_SUCCESS,
-});
-
-const createNewDraftFailure = () => ({
-  type: CREATE_NEW_DRAFT_FAILURE,
-});
-
 export default {
   createNewDraft,
-  createNewDraftSubmit,
-  createNewDraftSuccess,
-  createNewDraftFailure,
 };

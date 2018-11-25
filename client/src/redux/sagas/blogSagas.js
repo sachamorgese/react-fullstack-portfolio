@@ -33,7 +33,6 @@ function* newDraft() {
     }
   } catch (e) {
     yield put({ type: CREATE_NEW_DRAFT_FAILURE });
-    console.error(e);
   }
 }
 

@@ -5,6 +5,8 @@ export type blogState = {
   creating: boolean,
   postId: string,
   draftId: string,
+  loading: boolean,
+  failed: boolean,
 };
 
 export type draft = {
@@ -18,4 +20,15 @@ export type draft = {
 export type action = {
   type: string,
   payload: any,
+};
+
+export type postComponentType = {
+  editorState: EditorStateType,
+  newDraft: boolean,
+  title: string,
+  updateEditorState: Function,
+  updateTitle: Function,
+  getDraftData: Function,
+  saveDraftContent: Function,
+  createEditorState: Function,
 };

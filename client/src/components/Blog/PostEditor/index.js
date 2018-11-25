@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
-import { EditorState, RichUtils, convertToRaw, convertFromRaw } from 'draft-js';
+import { RichUtils, convertToRaw } from 'draft-js';
 import Editor from 'draft-js-plugins-editor';
 import createEmojiPlugin from 'draft-js-emoji-plugin';
 import createAlignmentPlugin from 'draft-js-alignment-plugin';
+import debounce from 'lodash/debounce';
+
+import type { EditorState } from 'draft-js';
+
 import draftPlugins from '../DraftPlugins';
 import 'draft-js-emoji-plugin/lib/plugin.css';
 import 'draft-js-alignment-plugin/lib/plugin.css';
@@ -14,30 +18,29 @@ const { AlignmentTool } = alignmentPlugin;
 const emojiPlugin = createEmojiPlugin();
 const { EmojiSuggestions } = emojiPlugin;
 
-export default class PostEditor extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
+type props = {
+  updateEditorState: Function,
+  editorState: EditorState,
+  saveDraftContent: Function,
+  id: string,
+};
 
-    const content = window.localStorage.getItem('content');
-
-    if (content) {
-      this.state.editorState = EditorState.createWithContent(
-        convertFromRaw(JSON.parse(content)),
-      );
-    } else {
-      this.state.editorState = EditorState.createEmpty();
-    }
-  }
+export default class PostEditor extends Component<props> {
+  saveOnServer = debounce((editorState) => {
+    const { saveDraftContent, id } = this.props;
+    saveDraftContent(id, editorState);
+  }, 3000);
 
   onChange = (editorState) => {
-    const contentState = editorState.getCurrentContent();
-    this.saveContent(contentState);
-    this.setState({ editorState });
+    const { updateEditorState } = this.props;
+    updateEditorState(editorState);
+    if (editorState.getCurrentContent().hasText()) {
+      this.saveOnServer(editorState);
+    }
   };
 
   handleKeyCommand = (command) => {
-    const { editorState } = this.state;
+    const { editorState } = this.props;
     const newState = RichUtils.handleKeyCommand(editorState, command);
 
     if (newState) {
@@ -55,19 +58,12 @@ export default class PostEditor extends Component {
   };
 
   onToggleCode = () => {
-    this.onChange(RichUtils.toggleCode(this.props.editorState));
-  };
-
-  saveContent = (content) => {
-    console.log(JSON.stringify(convertToRaw(content)));
-    window.localStorage.setItem(
-      'content',
-      JSON.stringify(convertToRaw(content)),
-    );
+    const { editorState } = this.props;
+    this.onChange(RichUtils.toggleCode(editorState));
   };
 
   render() {
-    const { editorState } = this.state;
+    const { editorState } = this.props;
     return (
       <div className="PostEditor--root">
         <button
@@ -96,7 +92,6 @@ export default class PostEditor extends Component {
           onChange={this.onChange}
           handleKeyCommand={this.handleKeyCommand}
           plugins={draftPlugins}
-          ref={this.setDomEditorRef}
         />
         <EmojiSuggestions />
         <AlignmentTool />

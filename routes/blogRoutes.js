@@ -14,21 +14,59 @@ module.exports = (app) => {
     }
   });
 
-  app.post('/api/blog/draft/:draftId/title/', (req, res) => {
-    console.log(req.body);
-    res.send('yo mama');
+  app.patch('/api/blog/draft/:draftId/title/', async (req, res) => {
+    try {
+      const draft = await Draft.findByIdAndUpdate(
+        req.params.draftId,
+        {
+          title: req.body.title,
+        },
+        (err, newDraft) => {
+          if (!err) return newDraft;
+          return err;
+        },
+      );
+      res.send(draft);
+    } catch (e) {
+      res.send(e);
+    }
   });
 
-  app.post('/api/blog/draft/:draftId/update/', (req, res) => {
-    console.log(req.body);
-    res.send('yo mama');
+  app.patch('/api/blog/draft/:draftId/content/', async (req, res) => {
+    try {
+      const updated = Date.now();
+      const draft = await Draft.findByIdAndUpdate(
+        req.params.draftId,
+        {
+          content: req.body.content,
+          updated,
+        },
+        (err, newDraft) => {
+          if (!err) return newDraft;
+          return err;
+        },
+      );
+      res.send(draft);
+    } catch (e) {
+      res.send(e);
+    }
   });
 
   app.get('/api/blog/draft/:id', async (req, res) => {
     const { id } = req.params;
+
     try {
       const draft = await Draft.findById(id).exec();
       res.send(draft);
+    } catch (e) {
+      res.send(e);
+    }
+  });
+
+  app.get('/api/blog/drafts', async (req, res) => {
+    try {
+      const drafts = await Draft.find({}, 'title').exec();
+      res.send(drafts);
     } catch (e) {
       res.send(e);
     }
