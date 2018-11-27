@@ -1,5 +1,6 @@
+// @flow
 import React, { Component } from 'react';
-import { RichUtils, convertToRaw } from 'draft-js';
+import { RichUtils } from 'draft-js';
 import Editor from 'draft-js-plugins-editor';
 import createEmojiPlugin from 'draft-js-emoji-plugin';
 import createAlignmentPlugin from 'draft-js-alignment-plugin';
@@ -31,7 +32,7 @@ export default class PostEditor extends Component<props> {
     saveDraftContent(id, editorState);
   }, 3000);
 
-  onChange = (editorState) => {
+  onChange = (editorState: EditorState) => {
     const { updateEditorState } = this.props;
     updateEditorState(editorState);
     if (editorState.getCurrentContent().hasText()) {
@@ -40,6 +41,7 @@ export default class PostEditor extends Component<props> {
   };
 
   handleKeyCommand = (command) => {
+    console.log(command);
     const { editorState } = this.props;
     const newState = RichUtils.handleKeyCommand(editorState, command);
 

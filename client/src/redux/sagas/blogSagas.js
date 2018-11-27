@@ -33,10 +33,14 @@ function* createNewDraftGenerator() {
       },
       body: content,
     });
-    yield put(createNewDraftSuccess());
-    const { _id } = yield res.json();
-    if (_id) {
-      yield put(push(`/api/blog/draft/${_id}`));
+    if (res.status === 200) {
+      yield put(createNewDraftSuccess());
+      const { _id } = yield res.json();
+      if (_id) {
+        yield put(push(`/api/blog/draft/${_id}`));
+      }
+    } else {
+      yield put(createNewDraftFailure());
     }
   } catch (e) {
     yield put(createNewDraftFailure());
@@ -48,8 +52,12 @@ function* getDraftsGenerator() {
     yield put(getDraftsSubmit());
     const url = `${baseUrl}/drafts`;
     const res = yield fetch(url);
-    const body = res.json();
-    yield put(getDraftsSuccess(body));
+    if (res.status === 200) {
+      const body = yield res.json();
+      yield put(getDraftsSuccess(body));
+    } else {
+      yield put(getDraftsFailure());
+    }
   } catch (e) {
     yield put(getDraftsFailure());
   }

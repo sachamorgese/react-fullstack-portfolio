@@ -11,7 +11,6 @@ const {
   getDraftDataSubmit,
   getDraftDataFailure,
   getDraftDataSuccess,
-  saveTitle,
   saveTitleFailure,
   saveDraftContent,
   saveDraftContentFailure,
@@ -23,26 +22,31 @@ function* getDraftDataGenerator({ payload: id }) {
   yield put(getDraftDataSubmit());
   try {
     const res = yield call(fetch, `${baseUrl}/draft/${id}`);
-    const body = yield res.json();
-    let rawContent;
-    const localContent = JSON.parse(window.localStorage.getItem('content'));
-    if (localContent) {
-      const localContentDate = new Date(localContent.date);
-      const serverDate = new Date(body.updated);
-      rawContent =
-        serverDate.getTime() > localContentDate.getTime()
-          ? body.content
-          : localContent;
-    } else {
-      rawContent = body.content;
+    if (res.status === 200 || res.status === 304) {
+      const body = yield res.json();
+      const bodyContent = JSON.parse(body.content);
+      let rawContent;
+      const localContent = JSON.parse(window.localStorage.getItem('content'));
+      if (localContent) {
+        const localContentDate = new Date(localContent.date);
+        const serverDate = new Date(body.updated);
+        rawContent =
+          serverDate.getTime() > localContentDate.getTime()
+            ? bodyContent
+            : localContent;
+      } else {
+        rawContent = bodyContent;
+      }
+      const content = EditorState.createWithContent(convertFromRaw(rawContent));
+      const payload = {
+        ...body,
+        content,
+      };
+
+      yield put(getDraftDataSuccess(payload));
     }
-    const content = EditorState.createWithContent(convertFromRaw(rawContent));
-    const payload = {
-      ...body,
-      content,
-    };
-    yield put(getDraftDataSuccess(payload));
   } catch (e) {
+    console.log(e);
     yield put(replace('/'));
     yield put(getDraftDataFailure());
   }

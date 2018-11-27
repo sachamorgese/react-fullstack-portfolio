@@ -38,3 +38,9 @@ export type postComponentType = {
   saveDraftContent: Function,
   createEditorState: Function,
 };
+
+export type adminHomeComponentType = {
+  createNewDraft: Function,
+  getDrafts: Function,
+  drafts: Array<draftItem>,
+};

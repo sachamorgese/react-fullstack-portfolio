@@ -1,3 +1,6 @@
+// @flow
+import type { draftItem } from '../types';
+
 export const CREATE_NEW_DRAFT = 'CREATE_NEW_DRAFT';
 export const CREATE_NEW_DRAFT_SUBMIT = 'CREATE_NEW_DRAFT_SUBMIT';
 export const CREATE_NEW_DRAFT_SUCCESS = 'CREATE_NEW_DRAFT_SUCCESS';
@@ -31,8 +34,9 @@ const getDraftsSubmit = () => ({
   type: GET_DRAFTS_SUBMIT,
 });
 
-const getDraftsSuccess = () => ({
+const getDraftsSuccess = (payload: Array<draftItem>) => ({
   type: GET_DRAFTS_SUCCESS,
+  payload,
 });
 
 const getDraftsFailure = () => ({

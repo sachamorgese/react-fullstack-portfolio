@@ -1,4 +1,5 @@
 // @flow
+
 import { EditorState } from 'draft-js';
 import {
   UPDATE_EDITOR_STATE,
