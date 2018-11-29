@@ -3,9 +3,8 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
-import { Post, AdminHome } from './Blog';
-
 import type { BrowserHistory } from 'history/createBrowserHistory';
+import { Post, AdminHome } from './Blog';
 
 const App = ({ history }: { history: BrowserHistory }) => (
   <div className="App" style={{ height: '100%' }}>

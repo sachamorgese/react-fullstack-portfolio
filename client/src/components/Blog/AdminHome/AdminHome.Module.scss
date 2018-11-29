@@ -1,0 +1,72 @@
+.NewPost {
+  outline: none;
+}
+
+ul {
+  .LinksListItem {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+
+    button {
+      padding: 0;
+      margin: 0;
+    }
+
+    a {
+      color: white;
+      text-decoration: none;
+      font-size: 20px;
+      margin-right: 15px;
+    }
+
+    .TrashContainer {
+      display: inline-block;
+      position: relative;
+      width: 200px;
+    }
+
+    .PopUp {
+      display: none;
+      border-radius: 5px;
+      justify-content: space-evenly;
+      left: 7px;
+      position: absolute;
+      top: -70px;
+      transform: translate(-50%, 0);
+      width: 200px;
+      background: white;
+      height: 64px;
+
+      &:after {
+        content: '';
+        border: 4px solid transparent;
+        border-top: 5px solid white;
+        position: absolute;
+        bottom: -9px;
+        left: calc(50% - 4px);
+      }
+
+      .TextContainer {
+        text-align: center;
+      }
+
+      .ConfirmButtonBox {
+        display: flex;
+        width: 100%;
+        justify-content: space-evenly;
+        position: absolute;
+        bottom: 0;
+
+
+        .ConfirmButtonContainer {
+          margin-bottom: 5px;
+
+          & > button {
+            width: 40px;
+          }
+        }
+      }
+    }
+  }
+}

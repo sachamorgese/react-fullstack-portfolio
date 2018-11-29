@@ -52,12 +52,23 @@ module.exports = (app) => {
     }
   });
 
-  app.get('/api/blog/draft/:id', async (req, res) => {
-    const { id } = req.params;
+  app.get('/api/blog/draft/:draftId', async (req, res) => {
+    const { draftId } = req.params;
 
     try {
-      const draft = await Draft.findById(id).exec();
+      const draft = await Draft.findById(draftId).exec();
       res.send(draft);
+    } catch (e) {
+      res.send(e);
+    }
+  });
+
+  app.delete('/api/blog/draft/:draftId', async (req, res) => {
+    const { draftId } = req.params;
+    try {
+      const draft = await Draft.findByIdAndDelete(draftId).exec();
+      console.log(draft);
+      res.send(`Deleted`);
     } catch (e) {
       res.send(e);
     }

@@ -63,6 +63,12 @@ function* getDraftsGenerator() {
   }
 }
 
+function* deleteDraftGenerator() {
+  // try {
+  //   yield
+  // }
+}
+
 const blog = [
   takeLatest(CREATE_NEW_DRAFT, createNewDraftGenerator),
   takeLatest(GET_DRAFTS, getDraftsGenerator),
