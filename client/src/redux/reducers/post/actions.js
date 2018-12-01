@@ -1,6 +1,6 @@
 // @flow
 import type { EditorState } from 'draft-js';
-import type { draft as draftType } from '../types';
+import type { draft as draftType } from '../../../types';
 
 export const UPDATE_EDITOR_STATE = 'UPDATE_EDITOR_STATE';
 export const UPDATE_TITLE = 'UPDATE_TITLE';

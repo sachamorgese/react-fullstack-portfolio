@@ -44,3 +44,13 @@ export type adminHomeComponentType = {
   getDrafts: Function,
   drafts: Array<draftItem>,
 };
+
+export type messageItem = {
+  name: string,
+  index: number,
+};
+
+export type messageState = {
+  show: boolean,
+  item: messageItem,
+};

@@ -8,7 +8,7 @@ import {
   GET_DRAFTS_SUCCESS,
   GET_DRAFTS_FAILURE,
 } from './actions';
-import { blogState, action } from '../types';
+import { blogState, action } from '../../../types';
 import {
   SAVE_DRAFT_CONTENT_FAILURE,
   GET_DRAFT_DATA_FAILURE,

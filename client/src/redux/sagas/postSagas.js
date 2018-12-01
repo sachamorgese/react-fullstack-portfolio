@@ -46,7 +46,6 @@ function* getDraftDataGenerator({ payload: id }) {
       yield put(getDraftDataSuccess(payload));
     }
   } catch (e) {
-    console.log(e);
     yield put(replace('/'));
     yield put(getDraftDataFailure());
   }

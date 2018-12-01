@@ -1,11 +1,13 @@
-import { put, takeLatest } from 'redux-saga/effects';
+import { put, takeLatest, call } from 'redux-saga/effects';
 import { EditorState, convertToRaw } from 'draft-js';
 import { push } from 'connected-react-router';
 
-import actions, {
+import blogActions, {
   CREATE_NEW_DRAFT,
   GET_DRAFTS,
+  DELETE_DRAFT,
 } from '../reducers/blog/actions';
+import messageActions from '../reducers/messages/actions';
 
 const {
   createNewDraftSubmit,
@@ -14,7 +16,10 @@ const {
   getDraftsSubmit,
   getDraftsSuccess,
   getDraftsFailure,
-} = actions;
+  deleteDraftSubmit,
+  deleteDraftSuccess,
+  deleteDraftFailure,
+} = blogActions;
 
 const baseUrl = `${window.location.origin}/api/blog`;
 
@@ -37,7 +42,7 @@ function* createNewDraftGenerator() {
       yield put(createNewDraftSuccess());
       const { _id } = yield res.json();
       if (_id) {
-        yield put(push(`/api/blog/draft/${_id}`));
+        yield put(push(`/blog/draft/${_id}`));
       }
     } else {
       yield put(createNewDraftFailure());
@@ -63,15 +68,38 @@ function* getDraftsGenerator() {
   }
 }
 
-function* deleteDraftGenerator() {
-  // try {
-  //   yield
-  // }
+function* deleteDraftGenerator(id) {
+  try {
+    yield put(deleteDraftSubmit());
+    const url = `${baseUrl}/draft/${id}`;
+    const res = yield fetch(url, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    if (res === 200) {
+      yield put(deleteDraftSuccess());
+      yield put(messageActions.hideMessage());
+    } else {
+      yield put(deleteDraftFailure());
+      yield put(messageActions.hideMessage());
+    }
+  } catch (e) {
+    yield put(deleteDraftFailure());
+    yield put(messageActions.hideMessage());
+  }
+}
+
+function* deleteDraftHandlerGenerator({ payload: id }) {
+  yield call(deleteDraftGenerator, id);
+  yield call(getDraftsGenerator);
 }
 
 const blog = [
   takeLatest(CREATE_NEW_DRAFT, createNewDraftGenerator),
   takeLatest(GET_DRAFTS, getDraftsGenerator),
+  takeLatest(DELETE_DRAFT, deleteDraftHandlerGenerator),
 ];
 
 export default blog;

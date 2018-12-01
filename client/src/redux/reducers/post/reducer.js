@@ -6,7 +6,7 @@ import {
   UPDATE_TITLE,
   GET_DRAFT_DATA_SUCCESS,
 } from './actions';
-import type { draft, action } from '../types';
+import type { draft, action } from '../../../types';
 
 const initialState = {
   title: '',

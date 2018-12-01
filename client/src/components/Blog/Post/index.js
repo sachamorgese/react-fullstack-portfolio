@@ -8,7 +8,7 @@ import PostEditor from '../PostEditor';
 import actions from '../../../redux/reducers/post/actions';
 import './Post.Module.scss';
 
-import type { postComponentType } from '../../../redux/reducers/types';
+import type { postComponentType } from '../../../types';
 
 class Post extends React.Component<postComponentType> {
   componentDidMount() {

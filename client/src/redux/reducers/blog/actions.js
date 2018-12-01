@@ -1,5 +1,5 @@
 // @flow
-import type { draftItem } from '../types';
+import type { draftItem } from '../../../types';
 
 export const CREATE_NEW_DRAFT = 'CREATE_NEW_DRAFT';
 export const CREATE_NEW_DRAFT_SUBMIT = 'CREATE_NEW_DRAFT_SUBMIT';
@@ -9,6 +9,10 @@ export const GET_DRAFTS = 'GET_DRAFTS';
 export const GET_DRAFTS_SUBMIT = 'GET_DRAFTS_SUBMIT';
 export const GET_DRAFTS_SUCCESS = 'GET_DRAFTS_SUCCESS';
 export const GET_DRAFTS_FAILURE = 'GET_DRAFTS_FAILURE';
+export const DELETE_DRAFT = 'DELETE_DRAFT';
+export const DELETE_DRAFT_SUBMIT = 'DELETE_DRAFT_SUBMIT';
+export const DELETE_DRAFT_SUCCESS = 'DELETE_DRAFT_SUCCESS';
+export const DELETE_DRAFT_FAILURE = 'DELETE_DRAFT_FAILURE';
 
 const createNewDraft = () => ({
   type: CREATE_NEW_DRAFT,
@@ -43,6 +47,24 @@ const getDraftsFailure = () => ({
   type: GET_DRAFTS_FAILURE,
 });
 
+const deleteDraft = (id: string) => ({
+  type: DELETE_DRAFT,
+  payload: id,
+});
+
+const deleteDraftSubmit = () => ({
+  type: DELETE_DRAFT_SUBMIT,
+});
+
+const deleteDraftSuccess = (payload: Array<draftItem>) => ({
+  type: DELETE_DRAFT_SUCCESS,
+  payload,
+});
+
+const deleteDraftFailure = () => ({
+  type: DELETE_DRAFT_FAILURE,
+});
+
 export default {
   createNewDraft,
   createNewDraftSubmit,
@@ -52,4 +74,8 @@ export default {
   getDraftsSubmit,
   getDraftsSuccess,
   getDraftsFailure,
+  deleteDraft,
+  deleteDraftSubmit,
+  deleteDraftSuccess,
+  deleteDraftFailure,
 };
