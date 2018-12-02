@@ -1,12 +1,14 @@
 // @flow
 import React, { Component } from 'react';
 import { RichUtils } from 'draft-js';
+import { withRouter } from 'react-router-dom';
 import Editor from 'draft-js-plugins-editor';
 import createEmojiPlugin from 'draft-js-emoji-plugin';
 import createAlignmentPlugin from 'draft-js-alignment-plugin';
 import debounce from 'lodash/debounce';
 
 import type { EditorState } from 'draft-js';
+import { history } from 'react-router-dom';
 
 import draftPlugins from '../DraftPlugins';
 import 'draft-js-emoji-plugin/lib/plugin.css';
@@ -24,13 +26,21 @@ type props = {
   editorState: EditorState,
   saveDraftContent: Function,
   id: string,
+  history: string,
 };
 
-export default class PostEditor extends Component<props> {
+class PostEditor extends Component<props> {
   saveOnServer = debounce((editorState) => {
     const { saveDraftContent, id } = this.props;
     saveDraftContent(id, editorState);
   }, 3000);
+
+  componentDidMount() {
+    const { history } = this.props;
+    history.listen(() => {
+      this.saveOnServer.cancel();
+    });
+  }
 
   onChange = (editorState: EditorState) => {
     const { updateEditorState } = this.props;
@@ -41,7 +51,6 @@ export default class PostEditor extends Component<props> {
   };
 
   handleKeyCommand = (command) => {
-    console.log(command);
     const { editorState } = this.props;
     const newState = RichUtils.handleKeyCommand(editorState, command);
 
@@ -95,9 +104,14 @@ export default class PostEditor extends Component<props> {
           handleKeyCommand={this.handleKeyCommand}
           plugins={draftPlugins}
         />
+        {/* <button type="button" onClick={handlePost}> */}
+        {/* Post! */}
+        {/* </button> */}
         <EmojiSuggestions />
         <AlignmentTool />
       </div>
     );
   }
 }
+
+export default withRouter(PostEditor);

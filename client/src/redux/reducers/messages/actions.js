@@ -1,3 +1,4 @@
+// @flow
 import type { messageItem } from '../../../types';
 
 export const SHOW_MESSAGE = 'SHOW_MESSAGE';

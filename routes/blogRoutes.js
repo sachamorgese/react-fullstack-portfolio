@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const Draft = mongoose.model('Draft');
+const BlogPost = mongoose.model('BlogPost');
 
 module.exports = (app) => {
   app.post('/api/blog/draft/new', async (req, res) => {
@@ -66,8 +67,7 @@ module.exports = (app) => {
   app.delete('/api/blog/draft/:draftId', async (req, res) => {
     const { draftId } = req.params;
     try {
-      const draft = await Draft.findByIdAndDelete(draftId).exec();
-      console.log(draft);
+      await Draft.findByIdAndDelete(draftId).exec();
       res.send(`Deleted`);
     } catch (e) {
       res.send(e);
@@ -78,6 +78,24 @@ module.exports = (app) => {
     try {
       const drafts = await Draft.find({}, 'title').exec();
       res.send(drafts);
+    } catch (e) {
+      res.send(e);
+    }
+  });
+
+  app.post('/api/blog/post/new', async (req, res) => {
+    try {
+      const { id, content: newContent } = req.body;
+      const draft = await Draft.findById(id).exec();
+      const { content: oldContent, title, labels } = draft;
+      const draftParams = {
+        content: newContent || oldContent,
+        title,
+        labels,
+      };
+      const blogPost = await new BlogPost(draftParams).save();
+      await Draft.findByIdAndDelete(id).exec();
+      res.send(blogPost);
     } catch (e) {
       res.send(e);
     }

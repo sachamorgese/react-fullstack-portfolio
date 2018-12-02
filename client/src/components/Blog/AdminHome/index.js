@@ -1,15 +1,19 @@
 // @flow
-
+// libraries
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+// components
+import PopUp from '../PopUp';
+// actions
 import blogActions from '../../../redux/reducers/blog/actions';
 import messageAction from '../../../redux/reducers/messages/actions';
+// css
 import './AdminHome.Module.scss';
-
+// types
 import type { adminHomeComponentType } from '../../../types';
 
 class Home extends Component<adminHomeComponentType> {
@@ -40,6 +44,7 @@ class Home extends Component<adminHomeComponentType> {
         <button className="NewPost" type="button" onClick={createNewDraft}>
           New Post
         </button>
+        <span className="ListLabel">Drafts</span>
         <ul>
           {drafts.map((dr, index) => {
             const { title, _id: id } = dr;
@@ -53,25 +58,15 @@ class Home extends Component<adminHomeComponentType> {
               <li className="LinksListItem" key={id}>
                 <Link to={url}>{title || 'untitled'}</Link>
                 <div className="TrashContainer">
-                  <div className={popUpClass}>
-                    <div className="TextContainer">
-                      <span>Do you want to delete</span>
-                      <br />
-                      <span>{`${title}?`}</span>
-                    </div>
-                    <div className="ConfirmButtonBox">
-                      <div className="ConfirmButtonContainer">
-                        <button type="button" onClick={() => deleteDraft(id)}>
-                          Yes
-                        </button>
-                      </div>
-                      <div className="ConfirmButtonContainer">
-                        <button type="button" onClick={hideMessage}>
-                          No
-                        </button>
-                      </div>
-                    </div>
-                  </div>
+                  <PopUp
+                    popUpClass={popUpClass}
+                    onClickYes={() => deleteDraft(id)}
+                    onClickNo={hideMessage}
+                  >
+                    <span>Do you want to delete</span>
+                    <br />
+                    <span>{`"${title || 'untitled'}"?`}</span>
+                  </PopUp>
                   <button
                     type="button"
                     onClick={() => this.onDeleteClick(name, index)}
@@ -93,7 +88,7 @@ const mapStateToProps = ({ blog: { drafts }, message }) => ({
   message,
 });
 
-const mapDispatchToProps = (dispatch: Function) => {
+const mapDispatchToProps = (dispatch: *) => {
   const { createNewDraft, getDrafts, deleteDraft } = blogActions;
   const { showMessage, hideMessage } = messageAction;
   return bindActionCreators(

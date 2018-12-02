@@ -1,3 +1,5 @@
+// @flow
+
 import { replace } from 'connected-react-router';
 import { convertFromRaw, convertToRaw, EditorState } from 'draft-js';
 import { put, takeLatest, call } from 'redux-saga/effects';

@@ -1,3 +1,4 @@
+// @flow
 import type { EditorState as EditorStateType } from 'draft-js';
 
 export type draftItem = {
@@ -47,7 +48,7 @@ export type adminHomeComponentType = {
 
 export type messageItem = {
   name: string,
-  index: number,
+  index: number | null,
 };
 
 export type messageState = {
