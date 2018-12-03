@@ -1,6 +1,6 @@
 // @flow
 import { SHOW_MESSAGE, HIDE_MESSAGE } from './actions';
-import type { messageState, action } from '../../../types';
+import type { messageState, Action } from '../../../types';
 
 const initialState = {
   show: false,
@@ -10,10 +10,8 @@ const initialState = {
   },
 };
 
-export default function(
-  state: messageState = initialState,
-  { type, payload }: action,
-) {
+export default function(state: messageState = initialState, action: Action) {
+  const { type, payload } = action;
   switch (type) {
     case SHOW_MESSAGE:
       return {
