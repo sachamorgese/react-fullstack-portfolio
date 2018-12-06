@@ -1,10 +1,10 @@
 // @flow
-import type { messageItem } from '../../../types';
+import type { MessageItem } from '../../../types';
 
 export const SHOW_MESSAGE = 'SHOW_MESSAGE';
 export const HIDE_MESSAGE = 'HIDE_MESSAGE';
 
-const showMessage = (payload: messageItem) => ({
+const showMessage = (payload: MessageItem) => ({
   type: SHOW_MESSAGE,
   payload,
 });

@@ -6,7 +6,7 @@ import {
   UPDATE_TITLE,
   GET_DRAFT_DATA_SUCCESS,
 } from './actions';
-import type { draft, Action } from '../../../types';
+import type { Action, State } from '../../../types';
 
 const initialState = {
   title: '',
@@ -16,7 +16,7 @@ const initialState = {
   created: '',
 };
 
-export default function(state: draft = initialState, action: Action) {
+export default function(state: State = initialState, action: Action) {
   const { type, payload } = action;
   switch (type) {
     case UPDATE_EDITOR_STATE:

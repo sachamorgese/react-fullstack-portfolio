@@ -1,22 +1,28 @@
 // @flow
 import type { EditorState as EditorStateType } from 'draft-js';
+import type { Store as ReduxStore, Dispatch as ReduxDispatch } from 'redux';
 
-export type draftItem = {
+export type DraftItem = {
   _id: string,
   title: string,
 };
 
-export type blogState = {
+export type MessageItem = {
+  name: string,
+  index: number | null,
+};
+
+export type BlogState = {
   newDraft: boolean,
   creating: boolean,
   postId: string,
   draftId: string,
   loading: boolean,
   failed: boolean,
-  drafts: Array<draftItem>,
+  drafts: Array<DraftItem>,
 };
 
-export type draft = {
+export type DraftState = {
   title: string,
   content: EditorStateType,
   labels: Array<string>,
@@ -24,7 +30,12 @@ export type draft = {
   created: string,
 };
 
-export type postComponentType = {
+export type MessageState = {
+  show: boolean,
+  item: MessageItem,
+};
+
+export type PostComponentType = {
   editorState: EditorStateType,
   newDraft: boolean,
   title: string,
@@ -35,60 +46,47 @@ export type postComponentType = {
   createEditorState: Function,
 };
 
-export type adminHomeComponentType = {
+export type AdminHomeComponentType = {
   createNewDraft: Function,
   getDrafts: Function,
-  drafts: Array<draftItem>,
-};
-
-export type messageItem = {
-  name: string,
-  index: number | null,
-};
-
-export type messageState = {
-  show: boolean,
-  item: messageItem,
+  drafts: Array<DraftItem>,
+  showMessage: Function,
+  hideMessage: Function,
+  deleteDraft: Function,
+  message: MessageState,
 };
 
 type CreateNewDraft = {
   type: 'CREATE_NEW_DRAFT',
-  payload: void,
 };
 
 type CreateNewDraftSubmit = {
   type: 'CREATE_NEW_DRAFT_SUBMIT',
-  payload: void,
 };
 
 type CreateNewDraftSuccess = {
   type: 'CREATE_NEW_DRAFT_SUCCESS',
-  payload: void,
 };
 
 type CreateNewDraftFailure = {
   type: 'CREATE_NEW_DRAFT_FAILURE',
-  payload: void,
 };
 
 type GetDrafts = {
   type: 'GET_DRAFTS',
-  payload: void,
 };
 
 type GetDraftsSubmit = {
   type: 'GET_DRAFTS_SUBMIT',
-  payload: void,
 };
 
 type GetDraftsSuccess = {
   type: 'GET_DRAFTS_SUCCESS',
-  payload: Array<draftItem>,
+  payload: Array<DraftItem>,
 };
 
 type GetDraftsFailure = {
   type: 'GET_DRAFTS_FAILURE',
-  payload: void,
 };
 
 type DeleteDraft = {
@@ -98,17 +96,15 @@ type DeleteDraft = {
 
 type DeleteDraftSubmit = {
   type: 'DELETE_DRAFT_SUBMIT',
-  payload: void,
 };
 
 type DeleteDraftSuccess = {
   type: 'DELETE_DRAFT_SUCCESS',
-  payload: Array<draftItem>,
+  payload: Array<DraftItem>,
 };
 
 type DeleteDraftFailure = {
   type: 'DELETE_DRAFT_FAILURE',
-  payload: void,
 };
 
 type UpdateEditorState = {
@@ -131,7 +127,6 @@ type SaveDraftContent = {
 
 type SaveDraftContentFailure = {
   type: 'SAVE_DRAFT_CONTENT_FAILURE',
-  payload: void,
 };
 
 type SaveTitle = {
@@ -144,7 +139,6 @@ type SaveTitle = {
 
 type SaveTitleFailure = {
   type: 'SAVE_TITLE_FAILURE',
-  payload: void,
 };
 
 type GetDraftData = {
@@ -154,37 +148,32 @@ type GetDraftData = {
 
 type GetDraftDataSubmit = {
   type: 'GET_DRAFT_DATA_SUBMIT',
-  payload: void,
 };
 
 type GetDraftDataSuccess = {
   type: 'GET_DRAFT_DATA_SUCCESS',
-  payload: draft,
+  payload: DraftState,
 };
 
-type GetDraftDataFailure = () => {
+type GetDraftDataFailure = {
   type: 'GET_DRAFT_DATA_FAILURE',
-  payload: void,
 };
 
 type CreateEditorState = {
   type: 'CREATE_EDITOR_STATE',
-  payload: void,
 };
 
 type DeleteEditorState = {
   type: 'DELETE_EDITOR_STATE',
-  payload: void,
 };
 
 type ShowMessage = {
   type: 'SHOW_MESSAGE',
-  payload: messageItem,
+  payload: MessageItem,
 };
 
 type HideMessage = {
   type: 'HIDE_MESSAGE',
-  payload: void,
 };
 
 export type Action =
@@ -214,3 +203,9 @@ export type Action =
   | DeleteEditorState
   | ShowMessage
   | HideMessage;
+
+export type State = BlogState | MessageState | DraftState;
+
+export type Store = ReduxStore<State, Action>;
+
+export type Dispatch = ReduxDispatch<Action>;

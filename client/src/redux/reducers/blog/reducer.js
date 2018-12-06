@@ -8,7 +8,7 @@ import {
   GET_DRAFTS_SUCCESS,
   GET_DRAFTS_FAILURE,
 } from './actions';
-import type { blogState, Action } from '../../../types';
+import type { Action, State } from '../../../types';
 import {
   SAVE_DRAFT_CONTENT_FAILURE,
   GET_DRAFT_DATA_FAILURE,
@@ -26,7 +26,7 @@ const initialState = {
   drafts: [],
 };
 
-export default function(state: blogState = initialState, action: Action) {
+export default function(state: State = initialState, action: Action) {
   const { type, payload } = action;
   switch (type) {
     case CREATE_NEW_DRAFT_SUBMIT:

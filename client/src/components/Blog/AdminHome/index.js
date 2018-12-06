@@ -14,9 +14,9 @@ import messageAction from '../../../redux/reducers/messages/actions';
 // css
 import './AdminHome.Module.scss';
 // types
-import type { adminHomeComponentType } from '../../../types';
+import type { AdminHomeComponentType, Dispatch } from '../../../types';
 
-class Home extends Component<adminHomeComponentType> {
+class Home extends Component<AdminHomeComponentType> {
   componentWillMount() {
     const { getDrafts } = this.props;
     getDrafts();
@@ -88,7 +88,7 @@ const mapStateToProps = ({ blog: { drafts }, message }) => ({
   message,
 });
 
-const mapDispatchToProps = (dispatch: *) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   const { createNewDraft, getDrafts, deleteDraft } = blogActions;
   const { showMessage, hideMessage } = messageAction;
   return bindActionCreators(

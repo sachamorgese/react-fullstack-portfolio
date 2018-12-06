@@ -8,9 +8,9 @@ import PostEditor from '../PostEditor';
 import actions from '../../../redux/reducers/post/actions';
 import './Post.Module.scss';
 
-import type { postComponentType } from '../../../types';
+import type { PostComponentType } from '../../../types';
 
-class Post extends React.Component<postComponentType> {
+class Post extends React.Component<PostComponentType> {
   componentDidMount() {
     const {
       newDraft,
