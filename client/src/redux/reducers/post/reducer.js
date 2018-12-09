@@ -6,35 +6,34 @@ import {
   UPDATE_TITLE,
   GET_DRAFT_DATA_SUCCESS,
 } from './actions';
-import type { Action, State } from '../../../types';
+import type { Action } from '../../../types/action';
+import type { State } from '../../../types/state';
 
 const initialState = {
   title: '',
   content: EditorState.createEmpty(),
   labels: [],
-  publishedPost: '',
   created: '',
 };
 
 export default function(state: State = initialState, action: Action) {
-  const { type, payload } = action;
-  switch (type) {
+  switch (action.type) {
     case UPDATE_EDITOR_STATE:
       return {
         ...state,
-        content: payload,
+        content: action.payload,
       };
     case GET_DRAFT_DATA_SUCCESS:
       return {
         ...state,
-        content: payload.content,
-        labels: payload.labels,
-        title: payload.title,
+        content: action.payload.content,
+        labels: action.payload.labels,
+        title: action.payload.title,
       };
     case UPDATE_TITLE:
       return {
         ...state,
-        title: payload,
+        title: action.payload,
       };
     default:
       return state;

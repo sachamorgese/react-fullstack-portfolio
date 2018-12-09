@@ -6,7 +6,7 @@ const BlogPost = mongoose.model('BlogPost');
 module.exports = (app) => {
   app.post('/api/blog/draft/new', async (req, res) => {
     const { content } = req.body;
-    const draftParams = { content };
+    const draftParams = { content, title: '' };
     try {
       const draft = await new Draft(draftParams).save();
       res.send(draft);
@@ -78,6 +78,15 @@ module.exports = (app) => {
     try {
       const drafts = await Draft.find({}, 'title').exec();
       res.send(drafts);
+    } catch (e) {
+      res.send(e);
+    }
+  });
+
+  app.get('/api/blog/posts', async (req, res) => {
+    try {
+      const posts = await BlogPost.find({}, 'title').exec();
+      res.send(posts);
     } catch (e) {
       res.send(e);
     }

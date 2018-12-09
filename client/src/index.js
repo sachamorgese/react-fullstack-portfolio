@@ -29,10 +29,15 @@ const store = createStore(
 
 sagaMiddleware.run(saga);
 
-ReactDOM.render(
-  <Provider store={store}>
-    <App history={history} />
-  </Provider>,
-  document.getElementById('root'),
-);
+const root = document.getElementById('root');
+
+if (root) {
+  ReactDOM.render(
+    <Provider store={store}>
+      <App history={history} />
+    </Provider>,
+    root,
+  );
+}
+
 registerServiceWorker();

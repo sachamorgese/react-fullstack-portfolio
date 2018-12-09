@@ -1,6 +1,6 @@
 // @flow
 import type { EditorState } from 'draft-js';
-import type { DraftState as draftType } from '../../../types';
+import type { PostState } from '../../../types/state';
 
 export const UPDATE_EDITOR_STATE = 'UPDATE_EDITOR_STATE';
 export const UPDATE_TITLE = 'UPDATE_TITLE';
@@ -14,6 +14,10 @@ export const SAVE_TITLE = 'SAVE_TITLE';
 export const SAVE_TITLE_FAILURE = 'SAVE_TITLE_FAILURE';
 export const CREATE_EDITOR_STATE = 'CREATE_EDITOR_STATE';
 export const DELETE_EDITOR_STATE = 'DELETE_EDITOR_STATE';
+export const POST_BLOGPOST = 'POST_BLOGPOST';
+export const POST_BLOGPOST_SUBMIT = 'POST_BLOGPOST_SUBMIT';
+export const POST_BLOGPOST_SUCCESS = 'POST_BLOGPOST_SUCCESS';
+export const POST_BLOGPOST_FAILURE = 'POST_BLOGPOST_FAILURE';
 
 const updateEditorState = (content: EditorState) => ({
   type: UPDATE_EDITOR_STATE,
@@ -58,7 +62,7 @@ const getDraftDataSubmit = () => ({
   type: GET_DRAFT_DATA_SUBMIT,
 });
 
-const getDraftDataSuccess = (draft: draftType) => ({
+const getDraftDataSuccess = (draft: PostState) => ({
   type: GET_DRAFT_DATA_SUCCESS,
   payload: draft,
 });
@@ -75,6 +79,26 @@ const deleteEditorState = () => ({
   type: DELETE_EDITOR_STATE,
 });
 
+const postBlogPost = (id: string, content: EditorState) => ({
+  type: POST_BLOGPOST,
+  payload: {
+    id,
+    content,
+  },
+});
+
+const postBlogPostSubmit = () => ({
+  type: POST_BLOGPOST_SUBMIT,
+});
+
+const postBlogPostSuccess = () => ({
+  type: POST_BLOGPOST_SUCCESS,
+});
+
+const postBlogPostFailure = () => ({
+  type: POST_BLOGPOST_FAILURE,
+});
+
 export default {
   updateEditorState,
   updateTitle,
@@ -88,4 +112,8 @@ export default {
   getDraftDataFailure,
   createEditorState,
   deleteEditorState,
+  postBlogPost,
+  postBlogPostSubmit,
+  postBlogPostSuccess,
+  postBlogPostFailure,
 };

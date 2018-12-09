@@ -1,5 +1,6 @@
 // @flow
 import React, { Component } from 'react';
+import type { EditorState } from 'draft-js';
 import { RichUtils } from 'draft-js';
 import { withRouter } from 'react-router-dom';
 import Editor from 'draft-js-plugins-editor';
@@ -7,13 +8,11 @@ import createEmojiPlugin from 'draft-js-emoji-plugin';
 import createAlignmentPlugin from 'draft-js-alignment-plugin';
 import debounce from 'lodash/debounce';
 
-import type { EditorState } from 'draft-js';
-import { history } from 'react-router-dom';
-
 import draftPlugins from '../DraftPlugins';
 import 'draft-js-emoji-plugin/lib/plugin.css';
 import 'draft-js-alignment-plugin/lib/plugin.css';
 import './PostEditor.Module.scss';
+import type { PostEditorType } from '../../../types/component';
 
 const alignmentPlugin = createAlignmentPlugin();
 const { AlignmentTool } = alignmentPlugin;
@@ -21,15 +20,7 @@ const { AlignmentTool } = alignmentPlugin;
 const emojiPlugin = createEmojiPlugin();
 const { EmojiSuggestions } = emojiPlugin;
 
-type props = {
-  updateEditorState: Function,
-  editorState: EditorState,
-  saveDraftContent: Function,
-  id: string,
-  history: string,
-};
-
-class PostEditor extends Component<props> {
+class PostEditor extends Component<PostEditorType> {
   saveOnServer = debounce((editorState) => {
     const { saveDraftContent, id } = this.props;
     saveDraftContent(id, editorState);
@@ -73,6 +64,12 @@ class PostEditor extends Component<props> {
     this.onChange(RichUtils.toggleCode(editorState));
   };
 
+  handlePostBlogPost = () => {
+    this.saveOnServer.cancel();
+    const { postBlogPost, id, editorState } = this.props;
+    postBlogPost(id, editorState);
+  };
+
   render() {
     const { editorState } = this.props;
     return (
@@ -98,15 +95,19 @@ class PostEditor extends Component<props> {
         <button type="button" onClick={this.onToggleCode}>
           Code Block
         </button>
+        <button
+          className="post-button"
+          type="button"
+          onClick={this.handlePostBlogPost}
+        >
+          Post
+        </button>
         <Editor
           editorState={editorState}
           onChange={this.onChange}
           handleKeyCommand={this.handleKeyCommand}
           plugins={draftPlugins}
         />
-        {/* <button type="button" onClick={handlePost}> */}
-        {/* Post! */}
-        {/* </button> */}
         <EmojiSuggestions />
         <AlignmentTool />
       </div>

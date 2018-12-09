@@ -3,23 +3,21 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 // components
-import PopUp from '../PopUp';
+import LinksList from '../LinksList';
 // actions
 import blogActions from '../../../redux/reducers/blog/actions';
 import messageAction from '../../../redux/reducers/messages/actions';
 // css
 import './AdminHome.Module.scss';
 // types
-import type { AdminHomeComponentType, Dispatch } from '../../../types';
+import type { AdminHomeComponentType } from '../../../types/component';
+import type { Dispatch } from '../../../types/state';
 
 class Home extends Component<AdminHomeComponentType> {
   componentWillMount() {
-    const { getDrafts } = this.props;
-    getDrafts();
+    const { getAllPosts } = this.props;
+    getAllPosts();
   }
 
   onDeleteClick = (name, index) => {
@@ -37,64 +35,50 @@ class Home extends Component<AdminHomeComponentType> {
       hideMessage,
       deleteDraft,
       drafts,
-      message: { item },
+      blogPosts,
+      message: { item: messageItem },
     } = this.props;
     return (
       <>
         <button className="NewPost" type="button" onClick={createNewDraft}>
           New Post
         </button>
-        <span className="ListLabel">Drafts</span>
-        <ul>
-          {drafts.map((dr, index) => {
-            const { title, _id: id } = dr;
-            const url = `/blog/draft/${id}`;
-            const name = 'drafts';
-            const popUpClass =
-              item.name === name && item.index === index
-                ? 'PopUp Show'
-                : 'PopUp';
-            return (
-              <li className="LinksListItem" key={id}>
-                <Link to={url}>{title || 'untitled'}</Link>
-                <div className="TrashContainer">
-                  <PopUp
-                    popUpClass={popUpClass}
-                    onClickYes={() => deleteDraft(id)}
-                    onClickNo={hideMessage}
-                  >
-                    <span>Do you want to delete</span>
-                    <br />
-                    <span>{`"${title || 'untitled'}"?`}</span>
-                  </PopUp>
-                  <button
-                    type="button"
-                    onClick={() => this.onDeleteClick(name, index)}
-                  >
-                    <FontAwesomeIcon color="white" icon={faTrashAlt} />
-                  </button>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
+        <LinksList
+          listName="Drafts"
+          listArray={drafts}
+          messageItem={messageItem}
+          deleteDraft={deleteDraft}
+          hideMessage={hideMessage}
+          onDeleteClick={this.onDeleteClick}
+          linkType="draft"
+        />
+        <LinksList
+          listName="Posts"
+          listArray={blogPosts}
+          messageItem={messageItem}
+          deleteDraft={deleteDraft}
+          hideMessage={hideMessage}
+          onDeleteClick={this.onDeleteClick}
+          linkType="post"
+        />
       </>
     );
   }
 }
 
-const mapStateToProps = ({ blog: { drafts }, message }) => ({
+const mapStateToProps = ({ blog: { drafts, blogPosts }, message }) => ({
   drafts,
+  blogPosts,
   message,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
-  const { createNewDraft, getDrafts, deleteDraft } = blogActions;
+  const { createNewDraft, getAllPosts, deleteDraft } = blogActions;
   const { showMessage, hideMessage } = messageAction;
   return bindActionCreators(
     {
       createNewDraft,
-      getDrafts,
+      getAllPosts,
       showMessage,
       hideMessage,
       deleteDraft,

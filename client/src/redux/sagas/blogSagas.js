@@ -1,30 +1,44 @@
 // @flow
-import { put, takeLatest, call } from 'redux-saga/effects';
+import { put, takeLatest, call, all } from 'redux-saga/effects';
 import { EditorState, convertToRaw } from 'draft-js';
 import { push } from 'connected-react-router';
 
 import blogActions, {
   CREATE_NEW_DRAFT,
-  GET_DRAFTS,
+  GET_ALL_POSTS,
   DELETE_DRAFT,
 } from '../reducers/blog/actions';
+
+import postActions, { POST_BLOGPOST } from '../reducers/post/actions';
+
 import messageActions from '../reducers/messages/actions';
 
 const {
   createNewDraftSubmit,
   createNewDraftSuccess,
   createNewDraftFailure,
-  getDraftsSubmit,
+  getAllPostsSubmit,
   getDraftsSuccess,
   getDraftsFailure,
   deleteDraftSubmit,
   deleteDraftSuccess,
   deleteDraftFailure,
+  getBlogPostsSuccess,
+  getBlogPostsFailure,
 } = blogActions;
 
-const baseUrl = `${window.location.origin}/api/blog`;
+const {
+  postBlogPostSubmit,
+  postBlogPostSuccess,
+  postBlogPostFailure,
+} = postActions;
 
-function* createNewDraftGenerator() {
+const baseUrl = `${window.location.origin}/api/blog`;
+const headers = {
+  'Content-Type': 'application/json',
+};
+
+function* createNewDraftGenerator(): any {
   yield put(createNewDraftSubmit());
   const emptyState = EditorState.createEmpty();
   const body = JSON.stringify(convertToRaw(emptyState.getCurrentContent()));
@@ -34,9 +48,7 @@ function* createNewDraftGenerator() {
   try {
     const res = yield fetch(url, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers,
       body: content,
     });
     if (res.status === 200) {
@@ -53,9 +65,8 @@ function* createNewDraftGenerator() {
   }
 }
 
-function* getDraftsGenerator() {
+function* getDraftsGenerator(): any {
   try {
-    yield put(getDraftsSubmit());
     const url = `${baseUrl}/drafts`;
     const res = yield fetch(url);
     if (res.status === 200) {
@@ -69,15 +80,28 @@ function* getDraftsGenerator() {
   }
 }
 
-function* deleteDraftGenerator(id) {
+function* getBlogPostsGenerator(): any {
+  try {
+    const url = `${baseUrl}/posts`;
+    const res = yield fetch(url);
+    if (res.status === 200) {
+      const body = yield res.json();
+      yield put(getBlogPostsSuccess(body));
+    } else {
+      yield put(getBlogPostsFailure());
+    }
+  } catch (e) {
+    yield put(getBlogPostsFailure());
+  }
+}
+
+function* deleteDraftGenerator(id): any {
   try {
     yield put(deleteDraftSubmit());
     const url = `${baseUrl}/draft/${id}`;
     const res = yield fetch(url, {
       method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers,
     });
     if (res === 200) {
       yield put(deleteDraftSuccess());
@@ -92,15 +116,47 @@ function* deleteDraftGenerator(id) {
   }
 }
 
-function* deleteDraftHandlerGenerator({ payload: id }) {
+function* deleteDraftHandlerGenerator({ payload: id }): any {
   yield call(deleteDraftGenerator, id);
   yield call(getDraftsGenerator);
 }
 
+function* postBlogPostGenerator({ payload: { id, content } }): any {
+  try {
+    yield put(postBlogPostSubmit());
+    const url = `${baseUrl}/post/new`;
+    const rawContent = JSON.stringify(
+      convertToRaw(content.getCurrentContent()),
+    );
+    const body = JSON.stringify({ id, content: rawContent });
+    const res = yield fetch(url, {
+      method: 'POST',
+      headers,
+      body,
+    });
+    if (res.status === 200) {
+      yield put(postBlogPostSuccess());
+      const resBody = yield res.json();
+      yield put(push(`/`));
+      // yield put(push(`/blog/post/${_id}`));
+    } else {
+      yield put(postBlogPostFailure());
+    }
+  } catch (e) {
+    yield put(postBlogPostFailure());
+  }
+}
+
+function* handleGetAllPosts(): any {
+  yield put(getAllPostsSubmit());
+  yield all([getDraftsGenerator(), getBlogPostsGenerator()]);
+}
+
 const blog = [
   takeLatest(CREATE_NEW_DRAFT, createNewDraftGenerator),
-  takeLatest(GET_DRAFTS, getDraftsGenerator),
+  takeLatest(GET_ALL_POSTS, handleGetAllPosts),
   takeLatest(DELETE_DRAFT, deleteDraftHandlerGenerator),
+  takeLatest(POST_BLOGPOST, postBlogPostGenerator),
 ];
 
 export default blog;

@@ -14,13 +14,15 @@ const {
   getDraftDataFailure,
   getDraftDataSuccess,
   saveTitleFailure,
-  saveDraftContent,
   saveDraftContentFailure,
 } = actions;
 
 const baseUrl = `${window.location.origin}/api/blog`;
+const headers = {
+  'Content-Type': 'application/json',
+};
 
-function* getDraftDataGenerator({ payload: id }) {
+function* getDraftDataGenerator({ payload: id }): any {
   yield put(getDraftDataSubmit());
   try {
     const res = yield call(fetch, `${baseUrl}/draft/${id}`);
@@ -53,7 +55,7 @@ function* getDraftDataGenerator({ payload: id }) {
   }
 }
 
-function* saveDraftContentGenerator({ payload: { id, editorState } }) {
+function* saveDraftContentGenerator({ payload: { id, editorState } }): any {
   try {
     const url = `${baseUrl}/draft/${id}/content`;
     const rawContent = JSON.stringify(
@@ -64,9 +66,7 @@ function* saveDraftContentGenerator({ payload: { id, editorState } }) {
     });
     const res = yield fetch(url, {
       method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers,
       body,
     });
     if (res.status === 200) {
@@ -77,14 +77,13 @@ function* saveDraftContentGenerator({ payload: { id, editorState } }) {
         date: Date.now(),
       };
       window.localStorage.setItem('content', JSON.stringify(content));
-      yield put(saveDraftContent());
     }
   } catch (e) {
     yield put(saveDraftContentFailure());
   }
 }
 
-function* saveTitleGenerator({ payload: { id, title } }) {
+function* saveTitleGenerator({ payload: { id, title } }): any {
   try {
     const url = `${baseUrl}/draft/${id}/title`;
     const body = JSON.stringify({
@@ -92,9 +91,7 @@ function* saveTitleGenerator({ payload: { id, title } }) {
     });
     yield fetch(url, {
       method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers,
       body,
     });
   } catch (e) {
