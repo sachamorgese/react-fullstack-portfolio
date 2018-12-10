@@ -1,5 +1,5 @@
-import PostEditor from './PostEditor';
-import Post from './Post';
+import Draft from './Draft';
 import AdminHome from './AdminHome';
+import BlogPost from './BlogPost';
 
-export { PostEditor, Post, AdminHome };
+export { BlogPost, Draft, AdminHome };
