@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 
 import PostEditor from '../PostEditor';
 import actions from '../../../redux/reducers/post/actions';
-import './Post.Module.scss';
+import './Draft.Module.scss';
 
 import type { PostComponentType } from '../../../types/component';
 
