@@ -1,7 +1,7 @@
 import type { EditorState as EditorStateType } from 'draft-js';
 import type { MessageItem, MessageState, PostItem } from './state';
 
-export type PostComponentType = {
+export type DraftComponentType = {
   editorState: EditorStateType,
   newDraft: boolean,
   title: string,

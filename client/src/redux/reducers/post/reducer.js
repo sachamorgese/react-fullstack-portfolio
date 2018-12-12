@@ -5,6 +5,7 @@ import {
   UPDATE_EDITOR_STATE,
   UPDATE_TITLE,
   GET_DRAFT_DATA_SUCCESS,
+  GET_BLOGPOST_DATA_SUCCESS,
 } from './actions';
 import type { Action } from '../../../types/action';
 import type { State } from '../../../types/state';
@@ -34,6 +35,13 @@ export default function(state: State = initialState, action: Action) {
       return {
         ...state,
         title: action.payload,
+      };
+    case GET_BLOGPOST_DATA_SUCCESS:
+      return {
+        ...state,
+        content: action.payload.content,
+        labels: action.payload.labels,
+        title: action.payload.title,
       };
     default:
       return state;

@@ -18,17 +18,19 @@ export const POST_BLOGPOST = 'POST_BLOGPOST';
 export const POST_BLOGPOST_SUBMIT = 'POST_BLOGPOST_SUBMIT';
 export const POST_BLOGPOST_SUCCESS = 'POST_BLOGPOST_SUCCESS';
 export const POST_BLOGPOST_FAILURE = 'POST_BLOGPOST_FAILURE';
+export const GET_BLOGPOST_DATA = 'GET_BLOGPOST_DATA';
+export const GET_BLOGPOST_DATA_SUBMIT = 'GET_BLOGPOST_DATA_SUBMIT';
+export const GET_BLOGPOST_DATA_SUCCESS = 'GET_BLOGPOST_DATA_SUCCESS';
+export const GET_BLOGPOST_DATA_FAILURE = 'GET_BLOGPOST_DATA_FAILURE';
 
 const updateEditorState = (content: EditorState) => ({
   type: UPDATE_EDITOR_STATE,
   payload: content,
 });
-
 const updateTitle = (payload: string) => ({
   type: UPDATE_TITLE,
   payload,
 });
-
 const saveDraftContent = (id: string, editorState: EditorState) => ({
   type: SAVE_DRAFT_CONTENT,
   payload: {
@@ -36,11 +38,9 @@ const saveDraftContent = (id: string, editorState: EditorState) => ({
     editorState,
   },
 });
-
 const saveDraftContentFailure = () => ({
   type: SAVE_DRAFT_CONTENT_FAILURE,
 });
-
 const saveTitle = (id: string, title: string) => ({
   type: SAVE_TITLE,
   payload: {
@@ -48,16 +48,13 @@ const saveTitle = (id: string, title: string) => ({
     title,
   },
 });
-
 const saveTitleFailure = () => ({
   type: SAVE_TITLE_FAILURE,
 });
-
 const getDraftData = (payload: string) => ({
   type: GET_DRAFT_DATA,
   payload,
 });
-
 const getDraftDataSubmit = () => ({
   type: GET_DRAFT_DATA_SUBMIT,
 });
@@ -66,7 +63,6 @@ const getDraftDataSuccess = (draft: PostState) => ({
   type: GET_DRAFT_DATA_SUCCESS,
   payload: draft,
 });
-
 const getDraftDataFailure = () => ({
   type: GET_DRAFT_DATA_FAILURE,
 });
@@ -78,7 +74,6 @@ const createEditorState = () => ({
 const deleteEditorState = () => ({
   type: DELETE_EDITOR_STATE,
 });
-
 const postBlogPost = (id: string, content: EditorState) => ({
   type: POST_BLOGPOST,
   payload: {
@@ -86,17 +81,31 @@ const postBlogPost = (id: string, content: EditorState) => ({
     content,
   },
 });
-
 const postBlogPostSubmit = () => ({
   type: POST_BLOGPOST_SUBMIT,
 });
-
 const postBlogPostSuccess = () => ({
   type: POST_BLOGPOST_SUCCESS,
 });
-
 const postBlogPostFailure = () => ({
   type: POST_BLOGPOST_FAILURE,
+});
+const getBlogPostData = (payload: string) => ({
+  type: GET_BLOGPOST_DATA,
+  payload,
+});
+
+const getBlogPostDataSubmit = () => ({
+  type: GET_BLOGPOST_DATA_SUBMIT,
+});
+
+const getBlogPostDataSuccess = (blogPost: PostState) => ({
+  type: GET_BLOGPOST_DATA_SUCCESS,
+  payload: blogPost,
+});
+
+const getBlogPostDataFailure = () => ({
+  type: GET_BLOGPOST_DATA_FAILURE,
 });
 
 export default {
@@ -116,4 +125,8 @@ export default {
   postBlogPostSubmit,
   postBlogPostSuccess,
   postBlogPostFailure,
+  getBlogPostData,
+  getBlogPostDataSubmit,
+  getBlogPostDataSuccess,
+  getBlogPostDataFailure,
 };

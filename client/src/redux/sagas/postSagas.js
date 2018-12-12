@@ -4,6 +4,7 @@ import { replace } from 'connected-react-router';
 import { convertFromRaw, convertToRaw, EditorState } from 'draft-js';
 import { put, takeLatest, call } from 'redux-saga/effects';
 import actions, {
+  GET_BLOGPOST_DATA,
   GET_DRAFT_DATA,
   SAVE_DRAFT_CONTENT,
   SAVE_TITLE,
@@ -15,6 +16,9 @@ const {
   getDraftDataSuccess,
   saveTitleFailure,
   saveDraftContentFailure,
+  getBlogPostDataSubmit,
+  getBlogPostDataSuccess,
+  getBlogPostDataFailure,
 } = actions;
 
 const baseUrl = `${window.location.origin}/api/blog`;
@@ -48,10 +52,13 @@ function* getDraftDataGenerator({ payload: id }): any {
       };
 
       yield put(getDraftDataSuccess(payload));
+    } else {
+      yield put(getDraftDataFailure());
+      yield put(replace('/'));
     }
   } catch (e) {
-    yield put(replace('/'));
     yield put(getDraftDataFailure());
+    yield put(replace('/'));
   }
 }
 
@@ -99,10 +106,37 @@ function* saveTitleGenerator({ payload: { id, title } }): any {
   }
 }
 
+function* getBlogPostDataGenerator({ payload: id }): any {
+  yield put(getBlogPostDataSubmit());
+  try {
+    const res = yield call(fetch, `${baseUrl}/post/${id}`);
+    if (res.status === 200 || res.status === 304) {
+      const body = yield res.json();
+      const bodyContent = JSON.parse(body.content);
+      const content = EditorState.createWithContent(
+        convertFromRaw(bodyContent),
+      );
+      const payload = {
+        ...body,
+        content,
+      };
+
+      yield put(getBlogPostDataSuccess(payload));
+    } else {
+      yield put(getBlogPostDataFailure());
+      yield put(replace('/'));
+    }
+  } catch (e) {
+    yield put(getBlogPostDataFailure());
+    yield put(replace('/'));
+  }
+}
+
 const post = [
   takeLatest(GET_DRAFT_DATA, getDraftDataGenerator),
   takeLatest(SAVE_DRAFT_CONTENT, saveDraftContentGenerator),
   takeLatest(SAVE_TITLE, saveTitleGenerator),
+  takeLatest(GET_BLOGPOST_DATA, getBlogPostDataGenerator),
 ];
 
 export default post;

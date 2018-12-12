@@ -18,6 +18,9 @@ import {
   GET_DRAFT_DATA_SUCCESS,
   POST_BLOGPOST_SUBMIT,
   POST_BLOGPOST_FAILURE,
+  GET_BLOGPOST_DATA_SUBMIT,
+  GET_BLOGPOST_DATA_FAILURE,
+  GET_BLOGPOST_DATA_SUCCESS,
 } from '../post/actions';
 import type { State } from '../../../types/state';
 
@@ -25,8 +28,6 @@ const initialState = {
   newDraft: false,
   creating: false,
   loading: false,
-  postId: '',
-  draftId: '',
   failed: false,
   drafts: [],
   blogPosts: [],
@@ -57,11 +58,13 @@ export default function(state: State = initialState, action: Action) {
     case GET_DRAFT_DATA_SUBMIT:
     case POST_BLOGPOST_SUBMIT:
     case GET_ALL_POSTS_SUBMIT:
+    case GET_BLOGPOST_DATA_SUBMIT:
       return {
         ...state,
         loading: true,
       };
     case GET_DRAFT_DATA_SUCCESS:
+    case GET_BLOGPOST_DATA_SUCCESS:
       return {
         ...state,
         loading: false,
@@ -71,6 +74,7 @@ export default function(state: State = initialState, action: Action) {
     case GET_DRAFTS_FAILURE:
     case GET_BLOGPOSTS_FAILURE:
     case POST_BLOGPOST_FAILURE:
+    case GET_BLOGPOST_DATA_FAILURE:
       return {
         ...state,
         loading: false,

@@ -109,4 +109,14 @@ module.exports = (app) => {
       res.send(e);
     }
   });
+
+  app.get('/api/blog/post/:postId', async (req, res) => {
+    const { postId } = req.params;
+    try {
+      const blogPost = await BlogPost.findById(postId).exec();
+      res.send(blogPost);
+    } catch (e) {
+      res.send(e);
+    }
+  });
 };

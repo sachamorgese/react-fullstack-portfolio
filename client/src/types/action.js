@@ -122,6 +122,20 @@ type PostBlogPostSuccess = {
 type PostBlogPostFailure = {
   type: 'POST_BLOGPOST_FAILURE',
 };
+type GetBlogPostData = {
+  type: 'GET_BLOGPOST_DATA',
+  payload: string,
+};
+type GetBlogPostDataSubmit = {
+  type: 'GET_BLOGPOST_DATA_SUBMIT',
+};
+type GetBlogPostDataSuccess = {
+  type: 'GET_BLOGPOST_DATA_SUCCESS',
+  payload: PostState,
+};
+type GetBlogPostDataFailure = {
+  type: 'GET_BLOGPOST_DATA_FAILURE',
+};
 
 export type Action =
   | CreateNewDraft
@@ -156,4 +170,8 @@ export type Action =
   | PostBlogPost
   | PostBlogPostSubmit
   | PostBlogPostSuccess
-  | PostBlogPostFailure;
+  | PostBlogPostFailure
+  | GetBlogPostData
+  | GetBlogPostDataSubmit
+  | GetBlogPostDataSuccess
+  | GetBlogPostDataFailure;
