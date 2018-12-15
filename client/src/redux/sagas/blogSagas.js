@@ -136,9 +136,8 @@ function* postBlogPostGenerator({ payload: { id, content } }): any {
     });
     if (res.status === 200) {
       yield put(postBlogPostSuccess());
-      const resBody = yield res.json();
-      yield put(push(`/`));
-      // yield put(push(`/blog/post/${_id}`));
+      const { _id } = yield res.json();
+      yield put(push(`/blog/post/${_id}`));
     } else {
       yield put(postBlogPostFailure());
     }

@@ -2,9 +2,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import Editor from 'draft-js-plugins-editor';
+import 'draft-js/dist/Draft.css';
 
+import BackButton from '../BackButton';
 import actions from '../../../redux/reducers/post/actions';
-import './BlogPost.module.scss';
+import './BlogPost.Module.scss';
 
 import type { DraftComponentType } from '../../../types/component';
 
@@ -20,12 +23,15 @@ class Post extends React.Component<DraftComponentType> {
   }
 
   render() {
-    const { content, title } = this.props;
+    const { content, title, history } = this.props;
     return (
-      <>
+      <div className="BlogPost">
+        <BackButton history={history} />
         <h1>{title}</h1>
-        <div className="BlogPostBody">Bob</div>
-      </>
+        <div className="BlogPostBody">
+          <Editor editorState={content} onChange={() => {}} readonly />
+        </div>
+      </div>
     );
   }
 }

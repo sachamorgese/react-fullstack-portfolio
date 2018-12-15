@@ -1,0 +1,25 @@
+.BlogPost {
+  width: 980px;
+  margin: 1em auto;
+  height: 100%;
+  position: relative;
+
+  h1 {
+    color: #fff;
+  }
+
+  &Body {
+    left: 0;
+    right: 0;
+    height: 80%;
+    margin: auto;
+    border-radius: .3em;
+    padding: 1em;
+    width: 980px;
+    position: relative;
+    box-sizing: border-box;
+    font-family: 'Merriweather', Georgia, serif;
+    color: transparent;
+    text-shadow: 0 0 0 #fff;
+  }
+}

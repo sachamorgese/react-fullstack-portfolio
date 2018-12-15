@@ -8,6 +8,7 @@ import actions from '../../../redux/reducers/post/actions';
 import './Draft.Module.scss';
 
 import type { DraftComponentType } from '../../../types/component';
+import BackButton from '../BackButton';
 
 class Post extends React.Component<DraftComponentType> {
   componentDidMount() {
@@ -46,15 +47,17 @@ class Post extends React.Component<DraftComponentType> {
       title,
       failed,
       postBlogPost,
+      history,
       match: {
         params: { id },
       },
     } = this.props;
     return (
-      <>
+      <div className="Draft--root">
+        <BackButton history={history} />
         <input
           placeholder="Title"
-          className="title-box"
+          className="TitleBox"
           value={title}
           onChange={this.onChange}
           onBlur={this.onBlur}
@@ -64,10 +67,11 @@ class Post extends React.Component<DraftComponentType> {
           updateEditorState={updateEditorState}
           saveDraftContent={saveDraftContent}
           postBlogPost={postBlogPost}
+          history={history}
           id={id}
           failed={failed}
         />
-      </>
+      </div>
     );
   }
 }

@@ -1,10 +1,16 @@
-.title-box {
-  box-sizing: border-box;
-  border: 0;
-  display: block;
+.Draft--root {
+  height: 100%;
   margin: 0 auto;
   width: 980px;
-  border-radius: .3em;
-  font-size: 1.5em;
-  padding: .5em;
+  position: relative;
+
+  .TitleBox {
+    box-sizing: border-box;
+    border: 0;
+    display: block;
+    border-radius: .3em;
+    font-size: 1.5em;
+    padding: .5em;
+    width: 100%
+  }
 }
