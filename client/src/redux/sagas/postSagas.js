@@ -4,7 +4,7 @@ import { replace } from 'connected-react-router';
 import { convertFromRaw, convertToRaw, EditorState } from 'draft-js';
 import { put, takeLatest, call } from 'redux-saga/effects';
 import actions, {
-  GET_BLOGPOST_DATA,
+  GET_BLOG_POST_DATA,
   GET_DRAFT_DATA,
   SAVE_DRAFT_CONTENT,
   SAVE_TITLE,
@@ -136,7 +136,7 @@ const post = [
   takeLatest(GET_DRAFT_DATA, getDraftDataGenerator),
   takeLatest(SAVE_DRAFT_CONTENT, saveDraftContentGenerator),
   takeLatest(SAVE_TITLE, saveTitleGenerator),
-  takeLatest(GET_BLOGPOST_DATA, getBlogPostDataGenerator),
+  takeLatest(GET_BLOG_POST_DATA, getBlogPostDataGenerator),
 ];
 
 export default post;

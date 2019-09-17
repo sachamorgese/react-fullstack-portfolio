@@ -15,7 +15,7 @@ import type { AdminHomeComponentType } from '../../../types/component';
 import type { Dispatch } from '../../../types/state';
 
 class Home extends Component<AdminHomeComponentType> {
-  componentWillMount() {
+  componentDidMount() {
     const { getAllPosts } = this.props;
     getAllPosts();
   }
@@ -34,6 +34,7 @@ class Home extends Component<AdminHomeComponentType> {
       createNewDraft,
       hideMessage,
       deleteDraft,
+      deleteBlogPost,
       drafts,
       blogPosts,
       message: { item: messageItem },
@@ -47,7 +48,7 @@ class Home extends Component<AdminHomeComponentType> {
           listName="Drafts"
           listArray={drafts}
           messageItem={messageItem}
-          deleteDraft={deleteDraft}
+          deleteEntry={deleteDraft}
           hideMessage={hideMessage}
           onDeleteClick={this.onDeleteClick}
           linkType="draft"
@@ -56,7 +57,7 @@ class Home extends Component<AdminHomeComponentType> {
           listName="Posts"
           listArray={blogPosts}
           messageItem={messageItem}
-          deleteDraft={deleteDraft}
+          deleteEntry={deleteBlogPost}
           hideMessage={hideMessage}
           onDeleteClick={this.onDeleteClick}
           linkType="post"
@@ -73,7 +74,7 @@ const mapStateToProps = ({ blog: { drafts, blogPosts }, message }) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
-  const { createNewDraft, getAllPosts, deleteDraft } = blogActions;
+  const { createNewDraft, getAllPosts, deleteDraft, deleteBlogPost } = blogActions;
   const { showMessage, hideMessage } = messageAction;
   return bindActionCreators(
     {
@@ -82,6 +83,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
       showMessage,
       hideMessage,
       deleteDraft,
+      deleteBlogPost,
     },
     dispatch,
   );

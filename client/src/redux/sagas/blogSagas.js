@@ -5,11 +5,12 @@ import { push } from 'connected-react-router';
 
 import blogActions, {
   CREATE_NEW_DRAFT,
-  GET_ALL_POSTS,
+  GET_ALL_BLOG_POSTS,
   DELETE_DRAFT,
+  DELETE_BLOG_POST,
 } from '../reducers/blog/actions';
 
-import postActions, { POST_BLOGPOST } from '../reducers/post/actions';
+import postActions, { POST_BLOG_POST } from '../reducers/post/actions';
 
 import messageActions from '../reducers/messages/actions';
 
@@ -25,6 +26,9 @@ const {
   deleteDraftFailure,
   getBlogPostsSuccess,
   getBlogPostsFailure,
+  deleteBlogPostSubmit,
+  deleteBlogPostSuccess,
+  deleteBlogPostFailure,
 } = blogActions;
 
 const {
@@ -121,6 +125,32 @@ function* deleteDraftHandlerGenerator({ payload: id }): any {
   yield call(getDraftsGenerator);
 }
 
+function* deleteBlogPostGenerator(id): any {
+  try {
+    yield put(deleteBlogPostSubmit());
+    const url = `${baseUrl}/post/${id}`;
+    const res = yield fetch(url, {
+      method: 'DELETE',
+      headers,
+    });
+    if (res === 200) {
+      yield put(deleteBlogPostSuccess());
+      yield put(messageActions.hideMessage());
+    } else {
+      yield put(deleteBlogPostFailure());
+      yield put(messageActions.hideMessage());
+    }
+  } catch (e) {
+    yield put(deleteBlogPostFailure());
+    yield put(messageActions.hideMessage());
+  }
+}
+
+function* deleteBlogPostHandlerGenerator({ payload: id }): any {
+  yield call(deleteBlogPostGenerator, id);
+  yield call(getBlogPostsGenerator);
+}
+
 function* postBlogPostGenerator({ payload: { id, content } }): any {
   try {
     yield put(postBlogPostSubmit());
@@ -153,9 +183,10 @@ function* handleGetAllPosts(): any {
 
 const blog = [
   takeLatest(CREATE_NEW_DRAFT, createNewDraftGenerator),
-  takeLatest(GET_ALL_POSTS, handleGetAllPosts),
+  takeLatest(GET_ALL_BLOG_POSTS, handleGetAllPosts),
   takeLatest(DELETE_DRAFT, deleteDraftHandlerGenerator),
-  takeLatest(POST_BLOGPOST, postBlogPostGenerator),
+  takeLatest(DELETE_BLOG_POST, deleteBlogPostHandlerGenerator),
+  takeLatest(POST_BLOG_POST, postBlogPostGenerator),
 ];
 
 export default blog;

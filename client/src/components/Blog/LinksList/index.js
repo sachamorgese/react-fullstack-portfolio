@@ -11,7 +11,7 @@ export default function(props: LinksListType) {
     listName,
     listArray,
     messageItem,
-    deleteDraft,
+    deleteEntry,
     hideMessage,
     onDeleteClick,
     linkType,
@@ -35,7 +35,7 @@ export default function(props: LinksListType) {
                 <div className="TrashContainer">
                   <PopUp
                     popUpClass={popUpClass}
-                    onClickYes={() => deleteDraft(id)}
+                    onClickYes={() => deleteEntry(id)}
                     onClickNo={hideMessage}
                   >
                     <span>Do you want to delete</span>

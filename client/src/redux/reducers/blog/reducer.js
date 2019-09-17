@@ -4,11 +4,11 @@ import {
   CREATE_NEW_DRAFT_SUBMIT,
   CREATE_NEW_DRAFT_SUCCESS,
   CREATE_NEW_DRAFT_FAILURE,
-  GET_ALL_POSTS_SUBMIT,
+  GET_ALL_BLOG_POSTS_SUBMIT,
   GET_DRAFTS_SUCCESS,
   GET_DRAFTS_FAILURE,
-  GET_BLOGPOSTS_SUCCESS,
-  GET_BLOGPOSTS_FAILURE,
+  GET_BLOG_POSTS_SUCCESS,
+  GET_BLOG_POSTS_FAILURE,
 } from './actions';
 import type { Action } from '../../../types/action';
 import {
@@ -16,11 +16,11 @@ import {
   GET_DRAFT_DATA_FAILURE,
   GET_DRAFT_DATA_SUBMIT,
   GET_DRAFT_DATA_SUCCESS,
-  POST_BLOGPOST_SUBMIT,
-  POST_BLOGPOST_FAILURE,
-  GET_BLOGPOST_DATA_SUBMIT,
-  GET_BLOGPOST_DATA_FAILURE,
-  GET_BLOGPOST_DATA_SUCCESS,
+  POST_BLOG_POST_SUBMIT,
+  POST_BLOG_POST_FAILURE,
+  GET_BLOG_POST_DATA_SUBMIT,
+  GET_BLOG_POST_DATA_FAILURE,
+  GET_BLOG_POST_DATA_SUCCESS,
 } from '../post/actions';
 import type { State } from '../../../types/state';
 
@@ -56,15 +56,15 @@ export default function(state: State = initialState, action: Action) {
         error: true,
       };
     case GET_DRAFT_DATA_SUBMIT:
-    case POST_BLOGPOST_SUBMIT:
-    case GET_ALL_POSTS_SUBMIT:
-    case GET_BLOGPOST_DATA_SUBMIT:
+    case POST_BLOG_POST_SUBMIT:
+    case GET_ALL_BLOG_POSTS_SUBMIT:
+    case GET_BLOG_POST_DATA_SUBMIT:
       return {
         ...state,
         loading: true,
       };
     case GET_DRAFT_DATA_SUCCESS:
-    case GET_BLOGPOST_DATA_SUCCESS:
+    case GET_BLOG_POST_DATA_SUCCESS:
       return {
         ...state,
         loading: false,
@@ -72,9 +72,9 @@ export default function(state: State = initialState, action: Action) {
       };
     case GET_DRAFT_DATA_FAILURE:
     case GET_DRAFTS_FAILURE:
-    case GET_BLOGPOSTS_FAILURE:
-    case POST_BLOGPOST_FAILURE:
-    case GET_BLOGPOST_DATA_FAILURE:
+    case GET_BLOG_POSTS_FAILURE:
+    case POST_BLOG_POST_FAILURE:
+    case GET_BLOG_POST_DATA_FAILURE:
       return {
         ...state,
         loading: false,
@@ -92,7 +92,7 @@ export default function(state: State = initialState, action: Action) {
         failed: false,
         drafts: action.payload,
       };
-    case GET_BLOGPOSTS_SUCCESS:
+    case GET_BLOG_POSTS_SUCCESS:
       return {
         ...state,
         loading: false,

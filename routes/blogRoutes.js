@@ -1,3 +1,5 @@
+// REFACTOR BOTH BLOG AND DRAFT ROUTES TO REDUCE REPETITION
+
 const mongoose = require('mongoose');
 
 const Draft = mongoose.model('Draft');
@@ -115,6 +117,16 @@ module.exports = (app) => {
     try {
       const blogPost = await BlogPost.findById(postId).exec();
       res.send(blogPost);
+    } catch (e) {
+      res.send(e);
+    }
+  });
+
+  app.delete('/api/blog/post/:postId', async (req, res) => {
+    const { postId } = req.params;
+    try {
+      await BlogPost.findByIdAndDelete(postId).exec();
+      res.send(`Deleted`);
     } catch (e) {
       res.send(e);
     }

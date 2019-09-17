@@ -8,7 +8,8 @@ require('./models');
 
 mongoose.connect(
   keys.mongoURI,
-  { useNewUrlParser: true },
+  { useNewUrlParser: true, useUnifiedTopology: true },
+  // eslint-disable-next-line no-console
   (error) => console.log(error),
 );
 
