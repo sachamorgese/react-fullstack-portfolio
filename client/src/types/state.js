@@ -30,5 +30,14 @@ export type MessageState = {
   show: boolean,
   item: MessageItem,
 };
-export type State = BlogState | MessageState | PostState;
+
+export type AuthState = {
+  isLoading: boolean,
+  isLoggedIn: boolean,
+  role: string,
+  name: string,
+  email: string,
+};
+
+export type State = BlogState | MessageState | PostState | AuthState;
 export type Dispatch = ReduxDispatch<Action>;

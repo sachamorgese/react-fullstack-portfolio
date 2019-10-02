@@ -13,6 +13,10 @@ import type { DraftComponentType } from '../../../types/component';
 
 class Post extends React.Component<DraftComponentType> {
   componentDidMount() {
+    const { history, clearPostData } = this.props;
+    history.listen(() => {
+      clearPostData();
+    });
     const {
       getBlogPostData,
       match: {
@@ -42,10 +46,11 @@ const mapStateToProps = ({ post: { content, title } }) => ({
 });
 
 const mapDispatchToProps = (dispatch: Function) => {
-  const { getBlogPostData } = actions;
+  const { getBlogPostData, clearPostData } = actions;
   return bindActionCreators(
     {
       getBlogPostData,
+      clearPostData
     },
     dispatch,
   );

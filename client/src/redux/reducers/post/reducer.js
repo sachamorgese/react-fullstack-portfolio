@@ -6,6 +6,7 @@ import {
   UPDATE_TITLE,
   GET_DRAFT_DATA_SUCCESS,
   GET_BLOG_POST_DATA_SUCCESS,
+  CLEAR_POST_DATA,
 } from './actions';
 import type { Action } from '../../../types/action';
 import type { State } from '../../../types/state';
@@ -43,6 +44,9 @@ export default function(state: State = initialState, action: Action) {
         labels: action.payload.labels,
         title: action.payload.title,
       };
+    case CLEAR_POST_DATA: {
+      return initialState
+    }
     default:
       return state;
   }

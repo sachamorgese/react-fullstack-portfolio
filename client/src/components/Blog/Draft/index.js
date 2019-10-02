@@ -13,12 +13,18 @@ import BackButton from '../BackButton';
 class Post extends React.Component<DraftComponentType> {
   componentDidMount() {
     const {
+      history, clearPostData,
       newDraft,
       getDraftData,
       match: {
         params: { id },
       },
     } = this.props;
+
+    history.listen(() => {
+      clearPostData();
+    });
+
     if (!newDraft) {
       getDraftData(id);
     }
@@ -95,6 +101,7 @@ const mapDispatchToProps = (dispatch: Function) => {
     createEditorState,
     saveTitle,
     postBlogPost,
+    clearPostData
   } = actions;
   return bindActionCreators(
     {
@@ -105,6 +112,7 @@ const mapDispatchToProps = (dispatch: Function) => {
       createEditorState,
       saveTitle,
       postBlogPost,
+      clearPostData
     },
     dispatch,
   );

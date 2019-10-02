@@ -1,5 +1,11 @@
+// @flow
+
 import type { EditorState as EditorStateType } from 'draft-js';
-import type { PostItem, PostState, MessageItem } from './state';
+import type {
+  PostItem,
+  PostState,
+  MessageItem,
+} from './state';
 
 type CreateNewDraft = {
   type: 'CREATE_NEW_DRAFT',
@@ -13,8 +19,8 @@ type CreateNewDraftSuccess = {
 type CreateNewDraftFailure = {
   type: 'CREATE_NEW_DRAFT_FAILURE',
 };
-type GetAllPosts = {
-  type: 'GET_ALL_POSTS',
+type GetAllBlogPostsSubmit = {
+  type: 'GET_ALL_BLOG_POSTS_SUBMIT',
 };
 type GetDraftsSubmit = {
   type: 'GET_DRAFTS_SUBMIT',
@@ -96,45 +102,68 @@ type HideMessage = {
   type: 'HIDE_MESSAGE',
 };
 type GetBlogPostsSubmit = {
-  type: 'GET_BLOGPOSTS_SUBMIT',
+  type: 'GET_BLOG_POSTS_SUBMIT',
 };
 type GetBlogPostsSuccess = {
-  type: 'GET_BLOGPOSTS_SUCCESS',
+  type: 'GET_BLOG_POSTS_SUCCESS',
   payload: Array<PostItem>,
 };
 type GetBlogPostsFailure = {
-  type: 'GET_BLOGPOSTS_FAILURE',
+  type: 'GET_BLOG_POSTS_FAILURE',
 };
 type PostBlogPostType = {
   id: string,
   content: EditorStateType,
 };
 type PostBlogPost = {
-  type: 'POST_BLOGPOST',
+  type: 'POST_BLOG_POST',
   payload: PostBlogPostType,
 };
 type PostBlogPostSubmit = {
-  type: 'POST_BLOGPOST_SUBMIT',
+  type: 'POST_BLOG_POST_SUBMIT',
 };
 type PostBlogPostSuccess = {
-  type: 'POST_BLOGPOST_SUCCESS',
+  type: 'POST_BLOG_POST_SUCCESS',
 };
 type PostBlogPostFailure = {
-  type: 'POST_BLOGPOST_FAILURE',
+  type: 'POST_BLOG_POST_FAILURE',
 };
 type GetBlogPostData = {
-  type: 'GET_BLOGPOST_DATA',
+  type: 'GET_BLOG_POST_DATA',
   payload: string,
 };
 type GetBlogPostDataSubmit = {
-  type: 'GET_BLOGPOST_DATA_SUBMIT',
+  type: 'GET_BLOG_POST_DATA_SUBMIT',
 };
 type GetBlogPostDataSuccess = {
-  type: 'GET_BLOGPOST_DATA_SUCCESS',
+  type: 'GET_BLOG_POST_DATA_SUCCESS',
   payload: PostState,
 };
 type GetBlogPostDataFailure = {
-  type: 'GET_BLOGPOST_DATA_FAILURE',
+  type: 'GET_BLOG_POST_DATA_FAILURE',
+};
+type ClearPostData = {
+  type: 'CLEAR_POST_DATA',
+};
+type FetchUser = {
+  type: 'FETCH_USER',
+};
+type FetchUserSubmit = {
+  type: 'FETCH_USER_SUBMIT',
+};
+
+export type UserData = {
+  role: string,
+  name: string,
+  email: string,
+}
+
+type FetchUserSuccess = {
+  type: 'FETCH_USER_SUCCESS',
+  payload: UserData,
+};
+type FetchUserFailure = {
+  type: 'FETCH_USER_FAILURE',
 };
 
 export type Action =
@@ -142,7 +171,7 @@ export type Action =
   | CreateNewDraftSubmit
   | CreateNewDraftSuccess
   | CreateNewDraftFailure
-  | GetAllPosts
+  | GetAllBlogPostsSubmit
   | GetDraftsSubmit
   | GetDraftsSuccess
   | GetDraftsFailure
@@ -174,4 +203,9 @@ export type Action =
   | GetBlogPostData
   | GetBlogPostDataSubmit
   | GetBlogPostDataSuccess
-  | GetBlogPostDataFailure;
+  | GetBlogPostDataFailure
+  | ClearPostData
+  | FetchUser
+  | FetchUserSubmit
+  | FetchUserSuccess
+  | FetchUserFailure;

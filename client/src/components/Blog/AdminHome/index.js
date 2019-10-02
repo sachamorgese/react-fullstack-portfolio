@@ -44,6 +44,9 @@ class Home extends Component<AdminHomeComponentType> {
         <button className="NewPost" type="button" onClick={createNewDraft}>
           New Post
         </button>
+        <a href="/auth/google">
+          LogIn
+        </a>
         <LinksList
           listName="Drafts"
           listArray={drafts}

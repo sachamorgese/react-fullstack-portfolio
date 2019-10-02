@@ -8,7 +8,6 @@ import Draft from './Draft';
 import AdminHome from './AdminHome';
 import BlogPost from './BlogPost';
 
-
 const Blog = ({ match }: {match: matchPath}) => (
   <>
     <Route path={`${match.path}admin`} component={AdminHome} />

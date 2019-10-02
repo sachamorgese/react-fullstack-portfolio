@@ -5,16 +5,24 @@ const { Schema } = mongoose;
 const userSchema = new Schema({
   google: {
     id: String,
-    token: String,
-    email: String,
-    name: String,
   },
   facebook: {
     id: String,
     token: String,
-    email: String,
-    name: String,
   },
+  name: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+  },
+  role: {
+    type: String,
+    enum: ['admin', 'mod', 'user'],
+    default: 'user'
+  }
 });
 
 mongoose.model('User', userSchema);

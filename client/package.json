@@ -17,6 +17,7 @@
     "draft-js-plugins-editor": "^3.0.0",
     "draft-js-resizeable-plugin": "^2.0.9",
     "history": "^4.10.1",
+    "http-proxy-middleware": "^0.20.0",
     "lodash": "^4.17.15",
     "node-sass": "^4.12.0",
     "normalize.css": "^8.0.1",
@@ -35,7 +36,6 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:3005",
   "devDependencies": {
     "flow-bin": "^0.85.0",
     "npm-run-all": "^4.1.3"
