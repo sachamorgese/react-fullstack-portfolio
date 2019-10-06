@@ -26,12 +26,18 @@
     "dev": "run-p client:dev server:dev",
     "server:dev": "nodemon index.js",
     "client:dev": "cd client && yarn dev",
-    "lint": "eslint ./*.js src/**/*.js client/src/**/*.js",
-    "fix": "eslint ./*.js src/**/*.js client/src/**/*.js --fix",
+    "lint": "eslint ./*.js client/src/**/*.js",
+    "fix": "eslint ./*.js client/src/**/*.js --fix",
     "postinstall": "cd client && yarn",
     "flow": "flow status",
     "flow:install": "flow-typed install && flow-typed install -p ./client -l ../flow-typed",
-    "test": "jest"
+    "test": "jest",
+    "lint:all": "run-s fix flow"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint:all"
+    }
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -47,6 +53,7 @@
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.11.1",
     "flow-bin": "^0.109.0",
+    "husky": "^3.0.8",
     "jest": "^24.9.0",
     "node-sass": "^4.12.0",
     "nodemon": "^1.18.4",
