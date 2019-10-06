@@ -37,16 +37,21 @@ class Home extends Component<AdminHomeComponentType> {
       deleteBlogPost,
       drafts,
       blogPosts,
+      name,
+      isLoggedIn,
       message: { item: messageItem },
     } = this.props;
+
     return (
       <>
         <button className="NewPost" type="button" onClick={createNewDraft}>
           New Post
         </button>
-        <a href="/auth/google">
-          LogIn
-        </a>
+        {isLoggedIn ? (
+          <span>{`Hello ${name}`}</span>
+        ) : (
+          <a href="/auth/google">LogIn</a>
+        )}
         <LinksList
           listName="Drafts"
           listArray={drafts}
@@ -70,14 +75,25 @@ class Home extends Component<AdminHomeComponentType> {
   }
 }
 
-const mapStateToProps = ({ blog: { drafts, blogPosts }, message }) => ({
+const mapStateToProps = ({
+  blog: { drafts, blogPosts },
+  auth: { isLoggedIn, name },
+  message,
+}) => ({
   drafts,
   blogPosts,
   message,
+  isLoggedIn,
+  name,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
-  const { createNewDraft, getAllPosts, deleteDraft, deleteBlogPost } = blogActions;
+  const {
+    createNewDraft,
+    getAllPosts,
+    deleteDraft,
+    deleteBlogPost,
+  } = blogActions;
   const { showMessage, hideMessage } = messageAction;
   return bindActionCreators(
     {

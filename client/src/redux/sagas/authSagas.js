@@ -3,13 +3,9 @@ import { put, takeLatest } from 'redux-saga/effects';
 
 import authActions, { FETCH_USER } from '../reducers/auth/actions';
 
-const baseUrl = `${window.location.origin}/api/blog`;
+const baseUrl = `${window.location.origin}`;
 
-const {
-  fetchUserSubmit,
-  fetchUserSuccess,
-  fetchUserFailure,
-} = authActions;
+const { fetchUserSubmit, fetchUserSuccess, fetchUserFailure } = authActions;
 
 function* fetchUserGenerator() {
   yield put(fetchUserSubmit());
@@ -22,13 +18,11 @@ function* fetchUserGenerator() {
     } else {
       yield put(fetchUserFailure());
     }
-  } catch(e) {
+  } catch (e) {
     yield put(fetchUserFailure());
   }
 }
 
-const auth = [
-  takeLatest(FETCH_USER, fetchUserGenerator),
-];
+const auth = [takeLatest(FETCH_USER, fetchUserGenerator)];
 
 export default auth;
