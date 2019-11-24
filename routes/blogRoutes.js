@@ -1,12 +1,12 @@
 // REFACTOR BOTH BLOG AND DRAFT ROUTES TO REDUCE REPETITION
-
 const mongoose = require('mongoose');
+const requireAdmin = require('../middleware/requireAdmin');
 
 const Draft = mongoose.model('Draft');
 const BlogPost = mongoose.model('BlogPost');
 
 module.exports = (app) => {
-  app.post('/api/blog/draft/new', async (req, res) => {
+  app.post('/api/blog/draft/new', requireAdmin, async (req, res) => {
     const { content } = req.body;
     const draftParams = { content, title: '' };
     try {
@@ -17,7 +17,7 @@ module.exports = (app) => {
     }
   });
 
-  app.patch('/api/blog/draft/:draftId/title/', async (req, res) => {
+  app.patch('/api/blog/draft/:draftId/title/', requireAdmin, async (req, res) => {
     try {
       const draft = await Draft.findByIdAndUpdate(
         req.params.draftId,
@@ -35,7 +35,7 @@ module.exports = (app) => {
     }
   });
 
-  app.patch('/api/blog/draft/:draftId/content/', async (req, res) => {
+  app.patch('/api/blog/draft/:draftId/content/', requireAdmin, async (req, res) => {
     try {
       const updated = Date.now();
       const draft = await Draft.findByIdAndUpdate(
@@ -55,7 +55,7 @@ module.exports = (app) => {
     }
   });
 
-  app.get('/api/blog/draft/:draftId', async (req, res) => {
+  app.get('/api/blog/draft/:draftId', requireAdmin, async (req, res) => {
     const { draftId } = req.params;
 
     try {
@@ -66,7 +66,7 @@ module.exports = (app) => {
     }
   });
 
-  app.delete('/api/blog/draft/:draftId', async (req, res) => {
+  app.delete('/api/blog/draft/:draftId', requireAdmin, async (req, res) => {
     const { draftId } = req.params;
     try {
       await Draft.findByIdAndDelete(draftId).exec();
@@ -76,7 +76,7 @@ module.exports = (app) => {
     }
   });
 
-  app.get('/api/blog/drafts', async (req, res) => {
+  app.get('/api/blog/drafts', requireAdmin, async (req, res) => {
     try {
       const drafts = await Draft.find({}, 'title').exec();
       res.send(drafts);
@@ -94,7 +94,7 @@ module.exports = (app) => {
     }
   });
 
-  app.post('/api/blog/post/new', async (req, res) => {
+  app.post('/api/blog/post/new', requireAdmin, async (req, res) => {
     try {
       const { id, content: newContent } = req.body;
       const draft = await Draft.findById(id).exec();
@@ -122,7 +122,7 @@ module.exports = (app) => {
     }
   });
 
-  app.delete('/api/blog/post/:postId', async (req, res) => {
+  app.delete('/api/blog/post/:postId', requireAdmin, async (req, res) => {
     const { postId } = req.params;
     try {
       await BlogPost.findByIdAndDelete(postId).exec();

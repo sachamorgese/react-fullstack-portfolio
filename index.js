@@ -30,6 +30,7 @@ app.use(express.json());
 
 require('./routes/authRoutes')(app);
 require('./routes/blogRoutes')(app);
+require('./routes/userRoutes')(app);
 
 const PORT = process.env.PORT || 3005;
 app.listen(PORT);

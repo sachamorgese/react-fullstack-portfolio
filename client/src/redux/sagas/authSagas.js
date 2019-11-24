@@ -10,7 +10,7 @@ const { fetchUserSubmit, fetchUserSuccess, fetchUserFailure } = authActions;
 function* fetchUserGenerator() {
   yield put(fetchUserSubmit());
   try {
-    const url = `${baseUrl}/auth/current_user`;
+    const url = `${baseUrl}/api/user/current_user`;
     const res = yield fetch(url);
     if (res.status === 200) {
       const body = yield res.json();

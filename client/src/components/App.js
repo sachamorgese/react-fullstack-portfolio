@@ -1,5 +1,5 @@
 // @flow
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
 import { bindActionCreators } from 'redux';
@@ -7,20 +7,21 @@ import { connect } from 'react-redux';
 import type { BrowserHistory } from 'history/createBrowserHistory';
 import Blog from './Blog';
 import AdminHome from './Blog/AdminHome';
-import authActions from '../redux/reducers/auth/actions'
+import ProtectedRoute from './Shared/ProtectedRoute';
+import authActions from '../redux/reducers/auth/actions';
 import type { Dispatch } from '../types/state';
+import Home from './Home';
 
-const App = ({ history, fetchUser }: { history: BrowserHistory, fetchUser: Function }) => {
-  useEffect( () => {
-    fetchUser()
-  }, [fetchUser]);
-
+const App = ({ history }: { history: BrowserHistory }) => {
   return (
     <div className="App" style={{ height: '100%' }}>
       <ConnectedRouter history={history}>
         <Switch>
-          <Route exact path="/" component={AdminHome} /* /blog/admin */ />
+          <ProtectedRoute path="/blog/admin">
+            <Route component={AdminHome} />
+          </ProtectedRoute>
           <Route path="/blog/" component={Blog} />
+          <Route exact path="/" component={Home} />
         </Switch>
       </ConnectedRouter>
     </div>
@@ -31,7 +32,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   const { fetchUser } = authActions;
   return bindActionCreators(
     {
-      fetchUser
+      fetchUser,
     },
     dispatch,
   );

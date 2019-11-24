@@ -14,6 +14,9 @@ import App from './components/App';
 import createRootReducer from './redux/reducers';
 import registerServiceWorker from './registerServiceWorker';
 import saga from './redux/sagas';
+import authActions from './redux/reducers/auth/actions';
+
+const { fetchUser } = authActions;
 
 const history = createBrowserHistory();
 const sagaMiddleware = createSagaMiddleware();
@@ -28,6 +31,8 @@ const store = createStore(
 );
 
 sagaMiddleware.run(saga);
+
+store.dispatch(fetchUser());
 
 const root = document.getElementById('root');
 

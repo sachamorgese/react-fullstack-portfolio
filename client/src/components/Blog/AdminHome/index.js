@@ -14,7 +14,7 @@ import './AdminHome.Module.scss';
 import type { AdminHomeComponentType } from '../../../types/component';
 import type { Dispatch } from '../../../types/state';
 
-class Home extends Component<AdminHomeComponentType> {
+class AdminHome extends Component<AdminHomeComponentType> {
   componentDidMount() {
     const { getAllPosts } = this.props;
     getAllPosts();
@@ -37,8 +37,6 @@ class Home extends Component<AdminHomeComponentType> {
       deleteBlogPost,
       drafts,
       blogPosts,
-      name,
-      isLoggedIn,
       message: { item: messageItem },
     } = this.props;
 
@@ -47,11 +45,6 @@ class Home extends Component<AdminHomeComponentType> {
         <button className="NewPost" type="button" onClick={createNewDraft}>
           New Post
         </button>
-        {isLoggedIn ? (
-          <span>{`Hello ${name}`}</span>
-        ) : (
-          <a href="/auth/google">LogIn</a>
-        )}
         <LinksList
           listName="Drafts"
           listArray={drafts}
@@ -108,7 +101,4 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   );
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(AdminHome);
