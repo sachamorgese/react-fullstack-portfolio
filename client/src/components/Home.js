@@ -5,7 +5,12 @@ import { Link } from 'react-router-dom';
 import type { Dispatch } from '../types/state';
 import authActions from '../redux/reducers/auth/actions';
 
-function Home(props) {
+type Props = {
+  name: string,
+  isLoggedIn: boolean,
+};
+
+function Home(props: Props) {
   const { name, isLoggedIn } = props;
   return (
     <>

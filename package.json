@@ -16,7 +16,7 @@
     "passport-google-oauth": "^2.0.0"
   },
   "engines": {
-    "node": "^13.0.0",
+    "node": "^10.0.0",
     "npm": "^6.4.1",
     "yarn": "^1.9.4"
   },
@@ -36,7 +36,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn lint:all"
+      "pre-commit": "npm run lint:all --ignore-engines"
     }
   },
   "devDependencies": {
