@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-- "12"
+- "13"
 
 cache:
   yarn: true
@@ -8,7 +8,7 @@ cache:
   - "node_modules"
 
 script:
-- yarn fix
+- yarn lint:all
 
 os:
 - linux
