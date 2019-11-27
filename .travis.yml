@@ -11,7 +11,7 @@ script:
 - yarn lint:all
 
 os:
-- linux
+- osx
 
 before_install:
 - npm install -g yarn@^1.9.4 --cache-min 999999999
