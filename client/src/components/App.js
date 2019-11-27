@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import type { BrowserHistory } from 'history/createBrowserHistory';
 import Blog from './Blog';
 import AdminHome from './Blog/AdminHome';
-import ProtectedRoute from './Shared/ProtectedRoute';
+import ProtectedRoute from './Shared/PrivateRoute';
 import authActions from '../redux/reducers/auth/actions';
 import type { Dispatch } from '../types/state';
 import Home from './Home';
