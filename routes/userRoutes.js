@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+/* @noflow */
+/* eslint-disable flowtype/require-parameter-type */
 
 module.exports = (app) => {
   app.get('/api/user/current_user', (req, res) => {

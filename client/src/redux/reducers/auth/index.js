@@ -1,7 +1,7 @@
 // @flow
 import { FETCH_USER_FAILURE, FETCH_USER_SUBMIT, FETCH_USER_SUCCESS } from './actions';
-import type { Action } from '../../../types/action';
-import type { State } from '../../../types/state';
+import type { ActionType } from '../../../types/actionType';
+import type { AuthStateType  } from '../../../types/state';
 
 const initialState = {
   isLoading: false,
@@ -11,7 +11,7 @@ const initialState = {
   email: '',
 };
 
-export default function(state: State = {}, action: Action) {
+export default function(state: AuthStateType = initialState, action: ActionType): AuthStateType {
   switch (action.type) {
     case FETCH_USER_SUBMIT:
       return {

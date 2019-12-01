@@ -1,15 +1,19 @@
 // @flow
 import React from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { bindActionCreators, Dispatch } from 'redux';
 import Editor from 'draft-js-plugins-editor';
-import 'draft-js/dist/Draft.css';
+import type { EditorState } from 'draft-js';
 
 import BackButton from '../BackButton';
-import actions from '../../../redux/reducers/post/actions';
-import './BlogPost.Module.scss';
+import Button from '../BlogButton';
+import postActions from '../../../redux/reducers/post/actions';
+import blogActions from '../../../redux/reducers/blog/actions';
 
-import type { DraftComponentType } from '../../../types/component';
+import './BlogPost.Module.scss';
+import 'draft-js/dist/Draft.css';
+
+import type { DraftComponentType, RoleType } from '../../../types/component';
 
 class Post extends React.Component<DraftComponentType> {
   componentDidMount() {
@@ -26,11 +30,23 @@ class Post extends React.Component<DraftComponentType> {
     getBlogPostData(id);
   }
 
-  render() {
-    const { content, title, history } = this.props;
+  render(): React$Element<any> {
+    const {
+      content,
+      title,
+      history,
+      role,
+      createNewDraft,
+      match: {
+        params: { id },
+      },
+    } = this.props;
     return (
       <div className="BlogPost">
         <BackButton history={history} />
+        {role === 'admin' && (
+          <Button label="Edit Post" onClick={(): void => createNewDraft(id)} />
+        )}
         <h1>{title}</h1>
         <div className="BlogPostBody">
           <Editor editorState={content} onChange={() => {}} readonly />
@@ -40,23 +56,35 @@ class Post extends React.Component<DraftComponentType> {
   }
 }
 
-const mapStateToProps = ({ post: { content, title } }) => ({
+type StatePropsType = {
+  content: EditorState,
+  title: string,
+  role: RoleType,
+};
+
+const mapStateToProps = ({
+  auth: { role },
+  post: { content, title },
+}: {
+  auth: { role: RoleType },
+  post: { content: EditorState, title: string },
+}): StatePropsType => ({
   content,
   title,
+  role,
 });
 
-const mapDispatchToProps = (dispatch: Function) => {
-  const { getBlogPostData, clearPostData } = actions;
+const mapDispatchToProps = (dispatch: Dispatch): void => {
+  const { getBlogPostData, clearPostData } = postActions;
+  const { createNewDraft } = blogActions;
   return bindActionCreators(
     {
       getBlogPostData,
-      clearPostData
+      clearPostData,
+      createNewDraft,
     },
     dispatch,
   );
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Post);
+export default connect(mapStateToProps, mapDispatchToProps)(Post);

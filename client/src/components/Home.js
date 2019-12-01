@@ -1,22 +1,20 @@
+// @flow
 import React from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
-import type { Dispatch } from '../types/state';
-import authActions from '../redux/reducers/auth/actions';
 
-type Props = {
+type HomePropsType = {
   name: string,
   isLoggedIn: boolean,
 };
 
-function Home(props: Props) {
+function Home(props: HomePropsType): React$Element<any> {
   const { name, isLoggedIn } = props;
   return (
     <>
       {isLoggedIn ? (
         <>
-          <span>{`Hello ${name}`}</span>
+          <span style={{display: 'block'}}>{`Hello ${name}`}</span>
           <Link to="/blog/admin">Blog Admin</Link>
         </>
       ) : (
@@ -26,19 +24,13 @@ function Home(props: Props) {
   );
 }
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  const { fetchUser } = authActions;
-  return bindActionCreators(
-    {
-      fetchUser,
-    },
-    dispatch,
-  );
-};
-
-const mapStateToProps = ({ auth: { isLoggedIn, name } }) => ({
+const mapStateToProps = ({
+  auth: { isLoggedIn, name },
+}: {
+  auth: HomePropsType,
+}): HomePropsType => ({
   isLoggedIn,
   name,
 });
 
-export default connect(mapStateToProps, mapDispatchToProps())(Home);
+export default connect(mapStateToProps)(Home);

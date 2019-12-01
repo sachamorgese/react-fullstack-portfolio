@@ -1,9 +1,12 @@
+// @noflow
+/* eslint-disable flowtype/require-parameter-type */
+
 const passport = require('passport');
 
 module.exports = (app) => {
   // Can generalize in the future to redirect to the correct login route
   app.get('/auth/google', (req, res) => {
-    if(req.headers.referer) {
+    if (req.headers.referer) {
       const returnTo = req.headers.referer
         .split('/')
         .slice(3)

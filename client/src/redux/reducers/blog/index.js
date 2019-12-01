@@ -4,13 +4,13 @@ import {
   CREATE_NEW_DRAFT_SUBMIT,
   CREATE_NEW_DRAFT_SUCCESS,
   CREATE_NEW_DRAFT_FAILURE,
-  GET_ALL_BLOG_POSTS_SUBMIT,
+  GET_ALL_POSTS_SUBMIT,
   GET_DRAFTS_SUCCESS,
   GET_DRAFTS_FAILURE,
   GET_BLOG_POSTS_SUCCESS,
   GET_BLOG_POSTS_FAILURE,
 } from './actions';
-import type { Action } from '../../../types/action';
+import type { ActionType } from '../../../types/actionType';
 import {
   SAVE_DRAFT_CONTENT_FAILURE,
   GET_DRAFT_DATA_FAILURE,
@@ -22,7 +22,7 @@ import {
   GET_BLOG_POST_DATA_FAILURE,
   GET_BLOG_POST_DATA_SUCCESS,
 } from '../post/actions';
-import type { State } from '../../../types/state';
+import type { BlogStateType } from '../../../types/state';
 
 const initialState = {
   newDraft: false,
@@ -33,7 +33,10 @@ const initialState = {
   blogPosts: [],
 };
 
-export default function(state: State = initialState, action: Action) {
+export default function(
+  state: BlogStateType = initialState,
+  action: ActionType,
+): BlogStateType {
   switch (action.type) {
     case CREATE_NEW_DRAFT_SUBMIT:
       return {
@@ -57,7 +60,7 @@ export default function(state: State = initialState, action: Action) {
       };
     case GET_DRAFT_DATA_SUBMIT:
     case POST_BLOG_POST_SUBMIT:
-    case GET_ALL_BLOG_POSTS_SUBMIT:
+    case GET_ALL_POSTS_SUBMIT:
     case GET_BLOG_POST_DATA_SUBMIT:
       return {
         ...state,
@@ -86,6 +89,7 @@ export default function(state: State = initialState, action: Action) {
         failed: true,
       };
     case GET_DRAFTS_SUCCESS:
+
       return {
         ...state,
         loading: false,

@@ -7,14 +7,13 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
 import { createBrowserHistory } from 'history';
 import { routerMiddleware } from 'connected-react-router';
-
-import 'normalize.css';
-import './index.scss';
 import App from './components/App';
 import createRootReducer from './redux/reducers';
 import registerServiceWorker from './registerServiceWorker';
 import saga from './redux/sagas';
 import authActions from './redux/reducers/auth/actions';
+import 'normalize.css';
+import './index.scss';
 
 const { fetchUser } = authActions;
 

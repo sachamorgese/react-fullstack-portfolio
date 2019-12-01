@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
-const blogPostSchema = new Schema({
+const draftSchema = new Schema({
   title: String,
   content: String,
   labels: [
@@ -13,10 +13,10 @@ const blogPostSchema = new Schema({
   ],
   publishedPost: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Label',
+    ref: 'BlogPost',
   },
   created: { type: Date, default: Date.now },
   updated: { type: Date, default: Date.now },
 });
 
-module.exports = mongoose.model('Draft', blogPostSchema);
+module.exports = mongoose.model('Draft', draftSchema);

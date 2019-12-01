@@ -1,12 +1,14 @@
 // @flow
-import type { PostItem } from '../../../types/state';
+import type { PostItemType } from '../../../types/state';
+import type { ActionType } from '../../../types/actionType';
 
 export const CREATE_NEW_DRAFT = 'CREATE_NEW_DRAFT';
 export const CREATE_NEW_DRAFT_SUBMIT = 'CREATE_NEW_DRAFT_SUBMIT';
 export const CREATE_NEW_DRAFT_SUCCESS = 'CREATE_NEW_DRAFT_SUCCESS';
 export const CREATE_NEW_DRAFT_FAILURE = 'CREATE_NEW_DRAFT_FAILURE';
-export const GET_ALL_BLOG_POSTS = 'GET_ALL_BLOG_POSTS';
-export const GET_ALL_BLOG_POSTS_SUBMIT = 'GET_ALL_BLOG_POSTS_SUBMIT';
+export const CREATE_NEW_DRAFT_AND_DELETE = 'CREATE_NEW_DRAFT_AND_DELETE';
+export const GET_ALL_POSTS = 'GET_ALL_POSTS';
+export const GET_ALL_POSTS_SUBMIT = 'GET_ALL_POSTS_SUBMIT';
 export const GET_DRAFTS_SUCCESS = 'GET_DRAFTS_SUCCESS';
 export const GET_DRAFTS_FAILURE = 'GET_DRAFTS_FAILURE';
 export const GET_BLOG_POSTS_SUCCESS = 'GET_BLOG_POSTS_SUCCESS';
@@ -20,79 +22,86 @@ export const DELETE_BLOG_POST_SUBMIT = 'DELETE_BLOG_POST_SUBMIT';
 export const DELETE_BLOG_POST_SUCCESS = 'DELETE_BLOG_POST_SUCCESS';
 export const DELETE_BLOG_POST_FAILURE = 'DELETE_BLOG_POST_FAILURE';
 
-const createNewDraft = () => ({
+const createNewDraft = (id: string): ActionType => ({
   type: CREATE_NEW_DRAFT,
+  payload: id,
 });
 
-const createNewDraftSubmit = () => ({
+const createNewDraftSubmit = (): ActionType => ({
   type: CREATE_NEW_DRAFT_SUBMIT,
 });
 
-const createNewDraftSuccess = () => ({
+const createNewDraftSuccess = (): ActionType => ({
   type: CREATE_NEW_DRAFT_SUCCESS,
 });
 
-const createNewDraftFailure = () => ({
+const createNewDraftFailure = (): ActionType => ({
   type: CREATE_NEW_DRAFT_FAILURE,
 });
 
-const getAllPosts = () => ({
-  type: GET_ALL_BLOG_POSTS,
+const createNewDraftAndDelete = (): ActionType => ({
+  type: CREATE_NEW_DRAFT_AND_DELETE,
 });
 
-const getAllPostsSubmit = () => ({
-  type: GET_ALL_BLOG_POSTS_SUBMIT,
+const getAllPosts = (): ActionType => ({
+  type: GET_ALL_POSTS,
 });
 
-const getDraftsSuccess = (payload: Array<PostItem>) => ({
+const getAllPostsSubmit = (): ActionType => ({
+  type: GET_ALL_POSTS_SUBMIT,
+});
+
+const getDraftsSuccess = (payload: Array<PostItemType>): ActionType => ({
   type: GET_DRAFTS_SUCCESS,
   payload,
 });
 
-const getDraftsFailure = () => ({
+const getDraftsFailure = (): ActionType => ({
   type: GET_DRAFTS_FAILURE,
 });
 
-const getBlogPostsSuccess = (payload: Array<PostItem>) => ({
+const getBlogPostsSuccess = (
+  payload: Array<PostItemType>,
+): ActionType => ({
   type: GET_BLOG_POSTS_SUCCESS,
   payload,
 });
 
-const getBlogPostsFailure = () => ({
+const getBlogPostsFailure = (): ActionType => ({
   type: GET_BLOG_POSTS_FAILURE,
 });
 
-const deleteDraft = (id: string) => ({
+const deleteDraft = (id: string): ActionType => ({
   type: DELETE_DRAFT,
   payload: id,
 });
 
-const deleteDraftSubmit = () => ({
+const deleteDraftSubmit = (): ActionType => ({
   type: DELETE_DRAFT_SUBMIT,
 });
 
-const deleteDraftSuccess = () => ({
+const deleteDraftSuccess = (): ActionType => ({
   type: DELETE_DRAFT_SUCCESS,
 });
 
-const deleteDraftFailure = () => ({
+const deleteDraftFailure = (): ActionType => ({
   type: DELETE_DRAFT_FAILURE,
 });
 
-const deleteBlogPost = (id: string) => ({
+const deleteBlogPost = (id: string): ActionType => ({
   type: DELETE_BLOG_POST,
   payload: id,
 });
 
-const deleteBlogPostSubmit = () => ({
+const deleteBlogPostSubmit = (): ActionType => ({
   type: DELETE_BLOG_POST_SUBMIT,
 });
 
-const deleteBlogPostSuccess = () => ({
+const deleteBlogPostSuccess = (): ActionType => ({
   type: DELETE_BLOG_POST_SUCCESS,
 });
 
-const deleteBlogPostFailure = () => ({
+const deleteBlogPostFailure = (): ActionType => ({
   type: DELETE_BLOG_POST_FAILURE,
 });
 
@@ -101,6 +110,7 @@ export default {
   createNewDraftSubmit,
   createNewDraftSuccess,
   createNewDraftFailure,
+  createNewDraftAndDelete,
   getAllPosts,
   getAllPostsSubmit,
   getDraftsSuccess,

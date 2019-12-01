@@ -12,7 +12,12 @@ import messageAction from '../../../redux/reducers/messages/actions';
 import './AdminHome.Module.scss';
 // types
 import type { AdminHomeComponentType } from '../../../types/component';
-import type { Dispatch } from '../../../types/state';
+import type {
+  DispatchType,
+  MessageItemType,
+  PostItemType,
+} from '../../../types/state';
+import Button from '../BlogButton';
 
 class AdminHome extends Component<AdminHomeComponentType> {
   componentDidMount() {
@@ -20,7 +25,7 @@ class AdminHome extends Component<AdminHomeComponentType> {
     getAllPosts();
   }
 
-  onDeleteClick = (name, index) => {
+  onDeleteClick = (name: string, index: number) => {
     const { showMessage } = this.props;
     const payload = {
       name,
@@ -29,7 +34,7 @@ class AdminHome extends Component<AdminHomeComponentType> {
     showMessage(payload);
   };
 
-  render() {
+  render(): React$Element<any> {
     const {
       createNewDraft,
       hideMessage,
@@ -37,14 +42,12 @@ class AdminHome extends Component<AdminHomeComponentType> {
       deleteBlogPost,
       drafts,
       blogPosts,
-      message: { item: messageItem },
+      messageItem,
     } = this.props;
 
     return (
       <>
-        <button className="NewPost" type="button" onClick={createNewDraft}>
-          New Post
-        </button>
+        <Button onClick={createNewDraft} label="New Post" />
         <LinksList
           listName="Drafts"
           listArray={drafts}
@@ -55,32 +58,44 @@ class AdminHome extends Component<AdminHomeComponentType> {
           linkType="draft"
         />
         <LinksList
-          listName="Posts"
+          listName="BlogPosts"
           listArray={blogPosts}
           messageItem={messageItem}
           deleteEntry={deleteBlogPost}
           hideMessage={hideMessage}
           onDeleteClick={this.onDeleteClick}
-          linkType="post"
+          linkType="blogPost"
         />
       </>
     );
   }
 }
 
+type StatePropsType = {
+  drafts: Array<PostItemType>,
+  blogPosts: Array<PostItemType>,
+  isLoggedIn: boolean,
+  name: string,
+  messageItem: MessageItemType,
+};
+
 const mapStateToProps = ({
   blog: { drafts, blogPosts },
   auth: { isLoggedIn, name },
-  message,
-}) => ({
+  message: { item: messageItem },
+}: {
+  blog: { drafts: Array<PostItemType>, blogPosts: Array<PostItemType> },
+  auth: { isLoggedIn: boolean, name: string },
+  message: { item: MessageItemType },
+}): StatePropsType => ({
   drafts,
   blogPosts,
-  message,
+  messageItem,
   isLoggedIn,
   name,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
+const mapDispatchToProps = (dispatch: DispatchType): void => {
   const {
     createNewDraft,
     getAllPosts,

@@ -1,37 +1,41 @@
+// @flow
+
 import { Dispatch as ReduxDispatch } from 'redux';
 import type { EditorState as EditorStateType } from 'draft-js';
-import type { Action } from './action';
+import type { ActionType } from './actionType';
 
-export type PostItem = {
+export type PostItemType = {
   _id: string,
   title: string,
 };
-export type MessageItem = {
+
+export type MessageItemType = {
   name: string,
   index: number | null,
 };
-export type BlogState = {
+
+export type BlogStateType = {
   newDraft: boolean,
   creating: boolean,
-  postId: string,
-  draftId: string,
   loading: boolean,
   failed: boolean,
-  drafts: Array<PostItem>,
-  posts: Array<PostItem>,
+  drafts: Array<PostItemType>,
+  blogPosts: Array<PostItemType>,
 };
-export type PostState = {
+
+export type PostStateType = {
   title: string,
   content: EditorStateType,
   labels: Array<string>,
   created: string,
 };
-export type MessageState = {
+
+export type MessageStateType = {
   show: boolean,
-  item: MessageItem,
+  item: MessageItemType,
 };
 
-export type AuthState = {
+export type AuthStateType = {
   isLoading: boolean,
   isLoggedIn: boolean,
   role: string,
@@ -39,5 +43,9 @@ export type AuthState = {
   email: string,
 };
 
-export type State = BlogState | MessageState | PostState | AuthState;
-export type Dispatch = ReduxDispatch<Action>;
+export type StateType =
+  | BlogStateType
+  | MessageStateType
+  | PostStateType
+  | AuthStateType;
+export type DispatchType = ReduxDispatch<ActionType>;

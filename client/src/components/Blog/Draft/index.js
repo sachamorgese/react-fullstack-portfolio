@@ -3,17 +3,21 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import type { EditorState as EditorStateType } from 'draft-js';
 import PostEditor from '../PostEditor';
 import actions from '../../../redux/reducers/post/actions';
+
 import './Draft.Module.scss';
 
 import type { DraftComponentType } from '../../../types/component';
 import BackButton from '../BackButton';
+import type { DispatchType } from '../../../types/state';
 
 class Post extends React.Component<DraftComponentType> {
   componentDidMount() {
     const {
-      history, clearPostData,
+      history,
+      clearPostData,
       newDraft,
       getDraftData,
       match: {
@@ -30,12 +34,12 @@ class Post extends React.Component<DraftComponentType> {
     }
   }
 
-  onChange = (e) => {
+  onChange = (e: SyntheticInputEvent<any>) => {
     const { updateTitle } = this.props;
     updateTitle(e.target.value);
   };
 
-  onBlur = (e) => {
+  onBlur = (e: SyntheticInputEvent<any>) => {
     const {
       saveTitle,
       match: {
@@ -45,7 +49,7 @@ class Post extends React.Component<DraftComponentType> {
     saveTitle(id, e.target.value);
   };
 
-  render() {
+  render(): React$Element<any> {
     const {
       editorState,
       updateEditorState,
@@ -82,17 +86,37 @@ class Post extends React.Component<DraftComponentType> {
   }
 }
 
+type BlogStateType = {
+  newDraft: boolean,
+  failed: boolean,
+};
+
+type PostStateType = {
+  content: EditorStateType,
+  title: string,
+};
+
+type PropsType = {
+  newDraft: boolean,
+  failed: boolean,
+  editorState: EditorStateType,
+  title: string,
+};
+
 const mapStateToProps = ({
-  post: { content: editorState, title },
+  post: { content, title },
   blog: { newDraft, failed },
-}) => ({
-  editorState,
+}: {
+  post: PostStateType,
+  blog: BlogStateType,
+}): PropsType => ({
+  editorState: content,
   newDraft,
   title,
   failed,
 });
 
-const mapDispatchToProps = (dispatch: Function) => {
+const mapDispatchToProps = (dispatch: DispatchType): void => {
   const {
     updateEditorState,
     updateTitle,
@@ -101,7 +125,7 @@ const mapDispatchToProps = (dispatch: Function) => {
     createEditorState,
     saveTitle,
     postBlogPost,
-    clearPostData
+    clearPostData,
   } = actions;
   return bindActionCreators(
     {
@@ -112,13 +136,10 @@ const mapDispatchToProps = (dispatch: Function) => {
       createEditorState,
       saveTitle,
       postBlogPost,
-      clearPostData
+      clearPostData,
     },
     dispatch,
   );
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Post);
+export default connect(mapStateToProps, mapDispatchToProps)(Post);

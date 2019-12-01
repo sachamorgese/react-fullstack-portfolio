@@ -1,51 +1,86 @@
+// @flow
+
 import type { EditorState as EditorStateType } from 'draft-js';
-import type { MessageItem, MessageState, PostItem } from './state';
+import type { MessageItemType, PostItemType } from './state';
+import type { ActionType } from './actionType';
+
+export type RoleType = 'admin' | 'mod' | 'user';
+
+export type BasicActionType = () => ActionType;
+
+type ActionWithArgsType = <T, K>(T, K) => ActionType;
+
+export type HistoryType = {
+  ...History,
+  listen: (() => void) => void,
+};
 
 export type DraftComponentType = {
   editorState: EditorStateType,
   newDraft: boolean,
   title: string,
-  updateEditorState: Function,
-  updateTitle: Function,
-  getDraftData: Function,
-  saveDraftContent: Function,
-  createEditorState: Function,
+  updateEditorState: (EditorStateType) => ActionType,
+  updateTitle: ActionWithArgsType,
+  getDraftData: ActionWithArgsType,
+  saveDraftContent: (string, EditorStateType) => ActionType,
+  createEditorState: ActionWithArgsType,
   failed: boolean,
-  saveTitle: Function,
-  postBlogPost: Function,
+  saveTitle: ActionWithArgsType,
+  postBlogPost: ActionWithArgsType,
+  history: HistoryType,
+  clearPostData: ActionWithArgsType,
   match: any,
+  getBlogPostData: (string) => void,
+  content: EditorStateType,
+  role: RoleType,
+  createNewDraft: (?string) => void,
 };
 
 export type AdminHomeComponentType = {
-  createNewDraft: Function,
-  getDrafts: Function,
-  drafts: Array<PostItem>,
-  showMessage: Function,
-  hideMessage: Function,
-  deleteDraft: Function,
-  message: MessageState,
+  createNewDraft: BasicActionType,
+  deleteBlogPost: ActionWithArgsType,
+  getDrafts: ActionWithArgsType,
+  getAllPosts: () => void,
+  drafts: Array<PostItemType>,
+  blogPosts: Array<PostItemType>,
+  showMessage: ActionWithArgsType,
+  hideMessage: ActionWithArgsType,
+  deleteDraft: ActionWithArgsType,
+  messageItem: MessageItemType,
 };
 
-type LinksType = {
+export type LinksType = {
   title: string,
   _id: string,
 };
 
 export type LinksListType = {
-  listName: 'Drafts' | 'Blogs',
+  listName: 'Drafts' | 'BlogPosts',
   listArray: Array<LinksType>,
-  messageItem: MessageItem,
-  deleteDraft: Function,
-  hideMessage: Function,
-  onDeleteClick: Function,
-  linkType: 'draft' | 'blog',
+  messageItem: MessageItemType,
+  deleteEntry: ActionWithArgsType,
+  hideMessage: ActionWithArgsType,
+  onDeleteClick: (string, number) => void,
+  linkType: 'draft' | 'blogPost',
 };
 
 export type PostEditorType = {
-  updateEditorState: Function,
+  updateEditorState: ActionWithArgsType,
   editorState: EditorStateType,
-  saveDraftContent: Function,
-  postBlogPost: Function,
+  saveDraftContent: ActionWithArgsType,
+  postBlogPost: ActionWithArgsType,
   id: string,
-  history: Object,
+  history: HistoryType,
+};
+
+export type BlogButtonType = {
+  label: string,
+  onClick: (() => ActionType) | (() => void),
+};
+
+export type PopUpType = {
+  popUpClass: string,
+  children: Array<React$Element<any>>,
+  onClickYes: () => ActionType,
+  onClickNo: () => ActionType,
 };

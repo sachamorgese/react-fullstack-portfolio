@@ -1,4 +1,5 @@
-// @flow
+/* @noflow */
+
 const express = require('express');
 const mongoose = require('mongoose');
 const cookies = require('cookie-session');
@@ -9,7 +10,7 @@ require('./models');
 mongoose.connect(
   keys.mongoURI,
   { useNewUrlParser: true, useUnifiedTopology: true },
-  // eslint-disable-next-line no-console
+  // eslint-disable-next-line no-console,flowtype/require-parameter-type,flowtype/require-return-type
   (error) => console.log(error),
 );
 

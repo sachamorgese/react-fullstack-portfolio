@@ -1,14 +1,16 @@
+// @flow
 import React from 'react';
 import css from './PopUp.module.scss';
+import type { PopUpType } from '../../../types/component';
 
-const PopUp = (props) => {
+const PopUp = (props: PopUpType): React$Element<any> => {
   const { popUpClass, children, onClickYes, onClickNo } = props;
   return (
     <>
       <div
         className={popUpClass
           .split(' ')
-          .map((str) => css[str])
+          .map((str: string): string => css[str])
           .join(' ')}
       >
         <div className={css.TextContainer}>{children}</div>

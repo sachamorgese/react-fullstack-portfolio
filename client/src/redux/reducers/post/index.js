@@ -8,8 +8,8 @@ import {
   GET_BLOG_POST_DATA_SUCCESS,
   CLEAR_POST_DATA,
 } from './actions';
-import type { Action } from '../../../types/action';
-import type { State } from '../../../types/state';
+import type { ActionType } from '../../../types/actionType';
+import type { PostStateType } from '../../../types/state';
 
 const initialState = {
   title: '',
@@ -18,7 +18,7 @@ const initialState = {
   created: '',
 };
 
-export default function(state: State = initialState, action: Action) {
+export default function(state: PostStateType = initialState, action: ActionType): PostStateType {
   switch (action.type) {
     case UPDATE_EDITOR_STATE:
       return {

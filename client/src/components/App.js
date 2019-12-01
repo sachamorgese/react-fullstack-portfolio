@@ -9,10 +9,10 @@ import Blog from './Blog';
 import AdminHome from './Blog/AdminHome';
 import ProtectedRoute from './Shared/PrivateRoute';
 import authActions from '../redux/reducers/auth/actions';
-import type { Dispatch } from '../types/state';
+import type { DispatchType } from '../types/state';
 import Home from './Home';
 
-const App = ({ history }: { history: BrowserHistory }) => {
+const App = ({ history }: { history: BrowserHistory }): React$Element<any> => {
   return (
     <div className="App" style={{ height: '100%' }}>
       <ConnectedRouter history={history}>
@@ -28,7 +28,7 @@ const App = ({ history }: { history: BrowserHistory }) => {
   );
 };
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
+const mapDispatchToProps = (dispatch: DispatchType): void => {
   const { fetchUser } = authActions;
   return bindActionCreators(
     {
@@ -38,4 +38,4 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   );
 };
 
-export default connect(() => ({}), mapDispatchToProps)(App);
+export default connect((): {} => ({}), mapDispatchToProps)(App);

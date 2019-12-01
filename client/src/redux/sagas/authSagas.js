@@ -1,13 +1,14 @@
 // @flow
 import { put, takeLatest } from 'redux-saga/effects';
 
+import { Saga } from 'redux-saga';
 import authActions, { FETCH_USER } from '../reducers/auth/actions';
 
 const baseUrl = `${window.location.origin}`;
 
 const { fetchUserSubmit, fetchUserSuccess, fetchUserFailure } = authActions;
 
-function* fetchUserGenerator() {
+function* fetchUserGenerator(): Saga<void> {
   yield put(fetchUserSubmit());
   try {
     const url = `${baseUrl}/api/user/current_user`;

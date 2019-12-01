@@ -16,6 +16,7 @@ const blogPostSchema = new Schema({
     ref: 'Draft',
   },
   created: Date,
+  updated: Date,
   comments: [
     {
       type: mongoose.Schema.Types.ObjectId,

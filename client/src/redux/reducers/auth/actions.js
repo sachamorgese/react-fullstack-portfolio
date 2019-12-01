@@ -1,25 +1,25 @@
 // @flow
-import type { UserData } from '../../../types/action';
+import type { ActionType, UserDataType } from '../../../types/actionType';
 
-export const FETCH_USER = "FETCH_USER";
-export const FETCH_USER_SUBMIT = "FETCH_USER_SUBMIT";
-export const FETCH_USER_SUCCESS = "FETCH_USER_SUCCESS";
-export const FETCH_USER_FAILURE = "FETCH_USER_FAILURE";
+export const FETCH_USER = 'FETCH_USER';
+export const FETCH_USER_SUBMIT = 'FETCH_USER_SUBMIT';
+export const FETCH_USER_SUCCESS = 'FETCH_USER_SUCCESS';
+export const FETCH_USER_FAILURE = 'FETCH_USER_FAILURE';
 
-const fetchUser = () => ({
+const fetchUser = (): ActionType => ({
   type: FETCH_USER,
 });
 
-const fetchUserSubmit = () => ({
+const fetchUserSubmit = (): ActionType => ({
   type: FETCH_USER_SUBMIT,
 });
 
-const fetchUserSuccess = (userData: UserData) => ({
+const fetchUserSuccess = (userData: UserDataType): ActionType => ({
   type: FETCH_USER_SUCCESS,
-  payload: userData
+  payload: userData,
 });
 
-const fetchUserFailure = () => ({
+const fetchUserFailure = (): ActionType => ({
   type: FETCH_USER_FAILURE,
 });
 
@@ -28,4 +28,4 @@ export default {
   fetchUserSubmit,
   fetchUserSuccess,
   fetchUserFailure,
-}
+};
