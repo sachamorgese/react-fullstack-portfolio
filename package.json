@@ -21,15 +21,13 @@
     "yarn": "^1.9.4"
   },
   "scripts": {
-    "start": "npm run build",
-    "build": "run-s client:prod server:prod",
+    "start": "node index.js",
     "dev": "run-p client:dev server:dev",
     "server:dev": "nodemon index.js",
-    "server:prod": "node index.js",
     "client:dev": "cd client && npm run dev",
-    "client:prod": "cd client && npm run build",
     "lint": "eslint ./*.js client/src/**/*.js",
     "fix": "eslint ./*.js client/src/**/*.js --fix",
+    "heroku-postbuild": "npm run build --prefix client",
     "postinstall": "cd client && npm install",
     "flow": "flow status",
     "flow:install": "flow-typed install && flow-typed install -p ./client -l ../flow-typed",
