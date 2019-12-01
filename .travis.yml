@@ -8,13 +8,10 @@ cache:
   - "node_modules"
 
 script:
-- yarn lint:all
+- npm run lint:all
 
 os:
 - osx
 
-before_install:
-- npm install -g yarn@^1.9.4 --cache-min 999999999
-
 install:
-- yarn
+- npm install
