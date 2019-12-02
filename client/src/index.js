@@ -1,4 +1,5 @@
 // @flow
+import 'normalize.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
@@ -12,7 +13,6 @@ import createRootReducer from './redux/reducers';
 import registerServiceWorker from './registerServiceWorker';
 import saga from './redux/sagas';
 import authActions from './redux/reducers/auth/actions';
-import 'normalize.css';
 import './index.scss';
 
 const { fetchUser } = authActions;
