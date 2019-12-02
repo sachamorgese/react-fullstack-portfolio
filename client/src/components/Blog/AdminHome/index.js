@@ -18,6 +18,7 @@ import type {
   PostItemType,
 } from '../../../types/state';
 import Button from '../BlogButton';
+import type { ActionType } from '../../../types/actionType';
 
 class AdminHome extends Component<AdminHomeComponentType> {
   componentDidMount() {
@@ -47,7 +48,7 @@ class AdminHome extends Component<AdminHomeComponentType> {
 
     return (
       <>
-        <Button onClick={createNewDraft} label="New Post" />
+        <Button onClick={(): ActionType => createNewDraft()} label="New Post" />
         <LinksList
           listName="Drafts"
           listArray={drafts}
@@ -64,7 +65,7 @@ class AdminHome extends Component<AdminHomeComponentType> {
           deleteEntry={deleteBlogPost}
           hideMessage={hideMessage}
           onDeleteClick={this.onDeleteClick}
-          linkType="blogPost"
+          linkType="post"
         />
       </>
     );

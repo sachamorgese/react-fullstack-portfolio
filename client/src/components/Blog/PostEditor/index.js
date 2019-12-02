@@ -23,7 +23,7 @@ const emojiPlugin = createEmojiPlugin();
 const { EmojiSuggestions } = emojiPlugin;
 
 class PostEditor extends Component<PostEditorType> {
-  saveOnServer = debounce((editorState) => {
+  saveOnServer = debounce((editorState: EditorState) => {
     const { saveDraftContent, id } = this.props;
     saveDraftContent(id, editorState);
   }, 3000);
@@ -43,7 +43,7 @@ class PostEditor extends Component<PostEditorType> {
     }
   };
 
-  handleKeyCommand = (command) => {
+  handleKeyCommand = (command: string): string => {
     const { editorState } = this.props;
     const newState = RichUtils.handleKeyCommand(editorState, command);
 
@@ -55,7 +55,7 @@ class PostEditor extends Component<PostEditorType> {
     return 'not-handled';
   };
 
-  onButtonClick = (e, style) => {
+  onButtonClick = (e: SyntheticMouseEvent<>, style: string) => {
     e.preventDefault();
     const { editorState } = this.props;
     this.onChange(RichUtils.toggleInlineStyle(editorState, style));
@@ -72,25 +72,25 @@ class PostEditor extends Component<PostEditorType> {
     postBlogPost(id, editorState);
   };
 
-  render() {
+  render(): React$Element<any> {
     const { editorState } = this.props;
     return (
       <div className="PostEditor--root">
         <button
           type="button"
-          onMouseDown={(e) => this.onButtonClick(e, 'UNDERLINE')}
+          onMouseDown={(e: SyntheticMouseEvent<>): void => this.onButtonClick(e, 'UNDERLINE')}
         >
           Underline
         </button>
         <button
           type="button"
-          onMouseDown={(e) => this.onButtonClick(e, 'ITALIC')}
+          onMouseDown={(e: SyntheticMouseEvent<>): void => this.onButtonClick(e, 'ITALIC')}
         >
           Italic
         </button>
         <button
           type="button"
-          onMouseDown={(e) => this.onButtonClick(e, 'BOLD')}
+          onMouseDown={(e: SyntheticMouseEvent<>): void  => this.onButtonClick(e, 'BOLD')}
         >
           Bold
         </button>

@@ -61,7 +61,7 @@ export type LinksListType = {
   deleteEntry: ActionWithArgsType,
   hideMessage: ActionWithArgsType,
   onDeleteClick: (string, number) => void,
-  linkType: 'draft' | 'blogPost',
+  linkType: 'draft' | 'post',
 };
 
 export type PostEditorType = {
@@ -75,7 +75,7 @@ export type PostEditorType = {
 
 export type BlogButtonType = {
   label: string,
-  onClick: (() => ActionType) | (() => void),
+  onClick: () => (void | ActionType),
 };
 
 export type PopUpType = {

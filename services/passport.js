@@ -1,4 +1,6 @@
-// @flow
+// @noflow
+/* eslint-disable flowtype/require-parameter-type, flowtype/require-return-type */
+
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const mongoose = require('mongoose');
@@ -29,6 +31,7 @@ passport.use(
       proxy: true,
     },
     async (accessToken, refreshToken, profile, done) => {
+      console.log(profile)
       const { id, displayName: name, emails } = profile;
       const existingUser = await User.findOne({ google: { id: profile.id } });
       if (existingUser) {

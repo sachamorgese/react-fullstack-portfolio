@@ -52,7 +52,8 @@ function* createNewDraftGenerator({
   yield put(createNewDraftSubmit());
   const emptyState = EditorState.createEmpty();
   const body = JSON.stringify(convertToRaw(emptyState.getCurrentContent()));
-  const content = JSON.stringify({ postId: id, content: body });
+  const postId = id || null;
+  const content = JSON.stringify({ postId, content: body });
 
   const url = `${baseUrl}/draft/new`;
   try {
