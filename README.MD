@@ -1,6 +1,6 @@
 # WIP
 
 ## Installation
-Make sure you have yarn installed
+Make sure you have node and npm installed
 * Checkout the repository
-* Run yarn once, it will install both the backend and the frontend
+* Run npm install once, it will install both the backend and the frontend
