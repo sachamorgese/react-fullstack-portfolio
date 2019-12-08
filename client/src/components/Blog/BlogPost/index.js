@@ -28,6 +28,10 @@ class Post extends React.Component<DraftComponentType> {
       },
     } = this.props;
     getBlogPostData(id);
+    const edit = document.querySelector('div[contenteditable="true"]');
+    if (edit) {
+      edit.setAttribute('contenteditable', 'false');
+    }
   }
 
   render(): React$Element<any> {
