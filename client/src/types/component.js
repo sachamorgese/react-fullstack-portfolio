@@ -15,6 +15,19 @@ export type HistoryType = {
   listen: (() => void) => void,
 };
 
+export type BlogPostType = {
+  loading: boolean,
+  title: string,
+  failed: boolean,
+  history: HistoryType,
+  clearPostData: ActionWithArgsType,
+  match: any,
+  getBlogPostData: (string) => void,
+  content: EditorStateType,
+  role: RoleType,
+  createNewDraft: (?string) => void,
+};
+
 export type DraftComponentType = {
   editorState: EditorStateType,
   newDraft: boolean,
@@ -34,6 +47,7 @@ export type DraftComponentType = {
   content: EditorStateType,
   role: RoleType,
   createNewDraft: (?string) => void,
+  loading: boolean,
 };
 
 export type AdminHomeComponentType = {
@@ -43,6 +57,7 @@ export type AdminHomeComponentType = {
   getAllPosts: () => void,
   drafts: Array<PostItemType>,
   blogPosts: Array<PostItemType>,
+  loading: boolean,
   showMessage: ActionWithArgsType,
   hideMessage: ActionWithArgsType,
   deleteDraft: ActionWithArgsType,
@@ -75,7 +90,7 @@ export type PostEditorType = {
 
 export type BlogButtonType = {
   label: string,
-  onClick: () => (void | ActionType),
+  onClick: () => void | ActionType,
 };
 
 export type PopUpType = {

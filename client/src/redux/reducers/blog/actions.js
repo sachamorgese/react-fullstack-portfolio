@@ -1,6 +1,6 @@
 // @flow
 import type { PostItemType } from '../../../types/state';
-import type { ActionType } from '../../../types/actionType';
+import type { ActionType, AllPostsType } from '../../../types/actionType';
 
 export const CREATE_NEW_DRAFT = 'CREATE_NEW_DRAFT';
 export const CREATE_NEW_DRAFT_SUBMIT = 'CREATE_NEW_DRAFT_SUBMIT';
@@ -9,6 +9,8 @@ export const CREATE_NEW_DRAFT_FAILURE = 'CREATE_NEW_DRAFT_FAILURE';
 export const CREATE_NEW_DRAFT_AND_DELETE = 'CREATE_NEW_DRAFT_AND_DELETE';
 export const GET_ALL_POSTS = 'GET_ALL_POSTS';
 export const GET_ALL_POSTS_SUBMIT = 'GET_ALL_POSTS_SUBMIT';
+export const GET_ALL_POSTS_SUCCESS = 'GET_ALL_POSTS_SUCCESS';
+export const GET_ALL_POSTS_FAILURE = 'GET_ALL_POSTS_FAILURE';
 export const GET_DRAFTS_SUCCESS = 'GET_DRAFTS_SUCCESS';
 export const GET_DRAFTS_FAILURE = 'GET_DRAFTS_FAILURE';
 export const GET_BLOG_POSTS_SUCCESS = 'GET_BLOG_POSTS_SUCCESS';
@@ -51,6 +53,21 @@ const getAllPostsSubmit = (): ActionType => ({
   type: GET_ALL_POSTS_SUBMIT,
 });
 
+const getAllPostsSuccess = ({
+  blogPosts,
+  drafts,
+}: AllPostsType): ActionType => ({
+  type: GET_ALL_POSTS_SUCCESS,
+  payload: {
+    blogPosts,
+    drafts,
+  },
+});
+
+const getAllPostsFailure = (): ActionType => ({
+  type: GET_ALL_POSTS_FAILURE,
+});
+
 const getDraftsSuccess = (payload: Array<PostItemType>): ActionType => ({
   type: GET_DRAFTS_SUCCESS,
   payload,
@@ -60,9 +77,7 @@ const getDraftsFailure = (): ActionType => ({
   type: GET_DRAFTS_FAILURE,
 });
 
-const getBlogPostsSuccess = (
-  payload: Array<PostItemType>,
-): ActionType => ({
+const getBlogPostsSuccess = (payload: Array<PostItemType>): ActionType => ({
   type: GET_BLOG_POSTS_SUCCESS,
   payload,
 });
@@ -113,6 +128,8 @@ export default {
   createNewDraftAndDelete,
   getAllPosts,
   getAllPostsSubmit,
+  getAllPostsSuccess,
+  getAllPostsFailure,
   getDraftsSuccess,
   getDraftsFailure,
   getBlogPostsSuccess,

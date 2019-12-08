@@ -12,6 +12,7 @@ import './Draft.Module.scss';
 import type { DraftComponentType } from '../../../types/component';
 import BackButton from '../BackButton';
 import type { DispatchType } from '../../../types/state';
+import LoadingSpinner from '../../Shared/LoadingSpinner';
 
 class Post extends React.Component<DraftComponentType> {
   componentDidMount() {
@@ -58,30 +59,37 @@ class Post extends React.Component<DraftComponentType> {
       failed,
       postBlogPost,
       history,
+      loading,
       match: {
         params: { id },
       },
     } = this.props;
     return (
-      <div className="Draft--root">
-        <BackButton history={history} />
-        <input
-          placeholder="Title"
-          className="TitleBox"
-          value={title}
-          onChange={this.onChange}
-          onBlur={this.onBlur}
-        />
-        <PostEditor
-          editorState={editorState}
-          updateEditorState={updateEditorState}
-          saveDraftContent={saveDraftContent}
-          postBlogPost={postBlogPost}
-          history={history}
-          id={id}
-          failed={failed}
-        />
-      </div>
+      <>
+        {loading ? (
+          <LoadingSpinner />
+        ) : (
+          <div className="Draft--root">
+            <BackButton history={history} />
+            <input
+              placeholder="Title"
+              className="TitleBox"
+              value={title}
+              onChange={this.onChange}
+              onBlur={this.onBlur}
+            />
+            <PostEditor
+              editorState={editorState}
+              updateEditorState={updateEditorState}
+              saveDraftContent={saveDraftContent}
+              postBlogPost={postBlogPost}
+              history={history}
+              id={id}
+              failed={failed}
+            />
+          </div>
+        )}
+      </>
     );
   }
 }
@@ -89,6 +97,7 @@ class Post extends React.Component<DraftComponentType> {
 type BlogStateType = {
   newDraft: boolean,
   failed: boolean,
+  loading: boolean,
 };
 
 type PostStateType = {
@@ -105,7 +114,7 @@ type PropsType = {
 
 const mapStateToProps = ({
   post: { content, title },
-  blog: { newDraft, failed },
+  blog: { newDraft, failed, loading },
 }: {
   post: PostStateType,
   blog: BlogStateType,
@@ -114,6 +123,7 @@ const mapStateToProps = ({
   newDraft,
   title,
   failed,
+  loading,
 });
 
 const mapDispatchToProps = (dispatch: DispatchType): void => {

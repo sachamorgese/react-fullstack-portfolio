@@ -5,6 +5,7 @@ import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { isAdmin } from '../../utils/authUtils';
 import type { RoleType } from '../../types/component';
+import LoadingSpinner from './LoadingSpinner';
 
 type PropsStateType = {
   isLoggedIn: boolean,
@@ -28,7 +29,7 @@ function PrivateRoute({
     <Route
       {...rest}
       render={(): React$Element<any> => {
-        if (isLoading) return <div>Loading...</div>;
+        if (isLoading) return <LoadingSpinner />;
         return isLoggedIn && isAdmin(role) ? (
           children
         ) : (
@@ -47,7 +48,7 @@ const mapStateToProps = ({
   auth: { isLoggedIn, role, isLoading },
 }: {
   auth: PropsStateType,
-}): {state: PropsStateType} => ({
+}): { state: PropsStateType } => ({
   state: { isLoggedIn, role, isLoading },
 });
 

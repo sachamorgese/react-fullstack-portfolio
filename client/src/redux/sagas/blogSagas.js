@@ -1,4 +1,6 @@
 // @flow
+/* eslint-disable consistent-return */
+
 import { Saga } from 'redux-saga';
 import { put, takeLatest, call, all } from 'redux-saga/effects';
 import { EditorState, convertToRaw } from 'draft-js';
@@ -21,6 +23,7 @@ const {
   createNewDraftSuccess,
   createNewDraftFailure,
   getAllPostsSubmit,
+  getAllPostsSuccess,
   getDraftsSuccess,
   getDraftsFailure,
   deleteDraftSubmit,
@@ -76,12 +79,15 @@ function* createNewDraftGenerator({
   }
 }
 
-function* getDraftsGenerator(): Saga<void> {
+function* getDraftsGenerator(fetchAll: boolean = false): Saga<void> {
   try {
     const url = `${baseUrl}/drafts`;
     const res = yield fetch(url);
     if (res.status === 200) {
       const body = yield res.json();
+      if (fetchAll) {
+        return body;
+      }
       yield put(getDraftsSuccess(body));
     } else {
       yield put(getDraftsFailure());
@@ -91,12 +97,15 @@ function* getDraftsGenerator(): Saga<void> {
   }
 }
 
-function* getBlogPostsGenerator(): Saga<void> {
+function* getBlogPostsGenerator(fetchAll: boolean = false): Saga<void> {
   try {
     const url = `${baseUrl}/posts`;
     const res = yield fetch(url);
     if (res.status === 200) {
       const body = yield res.json();
+      if (fetchAll) {
+        return body;
+      }
       yield put(getBlogPostsSuccess(body));
     } else {
       yield put(getBlogPostsFailure());
@@ -207,7 +216,12 @@ function* postBlogPostGenerator({
 
 function* handleGetAllPosts(): Saga<void> {
   yield put(getAllPostsSubmit());
-  yield all([getDraftsGenerator(), getBlogPostsGenerator()]);
+  const [drafts, blogPosts] = yield all([
+    call(getDraftsGenerator, true),
+    call(getBlogPostsGenerator, true),
+  ]);
+  const payload = { drafts, blogPosts };
+  yield put(getAllPostsSuccess(payload));
 }
 
 const blog = [

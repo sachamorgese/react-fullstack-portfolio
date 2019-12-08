@@ -8,6 +8,8 @@ import LinksList from '../LinksList';
 // actions
 import blogActions from '../../../redux/reducers/blog/actions';
 import messageAction from '../../../redux/reducers/messages/actions';
+import Button from '../BlogButton';
+import LoadingSpinner from '../../Shared/LoadingSpinner';
 // css
 import './AdminHome.Module.scss';
 // types
@@ -17,7 +19,6 @@ import type {
   MessageItemType,
   PostItemType,
 } from '../../../types/state';
-import Button from '../BlogButton';
 import type { ActionType } from '../../../types/actionType';
 
 class AdminHome extends Component<AdminHomeComponentType> {
@@ -44,29 +45,38 @@ class AdminHome extends Component<AdminHomeComponentType> {
       drafts,
       blogPosts,
       messageItem,
+      loading,
     } = this.props;
-
     return (
       <>
-        <Button onClick={(): ActionType => createNewDraft()} label="New Post" />
-        <LinksList
-          listName="Drafts"
-          listArray={drafts}
-          messageItem={messageItem}
-          deleteEntry={deleteDraft}
-          hideMessage={hideMessage}
-          onDeleteClick={this.onDeleteClick}
-          linkType="draft"
-        />
-        <LinksList
-          listName="BlogPosts"
-          listArray={blogPosts}
-          messageItem={messageItem}
-          deleteEntry={deleteBlogPost}
-          hideMessage={hideMessage}
-          onDeleteClick={this.onDeleteClick}
-          linkType="post"
-        />
+        {loading ? (
+          <LoadingSpinner />
+        ) : (
+          <>
+            <Button
+              onClick={(): ActionType => createNewDraft()}
+              label="New Post"
+            />
+            <LinksList
+              listName="Drafts"
+              listArray={drafts}
+              messageItem={messageItem}
+              deleteEntry={deleteDraft}
+              hideMessage={hideMessage}
+              onDeleteClick={this.onDeleteClick}
+              linkType="draft"
+            />
+            <LinksList
+              listName="BlogPosts"
+              listArray={blogPosts}
+              messageItem={messageItem}
+              deleteEntry={deleteBlogPost}
+              hideMessage={hideMessage}
+              onDeleteClick={this.onDeleteClick}
+              linkType="post"
+            />
+          </>
+        )}
       </>
     );
   }
@@ -78,14 +88,19 @@ type StatePropsType = {
   isLoggedIn: boolean,
   name: string,
   messageItem: MessageItemType,
+  loading: boolean,
 };
 
 const mapStateToProps = ({
-  blog: { drafts, blogPosts },
+  blog: { drafts, blogPosts, loading },
   auth: { isLoggedIn, name },
   message: { item: messageItem },
 }: {
-  blog: { drafts: Array<PostItemType>, blogPosts: Array<PostItemType> },
+  blog: {
+    drafts: Array<PostItemType>,
+    blogPosts: Array<PostItemType>,
+    loading: boolean,
+  },
   auth: { isLoggedIn: boolean, name: string },
   message: { item: MessageItemType },
 }): StatePropsType => ({
@@ -93,6 +108,7 @@ const mapStateToProps = ({
   blogPosts,
   messageItem,
   isLoggedIn,
+  loading,
   name,
 });
 

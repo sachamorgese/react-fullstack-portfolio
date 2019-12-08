@@ -5,6 +5,7 @@ import {
   CREATE_NEW_DRAFT_SUCCESS,
   CREATE_NEW_DRAFT_FAILURE,
   GET_ALL_POSTS_SUBMIT,
+  GET_ALL_POSTS_SUCCESS,
   GET_DRAFTS_SUCCESS,
   GET_DRAFTS_FAILURE,
   GET_BLOG_POSTS_SUCCESS,
@@ -89,7 +90,6 @@ export default function(
         failed: true,
       };
     case GET_DRAFTS_SUCCESS:
-
       return {
         ...state,
         loading: false,
@@ -102,6 +102,13 @@ export default function(
         loading: false,
         failed: false,
         blogPosts: action.payload,
+      };
+    case GET_ALL_POSTS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        drafts: action.payload.drafts,
+        blogPosts: action.payload.blogPosts,
       };
     default:
       return state;

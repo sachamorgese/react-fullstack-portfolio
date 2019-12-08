@@ -23,6 +23,17 @@ type GetAllPostsType = {
 type GetAllPostsSubmitType = {
   type: 'GET_ALL_POSTS_SUBMIT',
 };
+export type AllPostsType = {
+  blogPosts: Array<PostItemType>,
+  drafts: Array<PostItemType>,
+};
+type GetAllPostsSuccessType = {
+  type: 'GET_ALL_POSTS_SUCCESS',
+  payload: AllPostsType,
+};
+type GetAllPostsFailureType = {
+  type: 'GET_ALL_POSTS_FAILURE',
+};
 type GetDraftsSubmitType = {
   type: 'GET_DRAFTS_SUBMIT',
 };
@@ -211,6 +222,8 @@ export type ActionType =
   | CreateNewDraftAndDeleteType
   | GetAllPostsType
   | GetAllPostsSubmitType
+  | GetAllPostsSuccessType
+  | GetAllPostsFailureType
   | GetDraftsSubmitType
   | GetDraftsSuccessType
   | GetDraftsFailureType
