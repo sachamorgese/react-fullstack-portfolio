@@ -10,7 +10,7 @@ require('./models');
 mongoose.connect(
   keys.mongoURI,
   { useNewUrlParser: true, useUnifiedTopology: true },
-  // eslint-disable-next-line flowtype/require-parameter-type,flowtype/require-return-type
+  // eslint-disable-next-line flowtype/require-parameter-type,flowtype/require-return-type,no-console
   (error) => console.log(error),
 );
 

@@ -10,7 +10,6 @@ import { createBrowserHistory } from 'history';
 import { routerMiddleware } from 'connected-react-router';
 import App from './components/App';
 import createRootReducer from './redux/reducers';
-import registerServiceWorker from './registerServiceWorker';
 import saga from './redux/sagas';
 import authActions from './redux/reducers/auth/actions';
 import './index.scss';
@@ -43,5 +42,3 @@ if (root) {
     root,
   );
 }
-
-registerServiceWorker();
