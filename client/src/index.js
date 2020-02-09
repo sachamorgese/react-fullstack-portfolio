@@ -12,7 +12,7 @@ import App from './components/App';
 import createRootReducer from './redux/reducers';
 import saga from './redux/sagas';
 import authActions from './redux/reducers/auth/actions';
-import './index.scss';
+import './style/index.scss';
 
 const { fetchUser } = authActions;
 

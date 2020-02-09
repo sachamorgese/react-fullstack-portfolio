@@ -1,6 +1,7 @@
+@import 'src/style/main';
+
 .BlogPost {
-  width: 980px;
-  margin: 1em auto;
+  margin: 1.6rem 0;
   height: 100%;
   position: relative;
 
@@ -13,10 +14,9 @@
     right: 0;
     height: 80%;
     margin: auto;
-    border-radius: .3em;
-    padding: 1em;
-    width: 980px;
-    position: relative;
+    border-radius: $border-radius-big;
+    padding: 1.6rem;
+    max-width: 100%;
     box-sizing: border-box;
     font-family: 'Merriweather', Georgia, serif;
     color: transparent;

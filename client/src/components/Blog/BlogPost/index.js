@@ -11,7 +11,7 @@ import LoadingSpinner from '../../Shared/LoadingSpinner';
 import postActions from '../../../redux/reducers/post/actions';
 import blogActions from '../../../redux/reducers/blog/actions';
 
-import './BlogPost.Module.scss';
+import '../../../style/components/Blog/BlogPost.Module.scss';
 import 'draft-js/dist/Draft.css';
 
 import type { BlogPostType, RoleType } from '../../../types/component';

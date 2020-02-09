@@ -1,6 +1,7 @@
+@import 'src/style/main';
+
 .PostEditor--root {
-  width: 980px;
-  margin: 1em auto;
+  margin: 16px auto;
   height: 80%;
   position: relative;
 
@@ -14,8 +15,8 @@
       right: 0;
       height: 100%;
       margin: auto;
-      border-radius: .3em;
-      padding: 1em;
+      border-radius: $border-radius-big;
+      padding: $padding-largest;
       position: relative;
       box-sizing: border-box;
       font-family: 'Merriweather', Georgia, serif;
@@ -30,31 +31,31 @@
     }
 }
 
-button{
-  background: #999;
+button {
+  background: $background-color-button;
   color: #fff;
   border: none;
-  padding: .5em;
+  padding: $padding-medium;
   cursor: pointer;
-  margin-bottom: 1em;
-  margin-right: 1em;
-  border-radius: .2em;
+  margin-bottom: 1.6rem;
+  margin-right: 1.6rem;
+  border-radius: $border-radius-small;
 }
 
-button:hover{
-  background: #888;
+button:hover {
+  background: $background-color-button-hover;
 }
 
-pre{
-  border: 1px solid #ccc;
-  background: #f0f0f0;
-  border-radius: .2em;
-  padding: .5em;
+pre {
+  border: 1px solid $border-color-editor;
+  background: $background-color-editor;
+  border-radius: $border-radius-small;
+  padding: $padding-medium;
   margin: 0;
 }
 
 
-pre > pre{
+pre > pre {
   background: none;
   border: none;
   padding: 0;

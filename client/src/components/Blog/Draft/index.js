@@ -7,7 +7,7 @@ import type { EditorState as EditorStateType } from 'draft-js';
 import PostEditor from '../PostEditor';
 import actions from '../../../redux/reducers/post/actions';
 
-import './Draft.Module.scss';
+import '../../../style/components/Blog/Draft.Module.scss';
 
 import type { DraftComponentType } from '../../../types/component';
 import BackButton from '../BackButton';

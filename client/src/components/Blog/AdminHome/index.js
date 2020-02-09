@@ -11,7 +11,7 @@ import messageAction from '../../../redux/reducers/messages/actions';
 import Button from '../BlogButton';
 import LoadingSpinner from '../../Shared/LoadingSpinner';
 // css
-import './AdminHome.Module.scss';
+import '../../../style/components/Blog/AdminHome.Module.scss';
 // types
 import type { AdminHomeComponentType } from '../../../types/component';
 import type {

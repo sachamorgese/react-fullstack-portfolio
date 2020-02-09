@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import css from './PopUp.module.scss';
+import css from '../../../style/components/Blog/PopUp.module.scss';
 import type { PopUpType } from '../../../types/component';
 
 const PopUp = (props: PopUpType): React$Element<any> => {

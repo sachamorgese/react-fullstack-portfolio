@@ -1,6 +1,8 @@
+@import 'src/style/main';
+
 .PopUp {
   display: none;
-  border-radius: 5px;
+  border-radius: $border-radius-medium;
   justify-content: space-evenly;
   left: 7px;
   position: absolute;

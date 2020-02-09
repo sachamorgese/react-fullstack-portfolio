@@ -11,7 +11,7 @@ import debounce from 'lodash/debounce';
 import draftPlugins from '../DraftPlugins';
 import 'draft-js-emoji-plugin/lib/plugin.css';
 import 'draft-js-alignment-plugin/lib/plugin.css';
-import './PostEditor.Module.scss';
+import '../../../style/components/Blog/PostEditor.Module.scss';
 import 'draft-js/dist/Draft.css';
 
 import type { PostEditorType } from '../../../types/component';

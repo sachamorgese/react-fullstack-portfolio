@@ -12,9 +12,11 @@ import authActions from '../redux/reducers/auth/actions';
 import type { DispatchType } from '../types/state';
 import Home from './Home';
 
+import '../style/components/App.scss';
+
 const App = ({ history }: { history: BrowserHistory }): React$Element<any> => {
   return (
-    <div className="App" style={{ height: '100%' }}>
+    <div className="App">
       <ConnectedRouter history={history}>
         <Switch>
           <ProtectedRoute path="/blog/admin">
