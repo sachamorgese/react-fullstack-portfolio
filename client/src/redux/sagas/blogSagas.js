@@ -11,7 +11,7 @@ import blogActions, {
   GET_ALL_POSTS,
   DELETE_DRAFT,
   DELETE_BLOG_POST,
-  CREATE_NEW_DRAFT_AND_DELETE,
+  CREATE_NEW_DRAFT_AND_DELETE, GET_BLOG_POSTS,
 } from '../reducers/blog/actions';
 
 import postActions, { POST_BLOG_POST } from '../reducers/post/actions';
@@ -29,6 +29,7 @@ const {
   deleteDraftSubmit,
   deleteDraftSuccess,
   deleteDraftFailure,
+  getBlogPostsSubmit,
   getBlogPostsSuccess,
   getBlogPostsFailure,
   deleteBlogPostSubmit,
@@ -99,6 +100,7 @@ function* getDraftsGenerator(fetchAll: boolean = false): Saga<void> {
 
 function* getBlogPostsGenerator(fetchAll: boolean = false): Saga<void> {
   try {
+    console.log(fetchAll)
     const url = `${baseUrl}/posts`;
     const res = yield fetch(url);
     if (res.status === 200) {
@@ -224,10 +226,16 @@ function* handleGetAllPosts(): Saga<void> {
   yield put(getAllPostsSuccess(payload));
 }
 
+function* handleGetBlogPosts(): Saga<void> {
+  yield put(getBlogPostsSubmit());
+  yield call(getBlogPostsGenerator);
+}
+
 const blog = [
   takeLatest(CREATE_NEW_DRAFT, createNewDraftGenerator),
   takeLatest(CREATE_NEW_DRAFT_AND_DELETE, createNewDraftAndDeleteGenerator),
   takeLatest(GET_ALL_POSTS, handleGetAllPosts),
+  takeLatest(GET_BLOG_POSTS, handleGetBlogPosts),
   takeLatest(DELETE_DRAFT, deleteDraftHandlerGenerator),
   takeLatest(DELETE_BLOG_POST, deleteBlogPostHandlerGenerator),
   takeLatest(POST_BLOG_POST, postBlogPostGenerator),

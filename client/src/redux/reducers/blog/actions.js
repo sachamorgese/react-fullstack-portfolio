@@ -13,6 +13,8 @@ export const GET_ALL_POSTS_SUCCESS = 'GET_ALL_POSTS_SUCCESS';
 export const GET_ALL_POSTS_FAILURE = 'GET_ALL_POSTS_FAILURE';
 export const GET_DRAFTS_SUCCESS = 'GET_DRAFTS_SUCCESS';
 export const GET_DRAFTS_FAILURE = 'GET_DRAFTS_FAILURE';
+export const GET_BLOG_POSTS = 'GET_BLOG_POSTS';
+export const GET_BLOG_POSTS_SUBMIT = 'GET_BLOG_POSTS_SUBMIT';
 export const GET_BLOG_POSTS_SUCCESS = 'GET_BLOG_POSTS_SUCCESS';
 export const GET_BLOG_POSTS_FAILURE = 'GET_BLOG_POSTS_FAILURE';
 export const DELETE_DRAFT = 'DELETE_DRAFT';
@@ -77,6 +79,14 @@ const getDraftsFailure = (): ActionType => ({
   type: GET_DRAFTS_FAILURE,
 });
 
+const getBlogPosts = (): ActionType => ({
+  type: GET_BLOG_POSTS,
+})
+
+const getBlogPostsSubmit = (): ActionType => ({
+  type: GET_BLOG_POSTS_SUBMIT,
+});
+
 const getBlogPostsSuccess = (payload: Array<PostItemType>): ActionType => ({
   type: GET_BLOG_POSTS_SUCCESS,
   payload,
@@ -132,6 +142,8 @@ export default {
   getAllPostsFailure,
   getDraftsSuccess,
   getDraftsFailure,
+  getBlogPosts,
+  getBlogPostsSubmit,
   getBlogPostsSuccess,
   getBlogPostsFailure,
   deleteDraft,

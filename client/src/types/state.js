@@ -48,4 +48,12 @@ export type StateType =
   | MessageStateType
   | PostStateType
   | AuthStateType;
+
+export type ReduxType = {
+  blog: BlogStateType,
+  message: MessageItemType,
+  post: PostStateType,
+  auth: AuthStateType,
+};
+
 export type DispatchType = ReduxDispatch<ActionType>;

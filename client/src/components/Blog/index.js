@@ -7,9 +7,11 @@ import type { matchPath } from 'react-router-dom'
 import Draft from './Draft';
 import AdminHome from './AdminHome';
 import BlogPost from './BlogPost';
+import BlogHome from './BlogHome';
 
-const Blog = ({ match }: {match: matchPath}) => (
+const Blog = ({ match }: {match: matchPath}): React$Element<any> =>  (
   <>
+    <Route path={`${match.path}home`} component={BlogHome} />
     <Route path={`${match.path}admin`} component={AdminHome} />
     <Route path={`${match.path}draft/:id`} component={Draft} />
     <Route path={`${match.path}post/:id`} component={BlogPost} />

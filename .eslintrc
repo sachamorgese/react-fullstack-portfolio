@@ -54,6 +54,9 @@
   "settings": {
     "flowtype": {
       "onlyFilesWithFlowAnnotation": false
+    },
+    "react": {
+      "version": "detect"
     }
   }
 }
