@@ -1,18 +1,13 @@
 // @flow
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import type { RoleType } from '../types/component';
+import type { AuthStateType, ReduxType } from '../types/state';
 
-type HomePropsType = {
-  name: string,
-  isLoggedIn: boolean,
-  role: RoleType,
-};
+export default function Home(): React$Element<any> {
+  const { name, isLoggedIn, role } = useSelector((state: ReduxType): AuthStateType => state.auth)
 
-function Home(props: HomePropsType): React$Element<any> {
-  const { name, isLoggedIn, role } = props;
   return (
     <>
       {isLoggedIn ? (
@@ -26,15 +21,3 @@ function Home(props: HomePropsType): React$Element<any> {
     </>
   );
 }
-
-const mapStateToProps = ({
-  auth: { isLoggedIn, name, role },
-}: {
-  auth: HomePropsType,
-}): HomePropsType => ({
-  isLoggedIn,
-  name,
-  role,
-});
-
-export default connect(mapStateToProps)(Home);

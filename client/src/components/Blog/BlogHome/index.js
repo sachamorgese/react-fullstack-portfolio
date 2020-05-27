@@ -5,15 +5,10 @@ import type { BlogStateType, PostItemType, ReduxType } from '../../../types/stat
 import blogActions from '../../../redux/reducers/blog/actions';
 import LoadingSpinner from '../../Shared/LoadingSpinner';
 
-type StatePropsType = {
-  blogPosts: Array<PostItemType>,
-  loading: boolean,
-};
-
 const { getBlogPosts } = blogActions;
 
 const BlogHome = (): React$Element<any> => {
-  const { blogPosts, loading }: StatePropsType = useSelector((state: ReduxType): BlogStateType => state.blog);
+  const { blogPosts, loading } = useSelector((state: ReduxType): BlogStateType => state.blog);
 
   const dispatch = useDispatch();
 

@@ -113,6 +113,9 @@ type ShowMessageType = {
 type HideMessageType = {
   type: 'HIDE_MESSAGE',
 };
+type GetBlogPostsType = {
+  type: 'GET_BLOG_POSTS',
+};
 type GetBlogPostsSubmitType = {
   type: 'GET_BLOG_POSTS_SUBMIT',
 };
@@ -245,6 +248,7 @@ export type ActionType =
   | DeleteEditorStateType
   | ShowMessageType
   | HideMessageType
+  | GetBlogPostsType
   | GetBlogPostsSubmitType
   | GetBlogPostsSuccessType
   | GetBlogPostsFailureType

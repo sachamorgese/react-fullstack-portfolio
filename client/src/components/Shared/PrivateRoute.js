@@ -1,28 +1,20 @@
 // @flow
 import * as React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { isAdmin } from '../../utils/authUtils';
-import type { RoleType } from '../../types/component';
 import LoadingSpinner from './LoadingSpinner';
-
-type PropsStateType = {
-  isLoggedIn: boolean,
-  role: RoleType,
-  isLoading: boolean,
-};
+import type { AuthStateType, ReduxType } from '../../types/state';
 
 type PropsType = {
-  state: PropsStateType,
   children: React$Element<any>,
 };
 
-function PrivateRoute({
-  state,
+export default function PrivateRoute({
   children,
   ...rest
 }: PropsType): React$Element<any> {
-  const { isLoggedIn, role, isLoading } = state;
+  const { isLoggedIn, role, isLoading } = useSelector((state: ReduxType): AuthStateType => state.auth);
 
   return (
     <Route
@@ -42,13 +34,3 @@ function PrivateRoute({
     />
   );
 }
-
-const mapStateToProps = ({
-  auth: { isLoggedIn, role, isLoading },
-}: {
-  auth: PropsStateType,
-}): { state: PropsStateType } => ({
-  state: { isLoggedIn, role, isLoading },
-});
-
-export default connect(mapStateToProps)(PrivateRoute);

@@ -3,10 +3,10 @@ import React from 'react';
 
 import '../../../style/components/Shared/LoadingSpinner.Module.scss';
 
-const LoadingSpinner = (): React$Element<any> => (
-  <div className="LoadingSpinner">
-    <span className="LoadingSpinner__spinner" />
-  </div>
-);
-
-export default LoadingSpinner;
+export default function LoadingSpinner(): React$Element<any> {
+  return (
+    <div className="LoadingSpinner">
+      <span className="LoadingSpinner__spinner" />
+    </div>
+  )
+};
