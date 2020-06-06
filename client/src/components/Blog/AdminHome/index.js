@@ -1,60 +1,54 @@
 // @flow
 // libraries
-import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import React, {useEffect} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 // components
 import LinksList from '../LinksList';
 // actions
 import blogActions from '../../../redux/reducers/blog/actions';
-import messageAction from '../../../redux/reducers/messages/actions';
+import messageActions from '../../../redux/reducers/messages/actions';
 import Button from '../BlogButton';
 import LoadingSpinner from '../../Shared/LoadingSpinner';
 // css
 import '../../../style/components/Blog/AdminHome.Module.scss';
 // types
-import type { AdminHomeComponentType } from '../../../types/component';
-import type {
-  DispatchType,
-  MessageItemType,
-  PostItemType,
-} from '../../../types/state';
-import type { ActionType } from '../../../types/actionType';
+import type { ReduxType } from '../../../types/state';
 
-class AdminHome extends Component<AdminHomeComponentType> {
-  componentDidMount() {
-    const { getAllPosts } = this.props;
-    getAllPosts();
-  }
+const {
+  createNewDraft,
+  getAllPosts,
+  deleteDraft,
+  deleteBlogPost,
+} = blogActions;
+const { showMessage, hideMessage } = messageActions;
 
-  onDeleteClick = (name: string, index: number) => {
-    const { showMessage } = this.props;
+export default function AdminHome(): React$Element<any> {
+  const dispatch = useDispatch();
+  const {
+    blog: { drafts, blogPosts, loading },
+    message: { item: messageItem },
+  } = useSelector((state: ReduxType): ReduxType => state)
+
+  useEffect(() => {
+    dispatch(getAllPosts())
+  }, [dispatch])
+
+  function onDeleteClick (name: string, index: number) {
     const payload = {
       name,
       index,
     };
-    showMessage(payload);
-  };
+    dispatch(showMessage(payload));
+  }
 
-  render(): React$Element<any> {
-    const {
-      createNewDraft,
-      hideMessage,
-      deleteDraft,
-      deleteBlogPost,
-      drafts,
-      blogPosts,
-      messageItem,
-      loading,
-    } = this.props;
-    return (
-      <>
-        {loading ? (
-          <LoadingSpinner />
+  return (
+    <>
+      {loading ? (
+        <LoadingSpinner />
         ) : (
           <>
             <Button
-              onClick={(): ActionType => createNewDraft()}
+              onClick={(): void => dispatch(createNewDraft())}
               label="New Post"
             />
             <LinksList
@@ -63,7 +57,7 @@ class AdminHome extends Component<AdminHomeComponentType> {
               messageItem={messageItem}
               deleteEntry={deleteDraft}
               hideMessage={hideMessage}
-              onDeleteClick={this.onDeleteClick}
+              onDeleteClick={onDeleteClick}
               linkType="draft"
             />
             <LinksList
@@ -72,65 +66,11 @@ class AdminHome extends Component<AdminHomeComponentType> {
               messageItem={messageItem}
               deleteEntry={deleteBlogPost}
               hideMessage={hideMessage}
-              onDeleteClick={this.onDeleteClick}
+              onDeleteClick={onDeleteClick}
               linkType="post"
             />
           </>
         )}
-      </>
+    </>
     );
-  }
 }
-
-type StatePropsType = {
-  drafts: Array<PostItemType>,
-  blogPosts: Array<PostItemType>,
-  isLoggedIn: boolean,
-  name: string,
-  messageItem: MessageItemType,
-  loading: boolean,
-};
-
-const mapStateToProps = ({
-  blog: { drafts, blogPosts, loading },
-  auth: { isLoggedIn, name },
-  message: { item: messageItem },
-}: {
-  blog: {
-    drafts: Array<PostItemType>,
-    blogPosts: Array<PostItemType>,
-    loading: boolean,
-  },
-  auth: { isLoggedIn: boolean, name: string },
-  message: { item: MessageItemType },
-}): StatePropsType => ({
-  drafts,
-  blogPosts,
-  messageItem,
-  isLoggedIn,
-  loading,
-  name,
-});
-
-const mapDispatchToProps = (dispatch: DispatchType): void => {
-  const {
-    createNewDraft,
-    getAllPosts,
-    deleteDraft,
-    deleteBlogPost,
-  } = blogActions;
-  const { showMessage, hideMessage } = messageAction;
-  return bindActionCreators(
-    {
-      createNewDraft,
-      getAllPosts,
-      showMessage,
-      hideMessage,
-      deleteDraft,
-      deleteBlogPost,
-    },
-    dispatch,
-  );
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(AdminHome);

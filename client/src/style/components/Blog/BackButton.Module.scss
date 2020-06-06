@@ -1,8 +1,15 @@
+@import "../../base/mixins";
+
 .BackButton--root {
   background: transparent;
   position: absolute;
   left: -10%;
   font-size: 3rem;
+
+  @include bp(hmid) {
+    position: static;
+    left: 0;
+  }
 
   &:hover {
     background: transparent;

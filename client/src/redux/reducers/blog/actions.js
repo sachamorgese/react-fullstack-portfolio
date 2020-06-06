@@ -26,9 +26,8 @@ export const DELETE_BLOG_POST_SUBMIT = 'DELETE_BLOG_POST_SUBMIT';
 export const DELETE_BLOG_POST_SUCCESS = 'DELETE_BLOG_POST_SUCCESS';
 export const DELETE_BLOG_POST_FAILURE = 'DELETE_BLOG_POST_FAILURE';
 
-const createNewDraft = (id: string): ActionType => ({
+const createNewDraft = (): ActionType => ({
   type: CREATE_NEW_DRAFT,
-  payload: id,
 });
 
 const createNewDraftSubmit = (): ActionType => ({

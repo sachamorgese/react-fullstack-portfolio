@@ -3,12 +3,14 @@
 import { replace } from 'connected-react-router';
 import { convertFromRaw, convertToRaw, EditorState } from 'draft-js';
 import { put, takeLatest, call } from 'redux-saga/effects';
+import type { Saga } from 'redux-saga';
 import actions, {
   GET_BLOG_POST_DATA,
   GET_DRAFT_DATA,
   SAVE_DRAFT_CONTENT,
   SAVE_TITLE,
 } from '../reducers/post/actions';
+
 
 const {
   getDraftDataSubmit,
@@ -26,7 +28,7 @@ const headers = {
   'Content-Type': 'application/json',
 };
 
-function* getDraftDataGenerator({ payload: id }): any {
+function* getDraftDataGenerator({payload: id}: {payload: string}): Saga<void> {
   yield put(getDraftDataSubmit());
   try {
     const res = yield call(fetch, `${baseUrl}/draft/${id}`);
@@ -62,7 +64,7 @@ function* getDraftDataGenerator({ payload: id }): any {
   }
 }
 
-function* saveDraftContentGenerator({ payload: { id, editorState } }): any {
+function* saveDraftContentGenerator({ payload: { id, editorState } }: {payload: {id: string, editorState: EditorState}}): Saga<void> {
   try {
     const url = `${baseUrl}/draft/${id}/content`;
     const rawContent = JSON.stringify(
@@ -90,7 +92,7 @@ function* saveDraftContentGenerator({ payload: { id, editorState } }): any {
   }
 }
 
-function* saveTitleGenerator({ payload: { id, title } }): any {
+function* saveTitleGenerator({ payload: { id, title } }: {payload: {id: string, title: string}}): Saga<void> {
   try {
     const url = `${baseUrl}/draft/${id}/title`;
     const body = JSON.stringify({
@@ -106,13 +108,15 @@ function* saveTitleGenerator({ payload: { id, title } }): any {
   }
 }
 
-function* getBlogPostDataGenerator({ payload: id }): any {
+function* getBlogPostDataGenerator({payload: id}: {payload: string}): Saga<void> {
   yield put(getBlogPostDataSubmit());
   try {
     const res = yield call(fetch, `${baseUrl}/post/${id}`);
     if (res.status === 200 || res.status === 304) {
       const body = yield res.json();
+      console.log(body.content)
       const bodyContent = JSON.parse(body.content);
+      console.log(bodyContent)
       const content = EditorState.createWithContent(
         convertFromRaw(bodyContent),
       );

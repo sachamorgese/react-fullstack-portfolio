@@ -1,9 +1,12 @@
 // @flow
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import type { BlogStateType, PostItemType, ReduxType } from '../../../types/state';
+import BlogEntry from '../BlogEntry'
+import type { BlogStateType, ReduxType } from '../../../types/state';
 import blogActions from '../../../redux/reducers/blog/actions';
 import LoadingSpinner from '../../Shared/LoadingSpinner';
+import '../../../style/components/Blog/BlogHome.Module.scss';
+import type { BlogEntryType } from '../../../types/component';
 
 const { getBlogPosts } = blogActions;
 
@@ -23,7 +26,7 @@ const BlogHome = (): React$Element<any> => {
         <ul>
           {
             // eslint-disable-next-line no-underscore-dangle
-            blogPosts.map((post: PostItemType): React$Element<any> => <li key={post._id}>{post.title}</li>)
+            blogPosts.map((post: BlogEntryType): React$Element<any> => <BlogEntry key={post._id} post={post} />)
           }
         </ul>
       )

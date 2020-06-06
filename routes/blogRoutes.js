@@ -115,8 +115,16 @@ module.exports = (app) => {
 
   app.get('/api/blog/posts', async (req, res) => {
     try {
-      const posts = await BlogPost.find({}, 'title').exec();
-      res.send(posts);
+      await BlogPost.find({}, 'title created content').lean().exec((err, posts) => {
+        const newPosts = posts.map(post => {
+          const contentObject = JSON.parse(post.content)
+          const subtitle = contentObject.blocks[0].text
+          return {
+            ...post, subtitle
+          }
+        })
+        res.send(newPosts);
+      });
     } catch (e) {
       res.send(e);
     }
@@ -124,10 +132,14 @@ module.exports = (app) => {
 
   async function createNewPost(draft, newContent) {
     const { content, title, labels } = draft;
+    const created = Date.now();
+
     const draftParams = {
       content: newContent || content,
+      created,
       title,
       labels,
+
     };
     return new BlogPost(draftParams).save();
   }

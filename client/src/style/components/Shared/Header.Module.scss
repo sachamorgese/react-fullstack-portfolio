@@ -1,0 +1,18 @@
+@import "../../base/mixins";
+
+.AppHeader {
+  h1 {
+    @include bp(mid) {
+      padding: 0 2rem;
+    }
+  ;
+
+    @include bp(small) {
+      padding: 0;
+      text-align: center;
+    }
+  }
+
+  color: black;
+  text-decoration: none;
+}

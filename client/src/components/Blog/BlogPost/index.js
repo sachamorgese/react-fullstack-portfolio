@@ -60,7 +60,7 @@ class Post extends React.Component<BlogPostType> {
                 onClick={(): void => createNewDraft(id)}
               />
             )}
-            <h1>{title}</h1>
+            <h2>{title}</h2>
             <div className="BlogPostBody">
               <Editor editorState={content} onChange={() => {}} readonly />
             </div>

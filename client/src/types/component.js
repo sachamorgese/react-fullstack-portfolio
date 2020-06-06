@@ -9,10 +9,19 @@ export type RoleType = 'admin' | 'mod' | 'user';
 export type BasicActionType = () => ActionType;
 
 type ActionWithArgsType = <T, K>(T, K) => ActionType;
+type ActionWithArgsDispatchType = (any) => ActionType;
 
 export type HistoryType = {
   ...History,
   listen: (() => void) => void,
+};
+
+export type BlogEntryType = {
+  title: string,
+  subtitle: string,
+  created: string,
+  updated: string,
+  _id: string,
 };
 
 export type BlogPostType = {
@@ -73,8 +82,8 @@ export type LinksListType = {
   listName: 'Drafts' | 'BlogPosts',
   listArray: Array<LinksType>,
   messageItem: MessageItemType,
-  deleteEntry: ActionWithArgsType,
-  hideMessage: ActionWithArgsType,
+  deleteEntry: ActionWithArgsDispatchType,
+  hideMessage: ActionWithArgsDispatchType,
   onDeleteClick: (string, number) => void,
   linkType: 'draft' | 'post',
 };
