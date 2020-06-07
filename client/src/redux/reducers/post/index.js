@@ -18,7 +18,10 @@ const initialState = {
   created: '',
 };
 
-export default function(state: PostStateType = initialState, action: ActionType): PostStateType {
+export default function post(
+  state: PostStateType = initialState,
+  action: ActionType,
+): PostStateType {
   switch (action.type) {
     case UPDATE_EDITOR_STATE:
       return {
@@ -45,7 +48,7 @@ export default function(state: PostStateType = initialState, action: ActionType)
         title: action.payload.title,
       };
     case CLEAR_POST_DATA: {
-      return initialState
+      return initialState;
     }
     default:
       return state;

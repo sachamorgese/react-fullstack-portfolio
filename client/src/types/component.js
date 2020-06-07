@@ -34,7 +34,7 @@ export type BlogPostType = {
   getBlogPostData: (string) => void,
   content: EditorStateType,
   role: RoleType,
-  createNewDraft: (?string) => void,
+  createNewDraftAndDelete: (string) => void,
 };
 
 export type DraftComponentType = {

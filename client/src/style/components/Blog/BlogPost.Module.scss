@@ -9,10 +9,9 @@
   h2 {
     color: #fff;
     @include bp(mid) {
-       padding: 0 1rem;
-    };
+      padding: 0 1rem;
+    }
   }
-
 
   &Body {
     left: 0;

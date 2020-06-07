@@ -66,29 +66,47 @@ declare module 'eslint-plugin-jsx-control-statements/index.js' {
   declare module.exports: $Exports<'eslint-plugin-jsx-control-statements'>;
 }
 declare module 'eslint-plugin-jsx-control-statements/lib/rules/jsx-choose-not-empty.js' {
-  declare module.exports: $Exports<'eslint-plugin-jsx-control-statements/lib/rules/jsx-choose-not-empty'>;
+  declare module.exports: $Exports<
+    'eslint-plugin-jsx-control-statements/lib/rules/jsx-choose-not-empty',
+  >;
 }
 declare module 'eslint-plugin-jsx-control-statements/lib/rules/jsx-for-require-each.js' {
-  declare module.exports: $Exports<'eslint-plugin-jsx-control-statements/lib/rules/jsx-for-require-each'>;
+  declare module.exports: $Exports<
+    'eslint-plugin-jsx-control-statements/lib/rules/jsx-for-require-each',
+  >;
 }
 declare module 'eslint-plugin-jsx-control-statements/lib/rules/jsx-for-require-of.js' {
-  declare module.exports: $Exports<'eslint-plugin-jsx-control-statements/lib/rules/jsx-for-require-of'>;
+  declare module.exports: $Exports<
+    'eslint-plugin-jsx-control-statements/lib/rules/jsx-for-require-of',
+  >;
 }
 declare module 'eslint-plugin-jsx-control-statements/lib/rules/jsx-if-require-condition.js' {
-  declare module.exports: $Exports<'eslint-plugin-jsx-control-statements/lib/rules/jsx-if-require-condition'>;
+  declare module.exports: $Exports<
+    'eslint-plugin-jsx-control-statements/lib/rules/jsx-if-require-condition',
+  >;
 }
 declare module 'eslint-plugin-jsx-control-statements/lib/rules/jsx-jcs-no-undef.js' {
-  declare module.exports: $Exports<'eslint-plugin-jsx-control-statements/lib/rules/jsx-jcs-no-undef'>;
+  declare module.exports: $Exports<
+    'eslint-plugin-jsx-control-statements/lib/rules/jsx-jcs-no-undef',
+  >;
 }
 declare module 'eslint-plugin-jsx-control-statements/lib/rules/jsx-otherwise-once-last.js' {
-  declare module.exports: $Exports<'eslint-plugin-jsx-control-statements/lib/rules/jsx-otherwise-once-last'>;
+  declare module.exports: $Exports<
+    'eslint-plugin-jsx-control-statements/lib/rules/jsx-otherwise-once-last',
+  >;
 }
 declare module 'eslint-plugin-jsx-control-statements/lib/rules/jsx-use-if-tag.js' {
-  declare module.exports: $Exports<'eslint-plugin-jsx-control-statements/lib/rules/jsx-use-if-tag'>;
+  declare module.exports: $Exports<
+    'eslint-plugin-jsx-control-statements/lib/rules/jsx-use-if-tag',
+  >;
 }
 declare module 'eslint-plugin-jsx-control-statements/lib/rules/jsx-when-require-condition.js' {
-  declare module.exports: $Exports<'eslint-plugin-jsx-control-statements/lib/rules/jsx-when-require-condition'>;
+  declare module.exports: $Exports<
+    'eslint-plugin-jsx-control-statements/lib/rules/jsx-when-require-condition',
+  >;
 }
 declare module 'eslint-plugin-jsx-control-statements/lib/utils.js' {
-  declare module.exports: $Exports<'eslint-plugin-jsx-control-statements/lib/utils'>;
+  declare module.exports: $Exports<
+    'eslint-plugin-jsx-control-statements/lib/utils',
+  >;
 }

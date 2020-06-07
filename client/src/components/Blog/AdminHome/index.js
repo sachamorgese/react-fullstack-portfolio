@@ -1,6 +1,6 @@
 // @flow
 // libraries
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // components
 import LinksList from '../LinksList';
@@ -27,13 +27,13 @@ export default function AdminHome(): React$Element<any> {
   const {
     blog: { drafts, blogPosts, loading },
     message: { item: messageItem },
-  } = useSelector((state: ReduxType): ReduxType => state)
+  } = useSelector((state: ReduxType): ReduxType => state);
 
   useEffect(() => {
-    dispatch(getAllPosts())
-  }, [dispatch])
+    dispatch(getAllPosts());
+  }, [dispatch]);
 
-  function onDeleteClick (name: string, index: number) {
+  function onDeleteClick(name: string, index: number) {
     const payload = {
       name,
       index,
@@ -45,32 +45,32 @@ export default function AdminHome(): React$Element<any> {
     <>
       {loading ? (
         <LoadingSpinner />
-        ) : (
-          <>
-            <Button
-              onClick={(): void => dispatch(createNewDraft())}
-              label="New Post"
-            />
-            <LinksList
-              listName="Drafts"
-              listArray={drafts}
-              messageItem={messageItem}
-              deleteEntry={deleteDraft}
-              hideMessage={hideMessage}
-              onDeleteClick={onDeleteClick}
-              linkType="draft"
-            />
-            <LinksList
-              listName="BlogPosts"
-              listArray={blogPosts}
-              messageItem={messageItem}
-              deleteEntry={deleteBlogPost}
-              hideMessage={hideMessage}
-              onDeleteClick={onDeleteClick}
-              linkType="post"
-            />
-          </>
-        )}
+      ) : (
+        <>
+          <Button
+            onClick={(): void => dispatch(createNewDraft())}
+            label="New Post"
+          />
+          <LinksList
+            listName="Drafts"
+            listArray={drafts}
+            messageItem={messageItem}
+            deleteEntry={deleteDraft}
+            hideMessage={hideMessage}
+            onDeleteClick={onDeleteClick}
+            linkType="draft"
+          />
+          <LinksList
+            listName="BlogPosts"
+            listArray={blogPosts}
+            messageItem={messageItem}
+            deleteEntry={deleteBlogPost}
+            hideMessage={hideMessage}
+            onDeleteClick={onDeleteClick}
+            linkType="post"
+          />
+        </>
+      )}
     </>
-    );
+  );
 }

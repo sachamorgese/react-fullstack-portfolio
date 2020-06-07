@@ -1,4 +1,4 @@
-@import "src/style/main";
+@import 'src/style/main';
 
 .Draft--root {
   height: 100%;
@@ -12,6 +12,6 @@
     font-size: $font-size-medium;
     line-height: inherit;
     padding: $padding-large;
-    width: 100%
+    width: 100%;
   }
 }

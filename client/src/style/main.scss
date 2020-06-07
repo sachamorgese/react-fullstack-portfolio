@@ -1,4 +1,4 @@
-@import "base/variables";
+@import 'base/variables';
 @import url('//fonts.googleapis.com/css?family=Merriweather:400,400i,700,700i|Montserrat');
 
 * {
@@ -7,7 +7,8 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   height: 100vh;
   font-family: 'Merriweather', Georgia, serif;
   line-height: inherit;
@@ -17,7 +18,9 @@ html {
   font-size: 62.5%;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   font-family: 'Montserrat', sans-serif;
 }
 

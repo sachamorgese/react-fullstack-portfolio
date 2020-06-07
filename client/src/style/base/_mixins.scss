@@ -1,21 +1,24 @@
 @mixin bp($point) {
-
-  $bp-small: "(max-width: 600px)";
-  $bp-mid: "(max-width: 1000px)";
-  $bp-hmid: "(max-width: 1250px)";
-  $bp-Big: "(min-width: 1600px)";
-
+  $bp-small: '(max-width: 600px)';
+  $bp-mid: '(max-width: 1000px)';
+  $bp-hmid: '(max-width: 1250px)';
+  $bp-Big: '(min-width: 1600px)';
 
   @if $point == big {
-    @media #{$bp-Big} { @content; }
-  }
-  @else if $point == mid {
-    @media #{$bp-mid} { @content; }
-  }
-  @else if $point == hmid {
-    @media #{$bp-hmid} { @content; }
-  }
-  @else if $point == small {
-    @media #{$bp-small}  { @content; }
+    @media #{$bp-Big} {
+      @content;
+    }
+  } @else if $point == mid {
+    @media #{$bp-mid} {
+      @content;
+    }
+  } @else if $point == hmid {
+    @media #{$bp-hmid} {
+      @content;
+    }
+  } @else if $point == small {
+    @media #{$bp-small} {
+      @content;
+    }
   }
 }

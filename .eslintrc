@@ -1,5 +1,5 @@
 {
-  "extends": ["airbnb", "prettier"],
+  "extends": ["airbnb", "airbnb/hooks", "airbnb/whitespace"],
   "parser": "babel-eslint",
   "plugins": ["flowtype"],
   "env": {
@@ -11,6 +11,16 @@
   },
   "ignorePatterns": ["temp.js", "flow-typed/"],
   "rules": {
+    "no-console": [2, {
+      "allow": ["warn", "error"]
+    }],
+    "comma-dangle": "error",
+    "quotes": "error",
+    "func-names": "error",
+    "func-name-matching": "error",
+    "max-len": ["error", { "code": 120, "ignoreComments": true }],
+    "no-underscore-dangle": ["error", { "allow": ["_id"] }],
+    "semi": "error",
     "react/jsx-filename-extension": [2, { "extensions": [".js", ".jsx"] }],
     "react/jsx-props-no-spreading": [
       2,

@@ -2,7 +2,9 @@
 /* eslint-disable consistent-return */
 
 import { Saga } from 'redux-saga';
-import { put, takeLatest, call, all } from 'redux-saga/effects';
+import {
+  put, takeLatest, call, all,
+} from 'redux-saga/effects';
 import { EditorState, convertToRaw } from 'draft-js';
 import { push } from 'connected-react-router';
 
@@ -11,7 +13,8 @@ import blogActions, {
   GET_ALL_POSTS,
   DELETE_DRAFT,
   DELETE_BLOG_POST,
-  CREATE_NEW_DRAFT_AND_DELETE, GET_BLOG_POSTS,
+  CREATE_NEW_DRAFT_AND_DELETE,
+  GET_BLOG_POSTS,
 } from '../reducers/blog/actions';
 
 import postActions, { POST_BLOG_POST } from '../reducers/post/actions';
@@ -100,7 +103,6 @@ function* getDraftsGenerator(fetchAll: boolean = false): Saga<void> {
 
 function* getBlogPostsGenerator(fetchAll: boolean = false): Saga<void> {
   try {
-    console.log(fetchAll)
     const url = `${baseUrl}/posts`;
     const res = yield fetch(url);
     if (res.status === 200) {
@@ -147,7 +149,11 @@ function* deleteDraftHandlerGenerator({
   yield call(getDraftsGenerator);
 }
 
-function* deleteBlogPostGenerator(id: string): Saga<void> {
+function* deleteBlogPostGenerator({
+  payload: id,
+}: {
+  payload: string,
+}): Saga<void> {
   try {
     yield put(deleteBlogPostSubmit());
     const url = `${baseUrl}/post/${id}`;
@@ -155,27 +161,25 @@ function* deleteBlogPostGenerator(id: string): Saga<void> {
       method: 'DELETE',
       headers,
     });
-    if (res === 200) {
+    if (res.status === 200) {
       yield put(deleteBlogPostSuccess());
       yield put(messageActions.hideMessage());
     } else {
+      console.error(res);
+
       yield put(deleteBlogPostFailure());
       yield put(messageActions.hideMessage());
     }
   } catch (e) {
+    console.error(e);
     yield put(deleteBlogPostFailure());
     yield put(messageActions.hideMessage());
   }
 }
 
-function* createNewDraftAndDeleteGenerator({
-  payload,
-}: {
-  payload: { id: string },
-}): Saga<void> {
+function* createNewDraftAndDeleteGenerator(payload: string): Saga<void> {
   yield call(createNewDraftGenerator, payload);
-  const { id } = payload;
-  yield call(deleteBlogPostGenerator, id);
+  yield call(deleteBlogPostGenerator, payload);
 }
 
 function* deleteBlogPostHandlerGenerator({

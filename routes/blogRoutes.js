@@ -98,7 +98,7 @@ module.exports = (app) => {
     const { draftId } = req.params;
     try {
       await Draft.findByIdAndDelete(draftId).exec();
-      res.send(`Deleted`);
+      res.send('Deleted');
     } catch (e) {
       res.send(e);
     }
@@ -115,16 +115,23 @@ module.exports = (app) => {
 
   app.get('/api/blog/posts', async (req, res) => {
     try {
-      await BlogPost.find({}, 'title created content').lean().exec((err, posts) => {
-        const newPosts = posts.map(post => {
-          const contentObject = JSON.parse(post.content)
-          const subtitle = contentObject.blocks[0].text
-          return {
-            ...post, subtitle
-          }
-        })
-        res.send(newPosts);
-      });
+      await BlogPost.find({}, 'title created updated content')
+        .lean()
+        .exec((err, posts) => {
+          const newPosts = posts
+            .map((post) => {
+              const created = Date.parse(post.created);
+              const contentObject = JSON.parse(post.content);
+              const subtitle = contentObject.blocks[0].text;
+              return {
+                ...post,
+                created,
+                subtitle,
+              };
+            })
+            .sort((a, b) => b.created - a.created);
+          res.send(newPosts);
+        });
     } catch (e) {
       res.send(e);
     }
@@ -139,7 +146,6 @@ module.exports = (app) => {
       created,
       title,
       labels,
-
     };
     return new BlogPost(draftParams).save();
   }
@@ -202,7 +208,7 @@ module.exports = (app) => {
     const { postId } = req.params;
     try {
       await BlogPost.findByIdAndDelete(postId).exec();
-      res.send(`Deleted`);
+      res.send('Deleted');
     } catch (e) {
       res.send(e);
     }

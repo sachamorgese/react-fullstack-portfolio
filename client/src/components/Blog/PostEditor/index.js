@@ -90,7 +90,7 @@ class PostEditor extends Component<PostEditorType> {
         </button>
         <button
           type="button"
-          onMouseDown={(e: SyntheticMouseEvent<>): void  => this.onButtonClick(e, 'BOLD')}
+          onMouseDown={(e: SyntheticMouseEvent<>): void => this.onButtonClick(e, 'BOLD')}
         >
           Bold
         </button>

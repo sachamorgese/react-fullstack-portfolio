@@ -94,7 +94,9 @@ declare module 'eslint-config-airbnb/test/test-base.js' {
   declare module.exports: $Exports<'eslint-config-airbnb/test/test-base'>;
 }
 declare module 'eslint-config-airbnb/test/test-react-order.js' {
-  declare module.exports: $Exports<'eslint-config-airbnb/test/test-react-order'>;
+  declare module.exports: $Exports<
+    'eslint-config-airbnb/test/test-react-order',
+  >;
 }
 declare module 'eslint-config-airbnb/whitespace.js' {
   declare module.exports: $Exports<'eslint-config-airbnb/whitespace'>;

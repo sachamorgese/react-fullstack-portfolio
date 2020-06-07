@@ -1,5 +1,4 @@
 // @flow
-
 import { replace } from 'connected-react-router';
 import { convertFromRaw, convertToRaw, EditorState } from 'draft-js';
 import { put, takeLatest, call } from 'redux-saga/effects';
@@ -10,7 +9,6 @@ import actions, {
   SAVE_DRAFT_CONTENT,
   SAVE_TITLE,
 } from '../reducers/post/actions';
-
 
 const {
   getDraftDataSubmit,
@@ -28,7 +26,11 @@ const headers = {
   'Content-Type': 'application/json',
 };
 
-function* getDraftDataGenerator({payload: id}: {payload: string}): Saga<void> {
+function* getDraftDataGenerator({
+  payload: id,
+}: {
+  payload: string,
+}): Saga<void> {
   yield put(getDraftDataSubmit());
   try {
     const res = yield call(fetch, `${baseUrl}/draft/${id}`);
@@ -40,10 +42,9 @@ function* getDraftDataGenerator({payload: id}: {payload: string}): Saga<void> {
       if (localContent) {
         const localContentDate = new Date(localContent.date);
         const serverDate = new Date(body.updated);
-        rawContent =
-          serverDate.getTime() > localContentDate.getTime()
-            ? bodyContent
-            : localContent;
+        rawContent = serverDate.getTime() > localContentDate.getTime()
+          ? bodyContent
+          : localContent;
       } else {
         rawContent = bodyContent;
       }
@@ -64,7 +65,11 @@ function* getDraftDataGenerator({payload: id}: {payload: string}): Saga<void> {
   }
 }
 
-function* saveDraftContentGenerator({ payload: { id, editorState } }: {payload: {id: string, editorState: EditorState}}): Saga<void> {
+function* saveDraftContentGenerator({
+  payload: { id, editorState },
+}: {
+  payload: { id: string, editorState: EditorState },
+}): Saga<void> {
   try {
     const url = `${baseUrl}/draft/${id}/content`;
     const rawContent = JSON.stringify(
@@ -92,7 +97,11 @@ function* saveDraftContentGenerator({ payload: { id, editorState } }: {payload: 
   }
 }
 
-function* saveTitleGenerator({ payload: { id, title } }: {payload: {id: string, title: string}}): Saga<void> {
+function* saveTitleGenerator({
+  payload: { id, title },
+}: {
+  payload: { id: string, title: string },
+}): Saga<void> {
   try {
     const url = `${baseUrl}/draft/${id}/title`;
     const body = JSON.stringify({
@@ -108,15 +117,17 @@ function* saveTitleGenerator({ payload: { id, title } }: {payload: {id: string, 
   }
 }
 
-function* getBlogPostDataGenerator({payload: id}: {payload: string}): Saga<void> {
+function* getBlogPostDataGenerator({
+  payload: id,
+}: {
+  payload: string,
+}): Saga<void> {
   yield put(getBlogPostDataSubmit());
   try {
     const res = yield call(fetch, `${baseUrl}/post/${id}`);
     if (res.status === 200 || res.status === 304) {
       const body = yield res.json();
-      console.log(body.content)
       const bodyContent = JSON.parse(body.content);
-      console.log(bodyContent)
       const content = EditorState.createWithContent(
         convertFromRaw(bodyContent),
       );

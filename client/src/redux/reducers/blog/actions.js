@@ -42,8 +42,9 @@ const createNewDraftFailure = (): ActionType => ({
   type: CREATE_NEW_DRAFT_FAILURE,
 });
 
-const createNewDraftAndDelete = (): ActionType => ({
+const createNewDraftAndDelete = (id: string): ActionType => ({
   type: CREATE_NEW_DRAFT_AND_DELETE,
+  payload: id,
 });
 
 const getAllPosts = (): ActionType => ({
@@ -80,7 +81,7 @@ const getDraftsFailure = (): ActionType => ({
 
 const getBlogPosts = (): ActionType => ({
   type: GET_BLOG_POSTS,
-})
+});
 
 const getBlogPostsSubmit = (): ActionType => ({
   type: GET_BLOG_POSTS_SUBMIT,

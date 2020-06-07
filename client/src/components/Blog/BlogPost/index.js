@@ -42,7 +42,7 @@ class Post extends React.Component<BlogPostType> {
       history,
       role,
       loading,
-      createNewDraft,
+      createNewDraftAndDelete,
       match: {
         params: { id },
       },
@@ -57,7 +57,7 @@ class Post extends React.Component<BlogPostType> {
             {role === 'admin' && (
               <Button
                 label="Edit Post"
-                onClick={(): void => createNewDraft(id)}
+                onClick={(): void => createNewDraftAndDelete(id)}
               />
             )}
             <h2>{title}</h2>
@@ -95,12 +95,12 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = (dispatch: Dispatch): void => {
   const { getBlogPostData, clearPostData } = postActions;
-  const { createNewDraft } = blogActions;
+  const { createNewDraftAndDelete } = blogActions;
   return bindActionCreators(
     {
       getBlogPostData,
       clearPostData,
-      createNewDraft,
+      createNewDraftAndDelete,
     },
     dispatch,
   );

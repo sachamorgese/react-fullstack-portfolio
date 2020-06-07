@@ -1,6 +1,6 @@
 // @flow
 import { RichUtils, getDefaultKeyBinding, KeyBindingUtil } from 'draft-js';
-import type { EditorState } from 'draft-js'
+import type { EditorState } from 'draft-js';
 import { composeDecorators, EditorPlugin } from 'draft-js-plugins-editor';
 import createEmojiPlugin from 'draft-js-emoji-plugin';
 import createImagePlugin from 'draft-js-image-plugin';
@@ -40,9 +40,9 @@ type CustomPluginType = 'highlightYellow';
 
 type CreatePluginType = {
   customStyleMap: {
-    [key: CustomPluginType]: CustomStyleMapType
+    [key: CustomPluginType]: CustomStyleMapType,
   },
-  ...EditorPlugin
+  ...EditorPlugin,
 };
 
 const createHighlighterPlugin = (): CreatePluginType => ({
@@ -53,7 +53,9 @@ const createHighlighterPlugin = (): CreatePluginType => ({
       color: '#fff',
     },
   },
-  keyBindingFn: (e: SyntheticKeyboardEvent<EventTarget>): ?DraftEditorCommand | string => {
+  keyBindingFn: (
+    e: SyntheticKeyboardEvent<EventTarget>,
+  ): ?DraftEditorCommand | string => {
     if (hasCommandModifier(e) && e.key === 'h') {
       return highlightYellow;
     }

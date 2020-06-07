@@ -14,7 +14,9 @@ export default function PrivateRoute({
   children,
   ...rest
 }: PropsType): React$Element<any> {
-  const { isLoggedIn, role, isLoading } = useSelector((state: ReduxType): AuthStateType => state.auth);
+  const { isLoggedIn, role, isLoading } = useSelector(
+    (state: ReduxType): AuthStateType => state.auth,
+  );
 
   return (
     <Route

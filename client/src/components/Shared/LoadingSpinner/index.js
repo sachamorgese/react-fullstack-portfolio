@@ -8,5 +8,5 @@ export default function LoadingSpinner(): React$Element<any> {
     <div className="LoadingSpinner">
       <span className="LoadingSpinner__spinner" />
     </div>
-  )
-};
+  );
+}

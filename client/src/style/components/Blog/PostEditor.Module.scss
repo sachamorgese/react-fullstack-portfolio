@@ -5,30 +5,30 @@
   height: 80%;
   position: relative;
 
-    .PostEditor--container {
+  .PostEditor--container {
+    height: 100%;
+  }
+
+  .DraftEditor-root {
+    background: #fff;
+    left: 0;
+    right: 0;
+    height: 100%;
+    margin: auto;
+    border-radius: $border-radius-big;
+    padding: $padding-largest;
+    position: relative;
+    box-sizing: border-box;
+    font-family: 'Merriweather', Georgia, serif;
+  }
+
+  .DraftEditor-editorContainer {
+    height: 100%;
+
+    & > div {
       height: 100%;
     }
-
-    .DraftEditor-root {
-      background: #fff;
-      left: 0;
-      right: 0;
-      height: 100%;
-      margin: auto;
-      border-radius: $border-radius-big;
-      padding: $padding-largest;
-      position: relative;
-      box-sizing: border-box;
-      font-family: 'Merriweather', Georgia, serif;
-    }
-
-    .DraftEditor-editorContainer {
-      height: 100%;
-
-      & > div {
-        height: 100%;
-      }
-    }
+  }
 }
 
 button {
@@ -53,7 +53,6 @@ pre {
   padding: $padding-medium;
   margin: 0;
 }
-
 
 pre > pre {
   background: none;

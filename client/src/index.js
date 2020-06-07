@@ -20,7 +20,7 @@ const history = createBrowserHistory();
 const sagaMiddleware = createSagaMiddleware();
 const historyMiddleware = routerMiddleware(history);
 
-const composeEnhancers = composeWithDevTools({});
+const composeEnhancers = composeWithDevTools({ trace: true, traceLimit: 25 });
 
 const store = createStore(
   createRootReducer(history),

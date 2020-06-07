@@ -7,10 +7,7 @@ module.exports = (app) => {
   // Can generalize in the future to redirect to the correct login route
   app.get('/auth/google', (req, res) => {
     if (req.headers.referer) {
-      const returnTo = req.headers.referer
-        .split('/')
-        .slice(3)
-        .join('/');
+      const returnTo = req.headers.referer.split('/').slice(3).join('/');
       req.session.returnTo = `/${returnTo}`;
     }
     res.redirect('/auth/google/login');

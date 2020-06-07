@@ -4,7 +4,9 @@ import css from '../../../style/components/Blog/PopUp.module.scss';
 import type { PopUpType } from '../../../types/component';
 
 const PopUp = (props: PopUpType): React$Element<any> => {
-  const { popUpClass, children, onClickYes, onClickNo } = props;
+  const {
+    popUpClass, children, onClickYes, onClickNo,
+  } = props;
   return (
     <>
       <div

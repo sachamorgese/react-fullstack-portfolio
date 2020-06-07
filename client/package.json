@@ -42,6 +42,12 @@
     "not ie <= 11",
     "not op_mini all"
   ],
+  "prettier": {
+    "trailingComma": "all",
+    "singleQuote": true,
+    "semi": true,
+    "arrowParens": "always"
+  },
   "resolutions": {
     "**/fsevents": "^1.2.9"
   },

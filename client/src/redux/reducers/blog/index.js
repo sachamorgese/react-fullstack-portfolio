@@ -34,7 +34,7 @@ const initialState = {
   blogPosts: [],
 };
 
-export default function(
+export default function blog(
   state: BlogStateType = initialState,
   action: ActionType,
 ): BlogStateType {

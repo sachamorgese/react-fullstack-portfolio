@@ -11,7 +11,7 @@ const initialState = {
   },
 };
 
-export default function(
+export default function messages(
   state: MessageStateType = initialState,
   action: ActionType,
 ): MessageStateType {
